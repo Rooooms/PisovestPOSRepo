@@ -1,1 +1,7 @@
-<p>add-staff works!</p>
+<div class="container">
+    
+        <div *ngFor="let Staff of Staff">
+            
+        <input type="{{Staff.type}}" name="{{Staff.name}}"  placeholder="{{Staff.placeholder}}" [(ngModel)]="formData[Staff.name]" class="forms">
+        </div>
+    </div>
