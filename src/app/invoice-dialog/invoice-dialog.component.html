@@ -1,0 +1,74 @@
+<div class="invoice-container">
+    <div class="header">
+      <div class="logo">
+        <img src="https://via.placeholder.com/150x50.png?text=Company+Logo" alt="Company Logo">
+      </div>
+      <div class="company-details">
+        <h2>PISOVEST</h2>
+        <p>2/F Bachrach Bldg. II Corner 23rd  </p>
+        <p> and, Railroad Dr, Port Area,</p>
+        <p> Manila, 1000 Metro Manila</p>
+        <p>Phone: (02) 5335 7070</p>
+        <p>Email: pisovest@gmail.com</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <p><strong>Invoice To:</strong></p>
+        <p>John Doe</p>
+        <p>1234 Main Street</p>
+        <p>Anytown, ST 12345</p>
+        <p>Phone: (123) 456-7890</p>
+        <p>Email: john.doe@example.com</p>
+      </div>
+      <div class="col">
+        <p><strong>Invoice Details:</strong></p>
+        <p>Invoice #: 123456</p>
+        <p>Date: 01/01/2023</p>
+        <p>Due Date: 01/15/2023</p>
+        <p>Total Salary: $1000.00</p>
+      </div>
+    </div>
+    <hr>
+    <table>
+      <!-- <thead>
+        <tr>
+          <th>Item Description</th>
+
+          <th>Amount</th>
+        </tr>
+      </thead> -->
+      <tbody>
+        <tr>
+          <!-- <td>Item 1</td>
+          <td>2</td>
+          <td>$500.00</td>
+          <td></td>
+        </tr> -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Salary:</strong></td>
+          <td>$1000.00</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Deduction:</strong></td>
+          <td>$0</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Tax:</strong></td>
+          <td>$0.00</td>
+        </tr>
+        <hr>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Total:</strong></td>
+          <td>$1000.00</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
+  <button (click)="printInvoice()">Print</button>
+  <button (click)="exportAsPDF()">Export as PDF</button>
+  

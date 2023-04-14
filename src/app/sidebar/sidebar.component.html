@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-sidenav class="sidenav" #sidenav [(opened)]="opened">
+        <div class="btnContainer">
+            <a class="btn" href="#" routerLink="/Home">
+                <span class="material-symbols-outlined button">home</span>
+                <p class="category">Home</p>
+            </a>
+
+            <a class="btn" [routerLink]='["/POS"]'>
+                <span class="material-symbols-outlined button">payments</span>
+                <p class="category">POS</p>
+            </a>
+
+            <a class="btn" href="#" routerLink="/Sales">
+                <span class="material-symbols-outlined button">leaderboard</span>
+                <p class="category">Sales</p>
+            </a>
+
+            <a class="btn" href="#" routerLink="/Transactions">
+                <span class="material-symbols-outlined button">receipt_long</span>
+                <p class="category">Transactions</p>
+            </a>
+
+            <a class="btn" href="#">
+                <span class="material-symbols-outlined button">list</span>
+                <p class="category">Products</p>
+            </a>
+
+            <a class="btn" href="#">
+                <span class="material-symbols-outlined button">person</span>
+                <p class="category">Employees</p>
+            </a>
+        </div>
+    </mat-sidenav>
+</div>
