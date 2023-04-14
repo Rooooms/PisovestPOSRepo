@@ -14,6 +14,8 @@ import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.componen
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { TransactionDataComponent } from './transaction-data/transaction-data.component';
 
 
 
@@ -21,7 +23,7 @@ const appRoute: Routes = [
   {path: '', component: CardComponent},
   {path: 'Home', component: CardComponent},
   {path: 'Sales', component: SalesReportComponent},
-  {path: 'Transactions', component: TransactionsComponent}
+  {path: 'Transactions', component: TransactionListComponent}
 ]
 
 
@@ -36,6 +38,8 @@ const appRoute: Routes = [
     SalesReportComponent,
     TransactionsComponent,
     SalesDataComponent,
+    TransactionListComponent,
+    TransactionDataComponent,
   ],
   imports: [
     BrowserModule,
