@@ -1,11 +1,40 @@
-table {
+*{
+  margin-top: 20px;
+  margin-left: 40px;
+}
+.container{
   width: 50%;
-}
-mat-table{
-  width: 70%;
-}
-.mdc-data-table__table {
-  min-width: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: auto;
-  margin-top: 60px;
+}
+.tools{
+  width: 90%;
+  justify-content: flex-end;
+  margin: none;
+}
+table {
+  width: 80%;
+  align-items: center;
+}
+mat-toolbar{
+  flex-direction: row-reverse;
+  width: 90%;
+}
+.mat-mdc-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 8px;
+  flex-wrap: wrap-reverse;
+  width: 90%;
+}
+.btn{
+  width: 20%;
+  align-items: flex-end;
+}
+.header{
+  display: flex;
+  align-items: flex-end;
 }
