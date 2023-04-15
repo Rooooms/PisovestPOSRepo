@@ -5,7 +5,8 @@
     margin-top: 150px;
     border: none !important;
     box-shadow: none;
-    
+    background-color: #f2f2f2;
+
 }
 
 mat-card-actions {
@@ -34,22 +35,13 @@ p {
     color: antiquewhite;
 }
 
-.row {
-    display: flex;
-    justify-content: center;
-}
 
 
-.column {
-    flex: 50%;
-    
-}
-
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
     .card {
         display: flex;
-        margin-top: 60px;
-        width: 50%;
+        margin-top: 100px;
+        width: 60%;
     }
 
     mat-card-actions {
@@ -62,7 +54,6 @@ p {
         border: solid 1px;
         border-radius: 10px;
         margin:auto;
-        display: flex;
     }
 
     p {
@@ -71,9 +62,9 @@ p {
 
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
     .card {
-        display: flex;
+        display:block;
         margin-top: 60px;
         width: 70%;
     }
@@ -88,7 +79,6 @@ p {
         border: solid 1px;
         border-radius: 10px;
         margin:auto;
-        display: flex;
     }
 
     a {
@@ -102,3 +92,4 @@ p {
     }
 
 }
+

@@ -1,7 +1,8 @@
-<div class="container">
+<div class="form-container">
     
-        <div *ngFor="let Staff of Staff">
+        <div  *ngFor="let Staff of Staff">
             
-        <input type="{{Staff.type}}" name="{{Staff.name}}"  placeholder="{{Staff.placeholder}}" [(ngModel)]="formData[Staff.name]" class="forms">
+        <input type="{{Staff.type}}" name="{{Staff.name}}"  placeholder="{{Staff.placeholder}}" [(ngModel)]="formData[Staff.name]" >
         </div>
+        
     </div>

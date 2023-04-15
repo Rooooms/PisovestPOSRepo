@@ -1,0 +1,13 @@
+
+
+  .mdc-data-table__table{
+    
+    min-width: 80%;
+    
+  }
+
+  .mat-mdc-table {
+    table-layout: auto;
+    white-space: normal;
+   display: flex;
+}

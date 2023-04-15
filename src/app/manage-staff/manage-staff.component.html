@@ -1,0 +1,26 @@
+<button class="btn" mat-flat-button [routerLink]= "['/employee']">
+    <p>Return</p>
+</button>
+<table class="container">
+    <thead>
+        <tr >
+            <th *ngFor="let dataName of dataName">{{dataName.label}}</th>
+            
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of data">
+            <td>{{data.id}}</td>
+            <td>{{data.fullName}}</td>
+            <td>{{data.position}}</td>
+            <td>{{data.mobile}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.birthday}}</td>
+            <td>{{data.address}}</td>
+            <td>{{data.dateJoined}}</td>
+            <td>{{data.action}}</td>
+    </tbody>
+    
+
+</table >

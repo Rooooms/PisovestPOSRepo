@@ -8,6 +8,10 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditStaffComponent } from './edit-staff/edit-staff.component';
+import { ManageStaffComponent } from './manage-staff/manage-staff.component';
+import {MatTableModule} from '@angular/material/table';
+import { SampleComponent } from './sample/sample.component';
 
 
 @NgModule({
@@ -16,13 +20,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EmployeeManagementComponent,
     AddStaffComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    EditStaffComponent,
+    ManageStaffComponent,
+    SampleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule
     
   ],
   providers: [],
