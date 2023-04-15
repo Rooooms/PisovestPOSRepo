@@ -19,7 +19,6 @@ table {
   align-items: center;
 }
 mat-toolbar{
-  flex-direction: row-reverse;
   width: 90%;
 }
 .mat-mdc-paginator-container {
@@ -32,9 +31,12 @@ mat-toolbar{
 }
 .btn{
   width: 20%;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 .header{
   display: flex;
-  align-items: flex-end;
+  align-items: stretch
+}
+.back{
+  flex-direction: row-reverse;
 }

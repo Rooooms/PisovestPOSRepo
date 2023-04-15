@@ -25,10 +25,7 @@ export class CategoryListComponent {
 
   
   dataName = [
-    {
-      label: 'Id',      
-      
-    },
+    {label: 'Id'},
     {label: 'Category Name'},
     {label: 'Description'},
     {label: 'Action'},

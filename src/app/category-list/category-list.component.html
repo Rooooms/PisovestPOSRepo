@@ -1,9 +1,6 @@
-
-
-
     <mat-toolbar class="tools">
-      <button mat-raised-button > Return </button>
       <div class="header">
+      <button class ="back" mat-raised-button mat-flat-button [routerLink] = '["/product"]' > Return </button>
         <input type="text" class="Search" matInput placeholder="Search"> 
       
         <button mat-raised-button> Add Category </button>
@@ -15,8 +12,6 @@
       <thead>
           <tr >
               <th *ngFor="let dataName of dataName">{{dataName.label}}</th>
-              
-              
           </tr>
       </thead>
       <tbody>

@@ -15,6 +15,9 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SampleComponent } from './sample/sample.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AddCategoryComponent,
     CategoryListComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    SampleComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialog,
+    MatDialogRef
   ],
   providers: [],
   bootstrap: [AppComponent]
