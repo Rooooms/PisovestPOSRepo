@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductManagementComponent } from './product-management/product-management.component'; 
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { AppComponent } from './app.component';
+import { SampleComponent } from './sample/sample.component';
 
 const routes: Routes = [
 
@@ -14,7 +15,7 @@ const routes: Routes = [
   component: ProductManagementComponent
   },
    {
-  path: 'productList',
+  path: 'productlist',
   component: ProductListComponent
   },
   {
@@ -24,7 +25,16 @@ const routes: Routes = [
    {
   path: 'categorylist',
   component: CategoryListComponent
+  },
+  {
+    path: 'addcategory',
+    component: AddCategoryComponent
+  },
+  {
+    path: 'sample',
+    component: SampleComponent
   }
+  
 ];
 
 @NgModule({

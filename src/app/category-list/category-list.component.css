@@ -28,6 +28,7 @@ mat-toolbar{
   padding: 0 8px;
   flex-wrap: wrap-reverse;
   width: 90%;
+  margin-top: 10%;
 }
 .btn{
   width: 20%;
@@ -39,4 +40,13 @@ mat-toolbar{
 }
 .back{
   flex-direction: row-reverse;
+}
+.mdc-data-table__table {
+  min-width: 80%;
+  border: 1;
+  white-space: normal;
+  border-spacing: 1;
+  table-layout: fixed;
+  margin-left: auto;
+  margin-right: auto;
 }

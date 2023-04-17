@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCategoryComponent } from '../add-category/add-category.component';
+import { EditCategoryComponent } from '../edit-category/edit-category.component';
 
 @Component({
   selector: 'app-category-list',
@@ -8,31 +11,25 @@ import { Component } from '@angular/core';
 
 export class CategoryListComponent {
 
-  data = [
-{
-  id: 1, CategoryName: 'Clothes', Description: 'Lorem Ipsum', action: 'n/a'
-},
-{
-  id: 2, CategoryName: 'Shoes', Description: 'Lorem Ipsum', action: 'n/a'
-},
-{
-  id: 3, CategoryName: 'Mouse', Description: 'Lorem Ipsum', action: 'n/a'
-},
-{
-  id: 4, CategoryName: 'Accesories', Description: 'Lorem Ipsum', action: 'n/a'
-},
-  ];
+  data = [  { CategoryName: 'Category 1', Description: 'Description 1' },  
+            { CategoryName: 'Category 2', Description: 'Description 2' },  
+            { CategoryName: 'Category 3', Description: 'Description 3' }];
 
-  
-  dataName = [
-    {label: 'Id'},
-    {label: 'Category Name'},
-    {label: 'Description'},
-    {label: 'Action'},
+dataName = [  { name: 'CategoryName', label: 'Category Name' },  
+              { name: 'Description', label: 'Description' }];
 
-    
+getColumns() {
+return ['CategoryName', 'Description', 'actions'];
+}
 
-  ]
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(AddCategoryComponent);
+  }
+  openDialogEdit(){
+    this.dialog.open(EditCategoryComponent);
+  }
 
 }
 

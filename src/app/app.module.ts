@@ -15,9 +15,17 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddProductComponent } from './add-product/add-product.component';
+import { MatListModule } from '@angular/material/list';
 import { SampleComponent } from './sample/sample.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
+
 
 @NgModule({
   declarations: [
@@ -28,7 +36,10 @@ import { MatDialogRef } from '@angular/material/dialog';
     CategoryListComponent,
     NavbarComponent,
     SidebarComponent,
-    SampleComponent
+    AddProductComponent,
+    SampleComponent,
+    EditCategoryComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +50,10 @@ import { MatDialogRef } from '@angular/material/dialog';
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
-    MatDialog,
-    MatDialogRef
+    MatDialogModule,
+    MatListModule,
+    MatSnackBarModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
