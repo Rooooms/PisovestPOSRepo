@@ -16,6 +16,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
+import { PosComponent } from './pos/pos.component';
+import { ProductDataComponent } from './product-data/product-data.component';
 
 
 
@@ -23,7 +25,8 @@ const appRoute: Routes = [
   {path: '', component: CardComponent},
   {path: 'Home', component: CardComponent},
   {path: 'Sales', component: SalesReportComponent},
-  {path: 'Transactions', component: TransactionListComponent}
+  {path: 'Transactions', component: TransactionListComponent},
+  {path: 'POS', component: PosComponent}
 ]
 
 
@@ -40,6 +43,8 @@ const appRoute: Routes = [
     SalesDataComponent,
     TransactionListComponent,
     TransactionDataComponent,
+    PosComponent,
+    ProductDataComponent,
   ],
   imports: [
     BrowserModule,

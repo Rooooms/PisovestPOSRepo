@@ -23,6 +23,12 @@ export class TransactionDataComponent implements AfterViewInit {
     this.dataSource = new TransactionDataDataSource();
   }
 
+  
+  onAddClicked(row: any) {
+    // Handle button click event here
+    console.log('Add button clicked for row:', row);
+  }
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
