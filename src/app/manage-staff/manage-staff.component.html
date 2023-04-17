@@ -1,26 +1,48 @@
-<button class="btn" mat-flat-button [routerLink]= "['/employee']">
-    <p>Return</p>
-</button>
-<table class="container">
-    <thead>
-        <tr >
-            <th *ngFor="let dataName of dataName">{{dataName.label}}</th>
-            
-            
+<button class="btn1" mat-raised-button [routerLink]= "['/employee']">Return</button>
+
+<button class="btn2" mat-raised-button (click)="openDialog()">Add Staff</button>
+
+<div class="container">
+
+<table  class="container" >
+    <thead [ngStyle]="headStyles[i]">
+        <tr class="tableHeader" >
+            <th mat-list-item *ngFor="let dataName of dataName" >{{dataName.label}}</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody [ngStyle]="bodyStyles[i]">
         <tr *ngFor="let data of data">
-            <td>{{data.id}}</td>
-            <td>{{data.fullName}}</td>
-            <td>{{data.position}}</td>
-            <td>{{data.mobile}}</td>
-            <td>{{data.email}}</td>
-            <td>{{data.birthday}}</td>
-            <td>{{data.address}}</td>
-            <td>{{data.dateJoined}}</td>
-            <td>{{data.action}}</td>
+            <td >{{data.id}}</td>
+            <td >{{data.fullName}}</td>
+            <td >{{data.position}}</td>
+            <td >{{data.mobile}}</td>
+            <td >{{data.email}}</td>
+            <td >{{data.birthday}}</td>
+            <td >{{data.address}}</td>
+            <td >{{data.dateJoined}}</td>
+            <td >{{data.action}}</td>
     </tbody>
     
 
 </table >
+</div>
+
+<!-- <table mat-table [dataSource]="data">
+    <ng-container *ngFor="let dataName of dataName; let i = index" [matColumnDef]="dataName.name">
+      <th mat-header-cell *matHeaderCellDef>{{ dataName.label }}</th>
+      <td mat-cell *matCellDef="let row">{{ row[dataName.name] }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button color="basic">Edit</button>
+        <button mat-raised-button color="warn">Delete</button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="getColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
+  </table> -->
+
+  

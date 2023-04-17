@@ -7,5 +7,6 @@ export interface Staff {
     birthday : string;
     datejoined: string;
     position: string;
+    address: string;
 
 }

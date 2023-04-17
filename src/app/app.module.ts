@@ -11,7 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import {MatTableModule} from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SampleComponent } from './sample/sample.component';
+import { MatInputModule } from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
+import { AddSalaryComponent } from './add-salary/add-salary.component';
 
 
 @NgModule({
@@ -23,15 +28,19 @@ import { SampleComponent } from './sample/sample.component';
     NavbarComponent,
     EditStaffComponent,
     ManageStaffComponent,
-    SampleComponent
+    SampleComponent,
+    ManageSalaryComponent,
+    AddSalaryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    MatTableModule
-    
+    MatTableModule,
+    MatDialogModule,
+    MatInputModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

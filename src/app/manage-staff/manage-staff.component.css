@@ -1,20 +1,56 @@
-table {
-    width: 50%;
-  }
-  mat-table{
-    width: 70%;
-  }
-  .mdc-data-table__table {
-    min-width: 0%;
-    margin: auto;
-    margin-top: 60px;
-  }
+.container {
+  max-width: 80%;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 3em;
+}
 
-.container{
-    display: table-cell;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 50px;
-    
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin-top: 20px;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.btn1, .btn2 {
+  display: flex;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
+  th, td {
+    padding: 8px;
+  }
+  .btn1, .btn2 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  table {
+    font-size: 12px;
+  }
+}
+.mdc-data-table__table {
+  min-width: 90%;
+  border: 0;
+  white-space: nowrap;
+  border-spacing: 0;
+  table-layout: fixed;
+  margin-left: auto;
 }

@@ -7,6 +7,7 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
+import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
 
 const routes: Routes = [
 
@@ -29,8 +30,11 @@ const routes: Routes = [
 {
   path: 'sample',
   component: SampleComponent
+},
+{
+  path: 'employee/manage-salary',
+  component: ManageSalaryComponent
 }
-
 
 ];
 

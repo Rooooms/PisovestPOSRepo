@@ -1,0 +1,28 @@
+<button class="btn1" mat-raised-button [routerLink]= "['/employee']">Return</button>
+
+<button class="btn2" mat-raised-button (click)="openDialog()">Add Salary</button>
+
+
+
+<table  class="container" >
+    <thead [ngStyle]="headStyles[i]">
+        <tr class="tableHeader" >
+            <th mat-list-item *ngFor="let dataName of dataName" >{{dataName.label}}</th>
+        </tr>
+    </thead>
+    <tbody [ngStyle]="bodyStyles[i]">
+        <tr *ngFor="let data of data">
+            <td >{{data.id}}</td>
+            <td >{{data.fullName}}</td>
+            <td >{{data.position}}</td>
+            <td >{{data.salary}}</td>
+            <td >{{data.deduction}}</td>
+            <td >{{data.totalSalary}}</td>
+            <td >{{data.paidDate}}</td>
+            <td >{{data.invoice}}</td>
+            <td >{{data.action}}</td>
+    </tbody>
+    
+
+</table >
+

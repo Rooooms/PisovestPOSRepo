@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 
+
 @Component({
   selector: 'app-add-staff',
   templateUrl: './add-staff.component.html',
@@ -10,29 +11,34 @@ export class AddStaffComponent {
 
   Staff = [
 {
-  placeholder: 'Full Name',
+  placeholder: 'ex. Juan Dela Cruz ',
   type: 'text',
   name: 'Full Name',
 },
 {
-  placeholder: 'Email',
+  placeholder: 'ex. @example.com',
   type: 'email',
   name: 'Email',
 },
 {
-  placeholder: 'Mobile Phone',
+  placeholder: '09XXXXXXXXX',
   type: 'text',
   name: 'Mobile Phone',
 },
 {
-  placeholder: 'Salary',
+  placeholder: 'XXXXXX',
   type: 'int',
   name: 'Salary',
 },
 {
-  placeholder: 'Position',
+  placeholder: 'ex. Manager',
   type: 'text',
   name: 'Position',
+},
+{
+  placeholder: 'ex. 2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr, Port Area, Manila, 1000 Metro Manila',
+  type: 'text',
+  name: 'Address',
 },
 {
   placeholder: 'Birthday',
@@ -48,4 +54,5 @@ export class AddStaffComponent {
 
   ];
   formData = {};
+  onSubmit(){}
 }
