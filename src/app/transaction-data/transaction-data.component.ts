@@ -16,7 +16,16 @@ export class TransactionDataComponent implements AfterViewInit {
   dataSource: TransactionDataDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-
+  columnNames: {[key: string]: string} = {
+    'id': 'ID',
+    'dateTime': 'Date and Time',
+    'code': 'Code',
+    'total': 'Total',
+    'tax': 'Tax',
+    'quantity': 'Quantity',
+    'action': 'Action'
+  };
+  
   transactionDisplay: string[] = ['id', 'dateTime', 'code', 'total', 'tax', 'quantity', 'action'];
 
   constructor() {

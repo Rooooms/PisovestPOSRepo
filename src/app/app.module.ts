@@ -19,6 +19,13 @@ import { TransactionDataComponent } from './transaction-data/transaction-data.co
 import { PosComponent } from './pos/pos.component';
 import { ProductDataComponent } from './product-data/product-data.component';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
+
+
+
 
 
 const appRoute: Routes = [
@@ -45,6 +52,8 @@ const appRoute: Routes = [
     TransactionDataComponent,
     PosComponent,
     ProductDataComponent,
+
+   
   ],
   imports: [
     BrowserModule,
@@ -52,6 +61,10 @@ const appRoute: Routes = [
     BrowserAnimationsModule,
     MaterialModule,
     RouterModule.forRoot(appRoute),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+
 
     
   ],

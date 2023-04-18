@@ -12,6 +12,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
+// import { MatSelect } from '@angular/material/select';
 
 
 
@@ -28,7 +31,10 @@ const material = [
   MatPaginatorModule,
   MatSortModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatSelectModule
+  // MatSelect,
+  
 ]
 
 @NgModule({

@@ -1,16 +1,9 @@
 
-<div class="sales-table">
+<div class="container">
   <table mat-table class="sales-table-design" matSort aria-label="Elements">
     <ng-container *ngFor="let column of transactionDisplay" [matColumnDef]="column">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ column === 'id' ? 'ID' :
-        column === 'dateTime' ? 'Date and Time' :
-        column === 'code' ? 'Code' :
-        column === 'total' ? 'Total' :
-        column === 'tax' ? 'Tax' :
-        column === 'quantity' ? 'Quantity' :
-        column === 'action' ? 'Action' :
-                                 column}}
+        {{ columnNames[column] || column }}
       </th>
 
   <td mat-cell *matCellDef="let row">

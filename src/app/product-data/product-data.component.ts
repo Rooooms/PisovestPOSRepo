@@ -16,8 +16,23 @@ export class ProductDataComponent implements AfterViewInit {
   dataSource: ProductDataDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  columnNames: {[key: string]: string} = {
+    'id': 'ID',
+    'dateTime': 'Date and Time',
+    'code': 'Code',
+    'total': 'Total',
+    'tax': 'Tax',
+    'quantity': 'Quantity',
+    'action': 'Action'
+  };
+  
+  displayedColumns: string[] = ['category', 'product', 'quantity', 'price', 'total', 'action'];
 
+  onAddClicked(row: any) {
+    // Handle button click event here
+    console.log('Add button clicked for row:', row);
+  }
+  
   constructor() {
     this.dataSource = new ProductDataDataSource();
   }
