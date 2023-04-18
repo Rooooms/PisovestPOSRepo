@@ -1,13 +1,23 @@
-<form (ngSubmit)="onSubmit()" class="form-container">
-  <ng-container *ngFor="let staff of Staff">
-    <ng-container *ngIf="staff.type !== 'date'; else elseBlock">
-      <mat-label>{{staff.name}}</mat-label>
-      <input matInput style="padding: 10px; margin: .5em;" type="{{staff.type}}" name="{{staff.name}}" placeholder="{{staff.placeholder}}" [(ngModel)]="formData[staff.name]">
-    </ng-container>
-    <ng-template #elseBlock>
-      <mat-label>{{staff.placeholder}}</mat-label>
-      <input matInput style="padding: 10px; margin: .5em;" type="{{staff.type}}" name="{{staff.name}}" placeholder="{{staff.placeholder}}" [(ngModel)]="formData[staff.name]">
-    </ng-template>
-  </ng-container>
-  <button type="submit" mat-raised-button style="width: 30px;">Submit</button>
-</form>
+<div class="dialog-box">
+  <div class="form-container">
+    <div class="form-column">
+      <ng-container *ngFor="let staff of Staff; let i = index">
+        <div *ngIf="i % 2 === 0" class="form-group">
+          <mat-label>{{staff.name}}</mat-label>
+          <input matInput type="{{staff.type}}" name="{{staff.name}}" placeholder="{{staff.placeholder}}" [(ngModel)]="formData[staff.name]">
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-column">
+      <ng-container *ngFor="let staff of Staff; let i = index">
+        <div *ngIf="i % 2 === 1" class="form-group">
+          <mat-label>{{staff.name}}</mat-label>
+          <input matInput type="{{staff.type}}" name="{{staff.name}}" placeholder="{{staff.placeholder}}" [(ngModel)]="formData[staff.name]">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <button type="submit" mat-raised-button>Submit</button>
+
+  

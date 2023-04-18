@@ -4,8 +4,8 @@
         <mat-label>{{salary.name}}</mat-label>
     </th>
     <td>
-        <input matInput style="padding: 10px; margin: .5em;" type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
+        <input matInput type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
     </td> </ng-container>
-    <button type="submit" mat-raised-button style="width: 30px;">Submit</button>
+    <button type="submit" mat-raised-button style="width: 30px; margin: auto;">Submit</button>
   </form>
   

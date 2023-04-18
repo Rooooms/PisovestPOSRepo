@@ -12,12 +12,15 @@ import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { SampleComponent } from './sample/sample.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
 import { AddSalaryComponent } from './add-salary/add-salary.component';
-
+import { SampleComponent } from './sample/sample.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,10 @@ import { AddSalaryComponent } from './add-salary/add-salary.component';
     NavbarComponent,
     EditStaffComponent,
     ManageStaffComponent,
-    SampleComponent,
     ManageSalaryComponent,
-    AddSalaryComponent
+    AddSalaryComponent,
+    SampleComponent,
+    EditSalaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,10 @@ import { AddSalaryComponent } from './add-salary/add-salary.component';
     MatTableModule,
     MatDialogModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    MatPaginatorModule,
+    MatGridListModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

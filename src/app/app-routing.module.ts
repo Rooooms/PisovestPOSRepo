@@ -8,6 +8,8 @@ import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
+import { EditSalaryComponent } from './edit-salary/edit-salary.component';
+
 
 const routes: Routes = [
 
@@ -34,6 +36,10 @@ const routes: Routes = [
 {
   path: 'employee/manage-salary',
   component: ManageSalaryComponent
+},
+{
+  path: 'employee/edit-salary',
+  component: EditSalaryComponent
 }
 
 ];

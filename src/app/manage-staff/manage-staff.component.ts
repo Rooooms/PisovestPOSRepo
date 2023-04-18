@@ -23,89 +23,48 @@ export class ManageStaffComponent {
 {
   id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
 },
+{
+  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
+},
+{
+  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
+},
+{
+  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
+},
+
   ];
-  i =0;
+
   
   dataName = [
-    {label: 'Id'},
-    {label: 'Full Name'},
-    {label: 'Position'},
-    {label: 'Mobile Number'},
-    {label: 'Email'},
-    {label: 'Birthday'},
-    {label: 'Address'},
-    {label: 'Date Joined'},
-    {label: 'Action'},
+    {name: 'id', label: 'ID'},
+    {name: 'fullName', label: 'Full Name'},
+    {name: 'position', label: 'Position'},
+    {name: 'mobile', label: 'Mobile Number'},
+    {name: 'email', label: 'Email'},
+    {name: 'birthday', label: 'Birthday'},
+    {name: 'address', label: 'Address'},
+    {name: 'dateJoined', label: 'Date Joined'},
   ]
-  // dataName =[
-  //   {
-  //     name: 'id', label:'ID'
-  //   },
-  //   {
-  //     name: 'fullName', label:'Full Name'
-  //   },
-  //   {
-  //     name: 'position', label:'Position'
-  //   },
-  //   {
-  //     name: 'mobile', label:'Mobile Number'
-  //   },
-  //   {
-  //     name: 'email', label:'Email'
-  //   },
-  //   {
-  //     name: 'birthday', label:'Birthday'
-  //   },
-  //   {
-  //     name: 'address', label:'Address'
-  //   },
-  //   {
-  //     name: 'dateJoined', label:'Date join ed'
-  //   },
-  // ];
-
-
-  getColumns(){
-    return ['id', 'fullName', 'position', 'mobile', 'email', 'birthday', 'address', 'dateJoined', 'action'];
-  }
+  
+getColumns(){
+return ['fullName', 'position', 'mobile', 'email', 'birthday', 'address', 'dateJoined', 'actions'];
+}
 
   constructor(public dialog: MatDialog){}
-  openDialog(){
+  openDialog() {
+    const dialogRef = this.dialog.open(AddStaffComponent, {
+      width: '80%',
+      height: '70%',
+
+    });
+  }
+  openDialogEdit() {
     this.dialog.open(AddStaffComponent);
   }
-
-  headStyles = [
-    { 
-      backgroundColor: '#f2f2f2', 
-      color: '#000000', 
-      border: '2px solid #000000',
-      padding: '20px',
-      fontSize: '20px',
-      width: '90%',
-      'margin':"10px",
-      'height': '60px',
-      display: 'flex',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
-      
-    }
-  ];
-
-
-  bodyStyles = [
-    { 
-    backgroundColor: '#f8f7ff', 
-    color: '#black', 
-    border: '1px solid #000000',
-    'padding': '20px',
-    'font-size': '20px',
-    'margin': '10px',
-    'width': '90%',
-    'display':'column',
-    'column-gap': '20px',
-    
+  openDialogAlertDelete(){
+    this.dialog.open(AddStaffComponent);
   }
-  ]
   
 }
   

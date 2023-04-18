@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
-
+import { MatDialog } from '@angular/material/dialog';
+import { AddStaffComponent } from '../add-staff/add-staff.component';
 export interface TableData {
   id: number;
   name: string;
@@ -8,30 +8,36 @@ export interface TableData {
   email: string;
 }
 
+
 @Component({
   selector: 'app-sample',
   templateUrl: './sample.component.html',
   styleUrls: ['./sample.component.css']
 })
 export class SampleComponent {
-  tableData = [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' },
-    { id: 3, name: 'Bob Johnson', email: 'bob.johnson@example.com' }
-  ];
-  data= {};
-  
-  tableStyles = [
-    { backgroundColor: '#E3F2FD', color: '#1976D2', border: '1px solid #1976D2' },
-    { backgroundColor: '#FFF8E1', color: '#FFC107', border: '1px solid #FFC107' },
-    { backgroundColor: '#FCE4EC', color: '#E91E63', border: '1px solid #E91E63' }
-  ];
 
-  objectKeys = Object.keys;
+  data = [  { id: 1, CategoryName: 'Category 1', Description: 'Description 1' },  
+  { id: 2, CategoryName: 'Category 2', Description: 'Description 2' },  
+  { id: 3, CategoryName: 'Category 3', Description: 'Description 3' }];
 
-  objectValue = Object.values;
+dataName = [  { name: 'id', label: 'ID' },  
+    { name: 'CategoryName', label: 'Category Name' },  
+    { name: 'Description', label: 'Description' }];
 
-  
+getColumns() {
+return ['id', 'CategoryName', 'Description', 'actions'];
 }
 
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(AddStaffComponent);
+  }
+  openDialogEdit() {
+    this.dialog.open(AddStaffComponent);
+  }
+
+  
+
+}
 
