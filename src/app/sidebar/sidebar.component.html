@@ -1,0 +1,14 @@
+<!-- sidebar.component.html -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" mode="side" closed>
+    <!-- Sidebar content goes here -->
+    <button mat-fab extended class="btn" *ngFor="let menuItem of menuItems" [routerLink]="menuItem.routerLink">
+      <mat-icon>{{ menuItem.icon }}</mat-icon><span class="btnName">{{ menuItem.btnName }}</span>
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
