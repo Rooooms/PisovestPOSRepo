@@ -9,12 +9,12 @@ export class AddCategoryComponent {
   Category = [
     {
       placeholder: 'Category Name',
-      type: 'text',
+      type: 'string',
       name: 'Category Name',
     },
     {
       placeholder: 'Category Description',
-      type: 'string',
+      type: 'textbox',
       name: 'Category Description',
     }
       ];

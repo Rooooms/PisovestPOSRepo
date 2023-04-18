@@ -1,12 +1,8 @@
-<form (ngSubmit)="onSubmit()">
-    <div mat-dialog-content>
-      <h2 mat-dialog-title> Edit Category </h2>
-      <mat-list>
-        <div class= "table" *ngFor="let Category of Category">
-            <!-- <mat-label>{{Category.name}}</mat-label> -->
-          <input type="{{Category.type}}" name="{{Category.name}}" placeholder="{{Category.placeholder}}" [(ngModel)]="formData[Category.name]">
-        </div>
-      </mat-list>
-      <button mat-raised-button type="submit">Submit</button>
-    </div>
-  </form>
+<form (ngSubmit)="onSubmit()" class="form-container">
+  <h2 mat-dialog-title> Edit Category </h2>
+  
+    <ng-container *ngFor="let Category of Category">
+      <input matInput type="{{Category.type}}" name="{{Category.name}}" placeholder="{{Category.placeholder}}" [(ngModel)]="formData[Category.name]">
+    </ng-container>
+  <button mat-raised-button type="submit" >Submit</button>
+</form>

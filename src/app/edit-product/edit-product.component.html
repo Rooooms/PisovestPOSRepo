@@ -1,9 +1,7 @@
-<form (ngSubmit)="onSubmit()">
-    <div mat-dialog-content>
-        <h2 mat-dialog-title> Edit Product </h2>
-        <div class= "table" *ngFor="let Product of Product">
-            <input MatInput type="{{Product.type}}" name="{{Product.name}}"  placeholder="{{Product.placeholder}}" [(ngModel)]="formData[Product.name]" >
-        </div> 
-        <button mat-raised-button="submit">Submit</button>
-    </div> 
-    </form>
+<form (ngSubmit)="onSubmit()" class="form-container">
+    <h2 mat-dialog-title> Edit Product </h2>
+    <ng-container *ngFor="let Product of Product">
+        <input MatInput type="{{Product.type}}" name="{{Product.name}}"  placeholder="{{Product.placeholder}}" [(ngModel)]="formData[Product.name]" >
+    </ng-container> 
+    <button mat-raised-button="submit">Submit</button>
+</form>

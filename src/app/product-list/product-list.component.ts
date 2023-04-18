@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
+import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
 
 @Component({
   selector: 'app-product-list',
@@ -21,7 +22,7 @@ dataName = [  { name: 'Category', label: 'Category' },
               { name: 'Status', label: 'Status' },];
 
 getColumns() {
-  return ['Category', 'ProductName', 'Brand', 'Description', 'Quantity', 'Status', 'actions'];
+  return ['ProductName', 'Category', 'Brand', 'Description', 'Quantity', 'Status', 'actions'];
 }
 
       constructor(public dialog: MatDialog) {}
@@ -32,4 +33,11 @@ getColumns() {
   openDialogEdit(){
     this.dialog.open(EditProductComponent);
   }
+  openDialogAlertDelete(){
+    this.dialog.open(AlertdeleteComponent);
+  }
+  // ALERT BOX
+  // confirmDelete(): void {
+  //   confirm("Are you sure you want to delete?")
+  // }
 }

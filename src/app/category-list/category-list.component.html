@@ -1,13 +1,11 @@
+    <div class="ng-container">
     <mat-toolbar class="tools">
-      <div class="header">
-      <button class ="back" mat-raised-button mat-flat-button [routerLink] = '["/product"]' > Return </button>
-        <input type="text" class="Search" matInput placeholder="Search"> 
-        <button mat-raised-button (click)="openDialog()"> Add Category </button>
-    </div>
-      
+      <button mat-icon-button [routerLink] = '["/product"]'><mat-icon>keyboard_backspace</mat-icon></button>
+      <input type="text" class="Search" matInput placeholder="Search">
+        <button mat-raised-button (click)="openDialog()"><mat-icon>add</mat-icon> Add Category </button>
     </mat-toolbar>
     <table mat-table [dataSource]="data">
-      <ng-container *ngFor="let dataName of dataName; let i = index" [matColumnDef]="dataName.name">
+      <ng-container *ngFor="let dataName of dataName; let i = index" [matColumnDef]="dataName.name" class="{{ dataName.name }}-column">
         <th mat-header-cell *matHeaderCellDef>{{ dataName.label }}</th>
         <td mat-cell *matCellDef="let row">{{ row[dataName.name] }}</td>
       </ng-container>
@@ -15,11 +13,9 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let row">
-          <button mat-raised-button color="basic" (click)="openDialogEdit()">Edit</button>
-          <button mat-raised-button color="warn">Delete</button>
-        </td>
+          <button class="btna" mat-fab color="basic" (click)="openDialogEdit()" style="width: 2.5rem; height: 2.5rem;"><mat-icon>edit</mat-icon></button>
+          <button class="btna" mat-fab color="warn" (click)="openDialogAlertDelete()" style="width: 2.5rem; height: 2.5rem;" ><mat-icon>delete</mat-icon></button>
       </ng-container>
-    
       <tr mat-header-row *matHeaderRowDef="getColumns()"></tr>
       <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
     </table>
@@ -28,5 +24,6 @@
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page">
   </mat-paginator>
+</div>
 
 

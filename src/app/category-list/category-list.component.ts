@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { EditCategoryComponent } from '../edit-category/edit-category.component';
+import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
 
 @Component({
   selector: 'app-category-list',
@@ -15,8 +16,8 @@ export class CategoryListComponent {
             { CategoryName: 'Category 2', Description: 'Description 2' },  
             { CategoryName: 'Category 3', Description: 'Description 3' }];
 
-dataName = [  { name: 'CategoryName', label: 'Category Name' },  
-              { name: 'Description', label: 'Description' }];
+dataName = [  { name: 'CategoryName', label: 'Category Name'},  
+              { name: 'Description', label: 'Description'}];
 
 getColumns() {
 return ['CategoryName', 'Description', 'actions'];
@@ -30,6 +31,8 @@ return ['CategoryName', 'Description', 'actions'];
   openDialogEdit(){
     this.dialog.open(EditCategoryComponent);
   }
-
+  openDialogAlertDelete(){
+    this.dialog.open(AlertdeleteComponent);
+  }
 }
 

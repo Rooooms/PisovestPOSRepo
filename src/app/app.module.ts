@@ -21,8 +21,9 @@ import { MatListModule } from '@angular/material/list';
 import { SampleComponent } from './sample/sample.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { AlertdeleteComponent } from './alertdelete/alertdelete.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -39,7 +40,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     AddProductComponent,
     SampleComponent,
     EditCategoryComponent,
-    EditProductComponent
+    EditProductComponent,
+    AlertdeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatDialogModule,
     MatListModule,
-    MatSnackBarModule
+    MatIconModule,
+    FlexLayoutModule
     
   ],
   providers: [],
