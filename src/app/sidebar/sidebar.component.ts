@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent{
+  @ViewChild('sidenav') sidenav: MatSidenav;
 
   menuItems: any[] = [
     { routerLink: [""], icon: "home", btnName: "Home" },
@@ -17,8 +19,13 @@ export class SidebarComponent{
     { routerLink: ["/POS"], icon: "person", btnName: "Employees" }
   ];
 
-
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.sidenav.close();
+      }
+    });
+  }
 
   toggleSidebar() {
     this.sidenav.toggle();

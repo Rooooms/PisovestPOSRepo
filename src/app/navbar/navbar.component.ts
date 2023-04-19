@@ -40,6 +40,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { SharedService } from '../shared.service';
 //import { Title } from '@angular/platform-browser';
 
 interface Page {
@@ -51,24 +52,37 @@ interface Page {
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  template: '<nav>{{ pageName }}</nav>',
 })
 
 export class NavbarComponent implements OnInit{
 
-  constructor(private route: ActivatedRoute) {}
+  @Input () title : string = 'Pisovest'
 
-  name:string = 'POS';
+  public pageName: string;
+
+  constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
-    console.log(this.name);
-    this.route.queryParams.subscribe(params => {
-      this.name = params['name'];
-      console.log(this.name);
+    this.sharedService.pageName$.subscribe((pageName) => {
+      this.pageName = pageName;
     });
   }
 
- //@Input () title : string = 'Pisovest'
+  // constructor(private route: ActivatedRoute) {}
+
+  // name:string = 'POS';
+
+  // ngOnInit() {
+  //   console.log(this.name);
+  //   this.route.queryParams.subscribe(params => {
+  //     this.name = params['name'];
+  //     console.log(this.name);
+  //   });
+  // }
+
+//
 
 
 

@@ -2,8 +2,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { POSComponent } from './pos/pos.component';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SampleComponentComponent } from './sample-component/sample-component.component';
-
 
 const routes: Routes = [
 
@@ -36,10 +34,6 @@ const routes: Routes = [
     path: 'Employee Management',
     component: POSComponent, //name: 'Employee Management',
   },
-  {
-    path: 'sample',
-    component: SampleComponentComponent
-  }
 ];
 
 @NgModule({

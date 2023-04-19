@@ -1,5 +1,6 @@
 // card.component.ts
 import { Component} from '@angular/core';
+import { SharedService } from '../shared.service';
 
 interface Card {
   buttonText: string;
@@ -9,10 +10,22 @@ interface Card {
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css'],
+  template: '<h1>{{ pageTitle }}</h1>',
 })
 
 export class HomepageComponent {
+
+  public pageTitle: string;
+
+  constructor(private sharedService: SharedService) {}
+
+  ngOnInit() {
+    this.sharedService.pageName = 'Home';
+    this.pageTitle = 'Home';
+
+}
+
   cards: Card[] =[
     { buttonText: 'POS', value:'./POS'},
     { buttonText: 'Product List', value:'./POS'},

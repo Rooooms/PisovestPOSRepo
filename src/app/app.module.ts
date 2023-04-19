@@ -11,7 +11,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomepageComponent } from './homepage/homepage.component';
 import { POSComponent } from './pos/pos.component';
-import { SampleComponentComponent } from './sample-component/sample-component.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { SampleComponentComponent } from './sample-component/sample-component.co
     SidebarComponent,
     HomepageComponent,
     POSComponent,
-    SampleComponentComponent
   ],
   imports: [
     BrowserModule,
