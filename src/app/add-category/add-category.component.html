@@ -1,8 +1,8 @@
-<form (ngSubmit)="onSubmit()" class="form-container">
+<form #form="ngForm" (ngSubmit)= "addCategory()" class="form-container">
       <h2 mat-dialog-title> Add Category </h2>
       
         <ng-container *ngFor="let Category of Category">
-          <input matInput type="{{Category.type}}" name="{{Category.name}}" placeholder="{{Category.placeholder}}" [(ngModel)]="formData[Category.name]">
+          <input matInput type="{{Category.type}}" name="{{Category.name}}" placeholder="{{Category.placeholder}}" [(ngModel)]="addCategoryRequest[Category.name]">
         </ng-container>
-      <button mat-raised-button type="submit" >Submit</button>
+      <button mat-raised-button type="submit">Submit</button>
   </form>

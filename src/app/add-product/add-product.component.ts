@@ -43,8 +43,14 @@ export class AddProductComponent {
       product: any = {};
 
       // Define the onSubmit method to handle form submission
+      option = [
+        { value: 'option1', label: 'Clothes' },
+        { value: 'option2', label: 'Shoes' },
+        { value: 'option3', label: 'Keyboard' }
+      ];
+    
       onSubmit() {
-        // Handle form submission logic here, such as sending the form data to a server
-        console.log(this.product);
+        
+        console.log(this.formData);
       }
 }

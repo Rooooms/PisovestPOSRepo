@@ -22,16 +22,22 @@ dataName = [  { name: 'Category', label: 'Category' },
               { name: 'Status', label: 'Status' },];
 
 getColumns() {
-  return ['ProductName', 'Category', 'Brand', 'Description', 'Quantity', 'Status', 'actions'];
+  return ['Category', 'ProductName', 'Brand', 'Description', 'Quantity', 'Status', 'actions'];
 }
 
       constructor(public dialog: MatDialog) {}
 
   openDialog() {
-    this.dialog.open(AddProductComponent);
+      const dialogRef = this.dialog.open(AddProductComponent, {
+        width: '30%',
+        height: '58%',
+      });
   }
   openDialogEdit(){
-    this.dialog.open(EditProductComponent);
+    const dialogRef = this.dialog.open(EditProductComponent, {
+      width: '30%',
+      height: '58%',
+    });
   }
   openDialogAlertDelete(){
     this.dialog.open(AlertdeleteComponent);

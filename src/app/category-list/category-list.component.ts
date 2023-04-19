@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { EditCategoryComponent } from '../edit-category/edit-category.component';
 import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
+import { TestingComponent } from '../testing/testing.component';
+import { category } from '../Models/category.model';
+import { CategoryService } from '../services/category-services/category.service';
 
 @Component({
   selector: 'app-category-list',
@@ -10,29 +13,41 @@ import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
   styleUrls: ['./category-list.component.css']
 })
 
-export class CategoryListComponent {
+export class CategoryListComponent implements OnInit {
 
-  data = [  { CategoryName: 'Category 1', Description: 'Description 1' },  
-            { CategoryName: 'Category 2', Description: 'Description 2' },  
-            { CategoryName: 'Category 3', Description: 'Description 3' }];
+  category: category[] = [];
 
-dataName = [  { name: 'CategoryName', label: 'Category Name'},  
-              { name: 'Description', label: 'Description'}];
+   
+dataName = [  { name: 'categoryName', label: 'Category Name'},  
+              { name: 'categoryDescription', label: 'Description'}];
 
 getColumns() {
-return ['CategoryName', 'Description', 'actions'];
+return ['categoryName', 'categoryDescription', 'actions'];
 }
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private categoryService: CategoryService, ) {}
 
   openDialog() {
     this.dialog.open(AddCategoryComponent);
   }
   openDialogEdit(){
+    
     this.dialog.open(EditCategoryComponent);
   }
   openDialogAlertDelete(){
-    this.dialog.open(AlertdeleteComponent);
+    this.dialog.open(TestingComponent);
+  }
+
+  ngOnInit(): void {  
+    this.categoryService.getAllCategory().subscribe({
+      next: (category) => {
+        this.category = category;
+      },
+      error: (response) => {
+        console.log(response);
+      }
+    });
+      
   }
 }
 

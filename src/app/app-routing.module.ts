@@ -5,7 +5,7 @@ import { ProductManagementComponent } from './product-management/product-managem
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { AppComponent } from './app.component';
-import { SampleComponent } from './sample/sample.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 const routes: Routes = [
 
@@ -31,10 +31,9 @@ const routes: Routes = [
     component: AddCategoryComponent
   },
   {
-    path: 'sample',
-    component: SampleComponent
+    path: 'addproduct',
+    component: AddProductComponent
   }
-  
 ];
 
 @NgModule({
