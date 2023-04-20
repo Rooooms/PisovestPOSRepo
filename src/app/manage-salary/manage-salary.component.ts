@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddSalaryComponent } from '../add-salary/add-salary.component';
 import { EditSalaryComponent } from '../edit-salary/edit-salary.component';
-import { InvoiceComponent } from '../invoice/invoice.component';
+import { PayslipComponent } from '../payslip/payslip.component';
 export interface TableData{
   id: number;
   name: string;
@@ -54,7 +54,7 @@ export class ManageSalaryComponent {
       ]
       
   getColumns(){
-    return ['position', 'fullName', 'salary', 'deduction', 'totalSalary', 'paidDate', 'invoice', 'actions'];
+    return ['position', 'fullName', 'salary', 'deduction', 'totalSalary', 'paidDate', 'payslip', 'actions'];
   }
   
   constructor(public dialog: MatDialog){}
@@ -68,8 +68,12 @@ export class ManageSalaryComponent {
   openDialogAlertDelete(){
     this.dialog.open(EditSalaryComponent);
   }
-  openDialogInvoice(){
-    this.dialog.open(InvoiceComponent);
+  openDialogPayslip(){
+    const dialogRef = this.dialog.open(PayslipComponent, {
+      width: '40%',
+      height: '40%',
+
+    });
   }
   onPageChange(event) {
     const startIndex = event.pageIndex * event.pageSize;

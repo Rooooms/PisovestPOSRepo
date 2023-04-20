@@ -21,11 +21,12 @@ import { SampleComponent } from './sample/sample.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSalaryComponent } from './edit-salary/edit-salary.component';
-
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule} from '@angular/material/datepicker';
-import { InvoiceComponent } from './invoice/invoice.component';
+import { PayslipComponent } from './payslip/payslip.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
     AddSalaryComponent,
     SampleComponent,
     EditSalaryComponent,
-    InvoiceComponent,
+    PayslipComponent,
    
   ],
   imports: [
@@ -59,7 +60,9 @@ import { InvoiceComponent } from './invoice/invoice.component';
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatOptionModule,
+    MatSelectModule
     
   ],
   providers: [],

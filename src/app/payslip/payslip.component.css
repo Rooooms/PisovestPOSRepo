@@ -1,0 +1,39 @@
+.payslip {
+    font-family: Arial, sans-serif;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 5%;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .details {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 45%;
+  }
+  
+  th {
+    background-color: #ccc;
+    font-weight: bold;
+    text-align: left;
+    padding: 5px;
+  }
+  
+  td {
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .footer {
+    text-align: right;
+    margin-top: 20px;
+  }
+  

@@ -1,11 +1,18 @@
 <form (ngSubmit)="onSubmit()" class="form-container my-custom-class">
-    <ng-container *ngFor="let salary of Salary">
-    <th>
-        <mat-label>{{salary.name}}</mat-label>
-    </th>
-    <td>
-        <input matInput type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
-    </td> </ng-container>
-    <button type="submit" mat-raised-button style="width: 30px; margin: auto;">Submit</button>
+    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start center">
+      <div *ngFor="let salary of Salary" fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{salary.name}}</mat-label>
+          <ng-container *ngIf="salary.name === 'Position'; else salaryInput">
+            <mat-select name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
+              <mat-option *ngFor="let option of option" [value]="option">{{option}}</mat-option>
+            </mat-select>
+          </ng-container>
+          <ng-template #salaryInput>
+            <input matInput type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
+          </ng-template>
+        </mat-form-field>
+      </div>
+    </div>
+    <button type="submit" mat-raised-button style="width: 100%;">Submit</button>
   </form>
-  

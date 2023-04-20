@@ -8,37 +8,22 @@
     
     
     <div class="form-column">
-      
       <ng-container *ngFor="let staff of Staff; let i = index">
-        
         <div *ngIf="i % 2 === 0" class="form-group">
-          
             <mat-form-field class="example-form-field">
-          
               <mat-label >{{staff.hold}}</mat-label>
-          
               <input matInput class="form-control" type="{{staff.type}}" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" [(ngModel)]= "addStaffRequest[staff.name]">
-       
             </mat-form-field>
-
         </div>
-        
-      
       </ng-container>
     </div>
 
     <div class="form-column">
-
       <ng-container *ngFor="let staff of Staff; let i = index">
-
         <div *ngIf="i % 2 === 1" class="form-group">
-          
           <mat-form-field class="example-form-field">
-
             <mat-label>{{staff.hold}}</mat-label>
-
             <input matInput class="form-control" type="{{staff.type}}" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" [(ngModel)]= "addStaffRequest[staff.name]">
-        
           </mat-form-field>
         
         </div>

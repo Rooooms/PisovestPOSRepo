@@ -36,7 +36,11 @@ export class AddSalaryComponent {
       ];
       formData = {};
       onSubmit(){}
-
+      option = [
+        { value: 'option1', label: 'Clothes' },
+        { value: 'option2', label: 'Shoes' },
+        { value: 'option3', label: 'Keyboard' }
+      ];
       constructor(private dialog: MatDialog) { 
         
       }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-edit-salary',
   templateUrl: './edit-salary.component.html',
@@ -34,5 +34,14 @@ export class EditSalaryComponent {
       ];
       formData = {};
       onSubmit(){}
+
+      option = [
+        { value: 'option1', label: 'Clothes' },
+        { value: 'option2', label: 'Shoes' },
+        { value: 'option3', label: 'Keyboard' }
+      ];
+      constructor(private dialog: MatDialog) { 
+        
+      }
     }
     
