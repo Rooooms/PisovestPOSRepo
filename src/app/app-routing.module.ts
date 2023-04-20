@@ -16,6 +16,9 @@ import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
 import { EditSalaryComponent } from './edit-salary/edit-salary.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { SalesDataComponent } from './sales-data/sales-data.component';
+import { SalesReportComponent } from './sales-report/sales-report.component';
 
 const routes: Routes = [
 
@@ -31,7 +34,7 @@ const routes: Routes = [
 
   {
     path: 'sales-report',
-    component: POSComponent, //name: 'Sales Report'
+    component: SalesReportComponent, //name: 'Sales Report'
   },
 
   {
@@ -41,7 +44,7 @@ const routes: Routes = [
 
   {
     path: 'transactions',
-    component: POSComponent, //name: 'Transactions',
+    component: TransactionsComponent, //name: 'Transactions',
   },
 
   {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-sales-report',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./sales-report.component.css']
 })
 export class SalesReportComponent {
+  public pageTitle: string;
 
+  constructor(private sharedService: SharedService) {}
+
+  ngOnInit() {
+    this.sharedService.pageName = 'Sales Report';
+    this.pageTitle = 'Sales Report';
+
+}
 }

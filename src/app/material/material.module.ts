@@ -33,8 +33,6 @@ const material = [
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule
-  // MatSelect,
-
 ]
 
 @NgModule({

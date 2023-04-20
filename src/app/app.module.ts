@@ -49,11 +49,6 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
 import { ProductDataComponent } from './product-data/product-data.component';
 
-
-
-
-
-
 const appRoute: Routes = [
   {path: '', component: CardComponent},
   {path: 'Home', component: CardComponent},
@@ -103,6 +98,7 @@ const appRoute: Routes = [
     POSComponent,
     ProductDataComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -134,9 +130,6 @@ const appRoute: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-
-
-
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
