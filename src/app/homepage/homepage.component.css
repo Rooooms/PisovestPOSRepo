@@ -37,7 +37,7 @@ mat-card-actions {
     font-size: 35px;
     background-color: #ccc;
     border: none !important;
-    box-shadow: 5px 10px;
+    box-shadow: 5px 5px;
     text-align: center;
     line-height: 1.5;
 }
