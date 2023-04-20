@@ -36,7 +36,7 @@ const routes: Routes = [
 
   {
     path: 'Product List',
-    component: POSComponent, //name: 'Product List',
+    component: ProductManagementComponent, //name: 'Product List',
   },
 
   {

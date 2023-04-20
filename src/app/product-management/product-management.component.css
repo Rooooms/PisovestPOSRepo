@@ -5,6 +5,7 @@
     margin-top: 150px;
     border: none !important;
     box-shadow: none;
+    background-color: #f2f2f2;
 }
 
 mat-card-actions {
@@ -20,6 +21,7 @@ mat-card-actions {
     margin:auto;
     margin-bottom: 20px;
     font-size: 35px;
+    background-color: #f2f2f2;
 }
 
 
