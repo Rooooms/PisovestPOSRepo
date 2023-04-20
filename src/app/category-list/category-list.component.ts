@@ -35,7 +35,7 @@ return ['categoryName', 'categoryDescription', 'actions'];
     this.dialog.open(EditCategoryComponent);
   }
   openDialogAlertDelete(){
-    this.dialog.open(TestingComponent);
+    this.dialog.open(AlertdeleteComponent);
   }
 
   ngOnInit(): void {  
