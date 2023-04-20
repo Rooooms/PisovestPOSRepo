@@ -13,27 +13,27 @@ export class AddProductComponent {
       name: 'Category',
     },
     {
-      placeholder: 'Product Name',
+      placeholder: 'Ex. Air Jordan 1 Low',
       type: 'text',
       name: 'Product Name',
     },
     {
-      placeholder: 'Brand',
+      placeholder: 'Ex. Nike',
       type: 'text',
       name: 'Brand',
     },
     {
-      placeholder: 'Description',
+      placeholder: 'Ex. Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look thats familiar yet always fresh. With an iconic design that pairs perfectly with any fit, these kicks ensure youll always be on point.',
       type: 'string',
       name: 'Description',
     },
     {
-      placeholder: 'Price',
+      placeholder: '6,195',
       type: 'int',
-      name: 'Price',
+      name: 'Price (₱)',
     },
     {
-      placeholder: 'Quantity',
+      placeholder: '10',
       type: 'int',
       name: 'Quantity',
     },

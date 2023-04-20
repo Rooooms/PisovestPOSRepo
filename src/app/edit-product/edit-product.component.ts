@@ -42,6 +42,12 @@ export class EditProductComponent {
 
       product: any = {};
 
+      option = [
+        { value: 'option1', label: 'Clothes' },
+        { value: 'option2', label: 'Shoes' },
+        { value: 'option3', label: 'Keyboard' }
+      ];
+
       // Define the onSubmit method to handle form submission
       onSubmit() {
         // Handle form submission logic here, such as sending the form data to a server
