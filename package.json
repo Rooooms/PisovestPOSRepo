@@ -23,6 +23,7 @@
     "@angular/router": "^15.2.0",
     "angular-datatables": "^15.0.0",
     "g": "^2.0.1",
+    "jspdf": "^2.5.1",
     "m": "^1.8.4",
     "material": "^0.5.3",
     "ng": "^0.0.0",
