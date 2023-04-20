@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
+import { SharedService } from '../shared.service';
+
 
 @Component({
   selector: 'app-manage-staff',
@@ -9,6 +11,8 @@ import { AddStaffComponent } from '../add-staff/add-staff.component';
 })
 
 export class ManageStaffComponent {
+
+  public pageTitle: string;
 
   data = [
 {
@@ -35,7 +39,7 @@ export class ManageStaffComponent {
 
   ];
 
-  
+
   dataName = [
     {name: 'id', label: 'ID'},
     {name: 'fullName', label: 'Full Name'},
@@ -46,12 +50,12 @@ export class ManageStaffComponent {
     {name: 'address', label: 'Address'},
     {name: 'dateJoined', label: 'Date Joined'},
   ]
-  
+
 getColumns(){
 return ['fullName', 'position', 'mobile', 'email', 'birthday', 'address', 'dateJoined', 'actions'];
 }
 
-  constructor(public dialog: MatDialog){}
+  constructor(public dialog: MatDialog, private sharedService: SharedService){}
   openDialog() {
     const dialogRef = this.dialog.open(AddStaffComponent, {
       width: '80%',
@@ -65,6 +69,11 @@ return ['fullName', 'position', 'mobile', 'email', 'birthday', 'address', 'dateJ
   openDialogAlertDelete(){
     this.dialog.open(AddStaffComponent);
   }
-  
+
+  ngOnInit() {
+    this.sharedService.pageName = 'Manage Staff';
+    this.pageTitle = 'Manage Staff';
+  }
+
 }
-  
+

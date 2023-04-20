@@ -30,23 +30,23 @@ const routes: Routes = [
   },
 
   {
-    path: 'Sales Report',
+    path: 'sales-report',
     component: POSComponent, //name: 'Sales Report'
   },
 
   {
-    path: 'Product List',
+    path: 'product-list',
     component: ProductManagementComponent, //name: 'Product List',
   },
 
   {
-    path: 'Transactions',
+    path: 'transactions',
     component: POSComponent, //name: 'Transactions',
   },
 
   {
-    path: 'Employee Management',
-    component: POSComponent, //name: 'Employee Management',
+    path: 'employee',
+    component: EmployeeManagementComponent
   },
 
   {
@@ -77,11 +77,6 @@ const routes: Routes = [
   {
     path: 'addproduct',
     component: AddProductComponent
-  },
-
-  {
-    path: 'employee',
-    component: EmployeeManagementComponent
   },
 
   {

@@ -6,6 +6,8 @@ import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
 import { TestingComponent } from '../testing/testing.component';
 import { category } from '../Models/category.model';
 import { CategoryService } from '../services/category-services/category.service';
+import { SharedService } from '../shared.service';
+
 
 @Component({
   selector: 'app-category-list',
@@ -14,31 +16,32 @@ import { CategoryService } from '../services/category-services/category.service'
 })
 
 export class CategoryListComponent implements OnInit {
+  public pageTitle: string;
 
   category: category[] = [];
 
-   
-dataName = [  { name: 'categoryName', label: 'Category Name'},  
+
+dataName = [  { name: 'categoryName', label: 'Category Name'},
               { name: 'categoryDescription', label: 'Description'}];
 
 getColumns() {
 return ['categoryName', 'categoryDescription', 'actions'];
 }
 
-  constructor(public dialog: MatDialog, private categoryService: CategoryService, ) {}
+  constructor(public dialog: MatDialog, private categoryService: CategoryService, private sharedService: SharedService) {}
 
   openDialog() {
     this.dialog.open(AddCategoryComponent);
   }
   openDialogEdit(){
-    
+
     this.dialog.open(EditCategoryComponent);
   }
   openDialogAlertDelete(){
     this.dialog.open(TestingComponent);
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.categoryService.getAllCategory().subscribe({
       next: (category) => {
         this.category = category;
@@ -47,7 +50,9 @@ return ['categoryName', 'categoryDescription', 'actions'];
         console.log(response);
       }
     });
-      
+    this.sharedService.pageName = 'Category List';
+    this.pageTitle = 'Category LIst';
   }
+
 }
 

@@ -13,10 +13,10 @@ export class SidebarComponent{
   menuItems: any[] = [
     { routerLink: [""], icon: "home", btnName: "Home" },
     { routerLink: ["/POS"], icon: "payments", btnName: "POS" },
-    { routerLink: ["/POS"], icon: "list", btnName: "Product List" },
+    { routerLink: ["/product"], icon: "list", btnName: "Product Management" },
     { routerLink: ["/POS"], icon: "leaderboard", btnName: "Sales Report" },
     { routerLink: ["/POS"], icon: "receipt-long", btnName: "Transactions" },
-    { routerLink: ["/POS"], icon: "person", btnName: "Employees" }
+    { routerLink: ["/employee"], icon: "person", btnName: "Employees" }
   ];
 
   constructor(private router: Router) {

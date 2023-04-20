@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddSalaryComponent } from '../add-salary/add-salary.component';
 import { EditSalaryComponent } from '../edit-salary/edit-salary.component';
+import { SharedService } from '../shared.service';
 export interface TableData{
   id: number;
   name: string;
@@ -14,6 +15,8 @@ export interface TableData{
   styleUrls: ['./manage-salary.component.css']
 })
 export class ManageSalaryComponent {
+
+  public pageTitle: string;
 
   data = [
     {
@@ -41,8 +44,8 @@ export class ManageSalaryComponent {
       id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
     },
       ];
-  
-      
+
+
       dataName = [
         {name: 'fullName', label: 'Full Name'},
         {name: 'position', label: 'Position'},
@@ -52,13 +55,13 @@ export class ManageSalaryComponent {
         {name: 'paidDate', label: 'Paid Date'},
         {name: 'invoice', label: 'Invoice'},
       ]
-      
+
   getColumns(){
     return ['fullName', 'position', 'salary', 'deduction', 'totalSalary', 'paidDate', 'invoice', 'actions'];
   }
-  
-  constructor(public dialog: MatDialog){}
-  
+
+  constructor(public dialog: MatDialog, private sharedService: SharedService){}
+
   openDialog() {
     this.dialog.open(AddSalaryComponent);
   }
@@ -73,8 +76,13 @@ export class ManageSalaryComponent {
     const endIndex = startIndex + event.pageSize;
     this.data = this.getData(startIndex, endIndex);
   }
-  
+
   getData(startIndex: number, endIndex: number) {
     return this.data.slice(startIndex, endIndex);
   }
+
+  ngOnInit() {
+    this.sharedService.pageName = 'Manage Salary';
+    this.pageTitle = 'Manage Salary';
+}
 }

@@ -28,10 +28,10 @@ export class HomepageComponent {
 
   cards: Card[] =[
     { buttonText: 'POS', value:'./POS'},
-    { buttonText: 'Product List', value:'./product'},
+    { buttonText: 'Product Management', value:'./product'},
     { buttonText: 'Sales Report', value:'./POS'},
     { buttonText: 'Transactions', value:'./POS'},
-    { buttonText: 'Employee Management', value:'./POS'},
+    { buttonText: 'Employee Management', value:'./employee'},
     // { buttonText: 'Dummy', value:'./POS'}
     //Add more items as needed
   ];
