@@ -9,5 +9,4 @@ export class NavbarComponent {
 
   title: string = 'Pisovest'
   pageName: string = 'Page Name'
-
 }

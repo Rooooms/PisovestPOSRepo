@@ -1,0 +1,11 @@
+<form (ngSubmit)="onSubmit()" class="form-container">
+    <ng-container *ngFor="let salary of Salary">
+    <th>
+        <mat-label>{{salary.name}}</mat-label>
+    </th>
+    <td>
+        <input matInput style="padding: 10px; margin: .5em;" type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
+    </td> </ng-container>
+    <button type="submit" mat-raised-button style="width: 30px;">Submit</button>
+  </form>
+  
