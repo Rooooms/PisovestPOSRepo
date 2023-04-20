@@ -9,7 +9,7 @@
     </button>
   </mat-toolbar>
 
-  <table mat-table [dataSource]="data" class="custom-table">
+  <table mat-table [dataSource]="salary" class="custom-table">
     <ng-container *ngFor="let dataName of dataName; let i = index" [matColumnDef]="dataName.name">
       <th mat-header-cell *matHeaderCellDef class="{{dataName.name}}-column">{{ dataName.label }}</th>
       <td mat-cell *matCellDef="let row" class="{{dataName.name}}-column">{{ row[dataName.name] }}</td>

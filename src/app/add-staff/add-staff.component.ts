@@ -13,13 +13,13 @@ import { Router } from '@angular/router';
 export class AddStaffComponent implements OnInit{
 
   addStaffRequest : Staff = {
-    id : 0,
+    id : '',
     employeeName: '',
     employeeEmail: '',
     employeeMobileNumber: '',
     employeeExpectedSalary: 0,
-    birthday : '2023-04-19T00:00:00.00',
-    datejoined: '2023-04-19T00:00:00.0000',
+    birthday : '0000-00-00T00:00:00.00',
+    datejoined: '0000-00-0T00:00:00.0000',
     employeePosition: '',
     employeeAddress: '',
   }
