@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -48,6 +47,9 @@ import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
 import { ProductDataComponent } from './product-data/product-data.component';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { PayslipComponent } from './payslip/payslip.component';
+
 
 const appRoute: Routes = [
   {path: '', component: CardComponent},
@@ -56,7 +58,6 @@ const appRoute: Routes = [
   {path: 'Transactions', component: TransactionListComponent},
   {path: 'POS', component: POSComponent}
 ]
-
 
 @NgModule({
   declarations: [
@@ -97,6 +98,8 @@ const appRoute: Routes = [
     TransactionDataComponent,
     POSComponent,
     ProductDataComponent,
+    PayslipComponent,
+   
   ],
 
   imports: [
@@ -111,7 +114,6 @@ const appRoute: Routes = [
     MatDialogModule,
     MatListModule,
     MatIconModule,
-    FlexLayoutModule,
     MatOptionModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -125,11 +127,17 @@ const appRoute: Routes = [
     MatPaginatorModule,
     MatGridListModule,
     MatIconModule,
-    FlexLayoutModule,
     RouterModule.forRoot(appRoute),
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

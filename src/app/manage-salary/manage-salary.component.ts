@@ -3,6 +3,7 @@ import { MatDialog} from '@angular/material/dialog';
 import { AddSalaryComponent } from '../add-salary/add-salary.component';
 import { EditSalaryComponent } from '../edit-salary/edit-salary.component';
 import { SharedService } from '../shared.service';
+import { PayslipComponent } from '../payslip/payslip.component';
 export interface TableData{
   id: number;
   name: string;
@@ -20,44 +21,43 @@ export class ManageSalaryComponent {
 
   data = [
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John',  salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John', salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John',  salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John',  salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John',  salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John',  salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John', salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
     {
-      id: 1, fullName: 'John', position: 'Doe', salary:'4553' ,deduction: '500' , totalSalary:'02/12/85', paidDate:'10/07/19', invoice:'n/a', action: 'n/a'
+       position: 'Doe', fullName: 'John', salary:'4553' ,deduction: '500' , totalSalary:'4053', paidDate:'10/07/19', 
     },
       ];
 
 
       dataName = [
-        {name: 'fullName', label: 'Full Name'},
         {name: 'position', label: 'Position'},
+        {name: 'fullName', label: 'Full Name'},
         {name: 'salary', label: 'Salary'},
         {name: 'deduction', label: 'Deduction'},
         {name: 'totalSalary', label: 'Total Salary'},
         {name: 'paidDate', label: 'Paid Date'},
-        {name: 'invoice', label: 'Invoice'},
       ]
 
   getColumns(){
-    return ['fullName', 'position', 'salary', 'deduction', 'totalSalary', 'paidDate', 'invoice', 'actions'];
+    return ['position', 'fullName', 'salary', 'deduction', 'totalSalary', 'paidDate', 'payslip', 'actions'];
   }
 
   constructor(public dialog: MatDialog, private sharedService: SharedService){}
@@ -70,6 +70,13 @@ export class ManageSalaryComponent {
   }
   openDialogAlertDelete(){
     this.dialog.open(EditSalaryComponent);
+  }
+  openDialogPayslip(){
+    const dialogRef = this.dialog.open(PayslipComponent, {
+      width: '40%',
+      height: '40%',
+
+    });
   }
   onPageChange(event) {
     const startIndex = event.pageIndex * event.pageSize;

@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
 import { SharedService } from '../shared.service';
+import { Staff } from '../models/staff.model';
+import { StaffServiceService } from '../services/staff-service.service';
+import { EditStaffComponent } from '../edit-staff/edit-staff.component';
 
 
 @Component({
@@ -10,7 +13,7 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./manage-staff.component.css']
 })
 
-export class ManageStaffComponent {
+export class ManageStaffComponent implements OnInit {
 
   public pageTitle: string;
 
@@ -40,40 +43,55 @@ export class ManageStaffComponent {
   ];
 
 
+
   dataName = [
     {name: 'id', label: 'ID'},
-    {name: 'fullName', label: 'Full Name'},
-    {name: 'position', label: 'Position'},
-    {name: 'mobile', label: 'Mobile Number'},
-    {name: 'email', label: 'Email'},
+    {name: 'employeeName', label: 'Full Name'},
+    {name: 'employeePosition', label: 'Position'},
+    {name: 'employeeMobileNumber', label: 'Mobile Number'},
+    {name: 'employeeEmail', label: 'Email'},
     {name: 'birthday', label: 'Birthday'},
-    {name: 'address', label: 'Address'},
-    {name: 'dateJoined', label: 'Date Joined'},
+    {name: 'employeeAddress', label: 'Address'},
+    {name: 'datejoined', label: 'Date Joined'},
+    {name: 'employeeExpectedSalary', label: 'Expected Salary'},
   ]
 
 getColumns(){
-return ['fullName', 'position', 'mobile', 'email', 'birthday', 'address', 'dateJoined', 'actions'];
+return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
 }
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService){}
+  staff : Staff[] = [];
+  // constructor (private staffService : StaffServiceService) {}
+
+  constructor (public dialog: MatDialog, private staffService: StaffServiceService, private sharedService: SharedService){}
   openDialog() {
     const dialogRef = this.dialog.open(AddStaffComponent, {
-      width: '80%',
-      height: '70%',
+      width: '40%',
+      height: '50%',
 
     });
   }
   openDialogEdit() {
-    this.dialog.open(AddStaffComponent);
+    this.dialog.open(EditStaffComponent);
   }
   openDialogAlertDelete(){
     this.dialog.open(AddStaffComponent);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    
+      this.staffService.getAllStaff().subscribe({
+        next : (staff) => {
+          this.staff = staff;
+        },
+        error: (response) => {
+          console.log(response)
+        }
+      });
+
     this.sharedService.pageName = 'Manage Staff';
     this.pageTitle = 'Manage Staff';
   }
-
+  
 }
 

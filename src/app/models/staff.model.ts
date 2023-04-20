@@ -1,12 +1,13 @@
 export interface Staff {
 
-    name: string;
-    email: string;
-    phone: string;
-    salary: string;
+    id : number;
+    employeeName: string;
+    employeeEmail: string;
+    employeeMobileNumber: string;
+    employeeExpectedSalary: number;
     birthday : string;
     datejoined: string;
-    position: string;
-    address: string;
+    employeePosition: string;
+    employeeAddress: string;
 
 }

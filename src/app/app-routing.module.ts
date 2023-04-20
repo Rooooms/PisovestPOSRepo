@@ -10,8 +10,6 @@ import { AppComponent } from './app.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { combineLatest } from 'rxjs';
-import { AddStaffComponent } from './add-staff/add-staff.component';
-import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
@@ -19,6 +17,9 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
+
+
+
 
 const routes: Routes = [
 
@@ -32,6 +33,22 @@ const routes: Routes = [
     component: POSComponent, //name: 'POS',
   },
 
+{
+  path: 'employee',
+  component: EmployeeManagementComponent
+},
+{
+  path: 'employee/manage-staff',
+  component: ManageStaffComponent
+},
+{
+  path: 'sample',
+  component: SampleComponent
+},
+{
+  path: 'employee/manage-salary',
+  component: ManageSalaryComponent
+},
   {
     path: 'sales-report',
     component: SalesReportComponent, //name: 'Sales Report'
@@ -81,16 +98,6 @@ const routes: Routes = [
     path: 'addproduct',
     component: AddProductComponent
   },
-
-  {
-    path: 'employee/add-staff',
-    component: AddStaffComponent
-  },
-
-  // {
-  //   path: 'employee/edit-staff',
-  //   component: EditStaffComponent
-  // },
 
   {
     path: 'employee/manage-staff',
