@@ -5,13 +5,12 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
-import { CategoryListComponent } from './category-list/category-list.component';  
+import { CategoryListComponent } from './category-list/category-list.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
-import { AlertdeleteComponent } from './alertdelete/alertdelete.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
@@ -21,9 +20,6 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import {MatTableModule} from '@angular/material/table';
@@ -37,6 +33,11 @@ import { SampleComponent } from './sample/sample.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSalaryComponent } from './edit-salary/edit-salary.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { POSComponent } from './pos/pos.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,6 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
     AddProductComponent,
     EditCategoryComponent,
     EditProductComponent,
-    AlertdeleteComponent,
     TestingComponent,
     EmployeeManagementComponent,
     AddStaffComponent,
@@ -62,6 +62,10 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
     AddSalaryComponent,
     SampleComponent,
     EditSalaryComponent,
+    NavbarComponent,
+    SidebarComponent,
+    HomepageComponent,
+    POSComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +92,8 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
     MatListModule,
     MatPaginatorModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    FlexLayoutModule
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

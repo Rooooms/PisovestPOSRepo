@@ -1,7 +1,9 @@
+import { HomepageComponent } from './homepage/homepage.component';
+import { POSComponent } from './pos/pos.component';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
-import { ProductManagementComponent } from './product-management/product-management.component'; 
+import { ProductManagementComponent } from './product-management/product-management.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { AppComponent } from './app.component';
@@ -17,55 +19,96 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 
 const routes: Routes = [
 
-  
+  {
+    path: '',
+    component: HomepageComponent,
+  },
+
+  {
+    path: 'POS',
+    component: POSComponent, //name: 'POS',
+  },
+
+  {
+    path: 'Sales Report',
+    component: POSComponent, //name: 'Sales Report'
+  },
+
+  {
+    path: 'Product List',
+    component: POSComponent, //name: 'Product List',
+  },
+
+  {
+    path: 'Transactions',
+    component: POSComponent, //name: 'Transactions',
+  },
+
+  {
+    path: 'Employee Management',
+    component: POSComponent, //name: 'Employee Management',
+  },
+
   {
   path: 'product',
   component: ProductManagementComponent
   },
-   {
+
+  {
   path: 'productlist',
   component: ProductListComponent
   },
+
   {
   path: 'addNewCategory',
   component: AddCategoryComponent
   },
-   {
+
+  {
   path: 'categorylist',
   component: CategoryListComponent
   },
+
   {
     path: 'addcategory',
     component: AddCategoryComponent
   },
+
   {
     path: 'addproduct',
     component: AddProductComponent
   },
+
   {
     path: 'employee',
     component: EmployeeManagementComponent
   },
+
   {
     path: 'employee/add-staff',
     component: AddStaffComponent
   },
+
   // {
   //   path: 'employee/edit-staff',
   //   component: EditStaffComponent
   // },
+
   {
     path: 'employee/manage-staff',
     component: ManageStaffComponent
   },
+
   {
     path: 'sample',
     component: SampleComponent
   },
+
   {
     path: 'employee/manage-salary',
     component: ManageSalaryComponent
   },
+
   {
     path: 'employee/edit-salary',
     component: EditSalaryComponent
