@@ -1,36 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
+import { ProductService } from '../services/product-services/product.service';
+import { product } from '../Models/product.model';
 import { SharedService } from '../shared.service';
-
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent {
-
+export class ProductListComponent implements OnInit{
+  product: product[] = [];
   public pageTitle: string;
 
-  data = [  { Category: 'Category 1', Description: 'Description 1' , ProductName: 'Product 1', Brand: 'Brand 1', Quantity: 1, Status:"Available"},
-            { Category: 'Category 2', Description: 'Description 2' , ProductName: 'Product 2', Brand: 'Brand 2', Quantity: 3, Status:"Available"},
-            { Category: 'Category 3', Description: 'Description 3' , ProductName: 'Product 3', Brand: 'Brand 3', Quantity: 2, Status:"Available"}];
+dataName = [  { name: 'categoryName', label: 'Category' },                           
+              { name: 'productName', label: 'Product Name' },
+              { name: 'productModel', label: 'Model' },
+              { name: 'productBrand', label: 'Brand' }, 
+              { name: 'productDescription', label: 'Description' }, 
+              { name: 'productPrice', label: 'Price' },
+              { name: 'productQuantity', label: 'Quantity' }, 
+              { name: 'productStatus', label: 'Status' },];
 
-  dataName = [  { name: 'Category', label: 'Category' },
-                { name: 'ProductName', label: 'Product Name' },
-                { name: 'Brand', label: 'Brand' },
-                { name: 'Description', label: 'Description' },
-                { name: 'Quantity', label: 'Quantity' },
-                { name: 'Status', label: 'Status' },];
+getColumns() {
+  return ['categoryName',  'productName', 'productBrand', 'productDescription', 'productPrice', 'productQuantity', 'productStatus', 'actions'];
+}
 
-  getColumns() {
-    return ['Category', 'ProductName', 'Brand', 'Description', 'Quantity', 'Status', 'actions'];
+      constructor(public dialog: MatDialog, private ProductService: ProductService, private sharedService : SharedService) {}
+
+  ngOnInit(): void {
+    this.ProductService.getAllProduct().subscribe({
+      next: (product) => {
+        this.product = product;
+      },
+      error: (response) => {
+        console.log(response);
+      }
+    });
+
+    this.sharedService.pageName = 'Product List';
+    this.pageTitle = 'Product List';
+      
   }
-
-      constructor(public dialog: MatDialog, private sharedService: SharedService) {}
+  
 
   openDialog() {
       const dialogRef = this.dialog.open(AddProductComponent, {
@@ -51,10 +66,7 @@ export class ProductListComponent {
   // confirmDelete(): void {
   //   confirm("Are you sure you want to delete?")
   // }
-
-  ngOnInit() {
-    this.sharedService.pageName = 'Product List';
-    this.pageTitle = 'Product List';
-
+    
 }
-}
+
+

@@ -26,7 +26,7 @@ export class AddCategoryComponent implements OnInit {
 
   addCategory(): void{
     this.categoryService.addCategory(this.addCategoryRequest).subscribe({
-      next : (staff) => {
+      next : (category) => {
         this.router.navigate(['categorylist'])
       }
     })
@@ -34,14 +34,14 @@ export class AddCategoryComponent implements OnInit {
 
   Category = [
     {
-      placeholder: 'Category Name',
+      placeholder: 'Ex. Clothes',
       type: 'string',
-      name: 'categoryName',
+      name: 'Category Name',
     },
     {
-      placeholder: 'Category Description',
+      placeholder: 'Ex. Conspicuously new and unused',
       type: 'textbox',
-      name: 'categoryDescription',
+      name: 'Category Description',
     }
       ];
       formData = {};
