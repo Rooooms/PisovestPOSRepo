@@ -1,9 +1,9 @@
+
 *{
- 
-    margin-bottom: 1rem;
-    white-space: normal;
-  }
-  
+  margin: auto;
+  margin-bottom: 1rem;
+  white-space: normal;
+}
   .header{
     display: flex;
     justify-content: space-around;
@@ -12,13 +12,7 @@
     display: flex;
     padding: 0%;
   }
-  
-  table {
-    width: 80%;  
-    height: 40%; 
-    align-items: center;
-  }
-  .actions{
+    .actions{
     display: flex;
     margin: auto;
   }
@@ -64,6 +58,15 @@
       box-shadow: .5px .5px #2ea86548; 
       margin-top: 2%;
   }
+
+  table{
+    margin-top: 1% !important;
+    margin: auto;
+    padding: 10px;
+    width: 80%;  
+    height: 40%; 
+    align-items: center;
+  }
   .tools {
     background-color: #2ea86548;
     width: 100%;
@@ -82,4 +85,7 @@
   }
   .btna{
     margin-right: 2%;
+  }
+  td, th{
+    padding: 10px;
   }

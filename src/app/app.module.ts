@@ -22,6 +22,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { InvoiceComponent } from './invoice/invoice.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +40,8 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
     AddSalaryComponent,
     SampleComponent,
     EditSalaryComponent,
+    InvoiceComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -47,7 +54,13 @@ import { EditSalaryComponent } from './edit-salary/edit-salary.component';
     MatListModule,
     MatPaginatorModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserModule,
+    FormsModule,
+    MatDatepickerModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

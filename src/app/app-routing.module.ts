@@ -21,10 +21,10 @@ const routes: Routes = [
   path: 'employee/add-staff',
   component: AddStaffComponent
 },
-// {
-//   path: 'employee/edit-staff',
-//   component: EditStaffComponent
-// },
+{
+  path: 'employee/edit-staff',
+  component: EditStaffComponent
+},
 {
   path: 'employee/manage-staff',
   component: ManageStaffComponent
