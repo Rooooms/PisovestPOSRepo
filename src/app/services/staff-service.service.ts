@@ -17,7 +17,7 @@ export class StaffServiceService {
     return this.http.get<Staff[]>(this.baseAPIURL + 'api/Employee');
   }
   addStaff(addStaffRequest : Staff) : Observable<Staff>{
-    addStaffRequest.id = 0;
+    addStaffRequest.id = '00000000-0000-0000-0000-000000000000';
     return this.http.post <Staff> (this.baseAPIURL + 'api/Employee', addStaffRequest);
   }
 

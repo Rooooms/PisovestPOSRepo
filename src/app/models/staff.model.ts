@@ -1,6 +1,6 @@
 export interface Staff {
 
-    id : number;
+    id : string;
     employeeName: string;
     employeeEmail: string;
     employeeMobileNumber: string;
@@ -9,5 +9,15 @@ export interface Staff {
     datejoined: string;
     employeePosition: string;
     employeeAddress: string;
+    
+
+}
+
+export interface staffDTO {
+
+    
+    selectedPosition: string,
+    selectedEmployee: string,
+    
 
 }
