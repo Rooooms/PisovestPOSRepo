@@ -3,14 +3,19 @@
       <div *ngFor="let salary of Salary" fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="mb-3">
         <mat-form-field appearance="outline">
           <mat-label>{{salary.name}}</mat-label>
-          <ng-container *ngIf="salary.name === 'Position'; else salaryInput">
+          <ng-container *ngIf="salary.name === 'Position'">
             <mat-select name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
               <mat-option *ngFor="let option of option" [value]="option">{{option}}</mat-option>
             </mat-select>
           </ng-container>
-          <ng-template #salaryInput>
+          <ng-container *ngIf="salary.name === 'Name'">
+            <mat-select name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
+              <mat-option *ngFor="let option of option" [value]="option">{{option}}</mat-option>
+            </mat-select>
+          </ng-container>
+          <ng-container *ngIf="salary.name !== 'Position' && salary.name !== 'Name'">
             <input matInput type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
-          </ng-template>
+          </ng-container>
         </mat-form-field>
       </div>
     </div>
