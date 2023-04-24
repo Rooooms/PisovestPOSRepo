@@ -3,7 +3,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-
 import { TransactionDataComponent } from './transaction-data.component';
 
 describe('TransactionDataComponent', () => {
@@ -12,7 +11,7 @@ describe('TransactionDataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransactionDataComponent ],
+      declarations: [TransactionDataComponent],
       imports: [
         NoopAnimationsModule,
         MatPaginatorModule,

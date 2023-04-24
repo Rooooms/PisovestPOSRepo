@@ -3,6 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ProductDataDataSource, ProductDataItem } from './product-data-datasource';
+import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-product-data',
@@ -16,7 +19,7 @@ export class ProductDataComponent implements AfterViewInit {
   dataSource: ProductDataDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  columnNames: {[key: string]: string} = {
+  columnNames: { [key: string]: string } = {
     'id': 'ID',
     'dateTime': 'Date and Time',
     'code': 'Code',
@@ -25,15 +28,16 @@ export class ProductDataComponent implements AfterViewInit {
     'quantity': 'Quantity',
     'action': 'Action'
   };
-  
+
   displayedColumns: string[] = ['category', 'product', 'quantity', 'price', 'total', 'action'];
+
 
   onAddClicked(row: any) {
     // Handle button click event here
     console.log('Add button clicked for row:', row);
   }
-  
-  constructor() {
+
+  constructor(private matDialog: MatDialog) {
     this.dataSource = new ProductDataDataSource();
   }
 
@@ -42,4 +46,16 @@ export class ProductDataComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
+
+  openDialog() {
+    // Handle button click event here
+    this.matDialog.open(InvoiceDialogComponent, {
+      width: '30%',
+      height: '90%',
+    });
+  }
+
+
+
+
 }

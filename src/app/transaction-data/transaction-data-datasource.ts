@@ -13,7 +13,7 @@ export interface TransactionDataItem {
   total: number;
   tax: number;
   quantity: number;
-
+                                                            
 
 }
 

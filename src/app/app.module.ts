@@ -22,18 +22,18 @@ import { ProductDataComponent } from './product-data/product-data.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { NgxPrintModule } from 'ngx-print';
 
 
 
 
 
 const appRoute: Routes = [
-  {path: '', component: CardComponent},
-  {path: 'Home', component: CardComponent},
-  {path: 'Sales', component: SalesReportComponent},
-  {path: 'Transactions', component: TransactionListComponent},
-  {path: 'POS', component: PosComponent}
+  { path: '', component: CardComponent },
+  { path: 'Home', component: CardComponent },
+  { path: 'Sales', component: SalesReportComponent },
+  { path: 'Transactions', component: TransactionListComponent },
+  { path: 'POS', component: PosComponent }
 ]
 
 
@@ -53,7 +53,8 @@ const appRoute: Routes = [
     PosComponent,
     ProductDataComponent,
 
-   
+
+
   ],
   imports: [
     BrowserModule,
@@ -64,9 +65,10 @@ const appRoute: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    NgxPrintModule
 
 
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

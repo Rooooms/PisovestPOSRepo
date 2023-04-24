@@ -1,0 +1,13 @@
+@media print {
+    .print-button {
+        display: none;
+    }
+}
+
+.invoice-container {
+    padding: 30px;
+}
+
+.btn-print {
+    text-align: center;
+}

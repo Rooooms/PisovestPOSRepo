@@ -5,22 +5,22 @@
         {{ columnNames[column] || column }}
       </th>
 
-  <td mat-cell *matCellDef="let row">
-    {{ row[column] }}
-    <button mat-raised-button color="warn" *ngIf="column === 'action'" (click)="onAddClicked(row) ">Delete</button>
-  </td>
+      <td mat-cell *matCellDef="let row">
+        {{ row[column] }}
+
+        <button class="btn-edit" mat-raised-button color="primary" *ngIf="column === 'action'"
+          (click)="openDialog() "><mat-icon fontIcon="description"></mat-icon></button>
+        <button class="btn-edit" mat-raised-button color="warn" *ngIf="column === 'action'"
+          (click)="onAddClicked(row) "><mat-icon fontIcon="delete_forever"></mat-icon></button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
+
   </table>
 
-  <mat-paginator #paginator
-      [length]="dataSource?.data?.length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
-      aria-label="Select page">
+  <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
   </mat-paginator>
 </div>
