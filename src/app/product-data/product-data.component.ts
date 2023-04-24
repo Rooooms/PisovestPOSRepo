@@ -51,7 +51,7 @@ export class ProductDataComponent implements AfterViewInit {
     // Handle button click event here
     this.matDialog.open(InvoiceDialogComponent, {
       width: '30%',
-      height: '90%',
+      height: '70%',
     });
   }
 
