@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Staff } from '../models/staff.model';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaffServiceService } from '../services/staff-service.service';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 
 
 
@@ -12,95 +13,112 @@ import { Router } from '@angular/router';
 })
 export class AddStaffComponent implements OnInit{
 
-  addStaffRequest : Staff = {
-    id : '',
-    employeeName: '',
-    employeeEmail: '',
-    employeeMobileNumber: '',
-    employeeExpectedSalary: 0,
-    birthday : '0000-00-00T00:00:00.00',
-    datejoined: '0000-00-0T00:00:00.0000',
-    employeePosition: '',
-    employeeAddress: '',
-  }
+ 
+  addstaff: FormGroup;
 
-  constructor(private staffService : StaffServiceService, private router : Router) {}
-  
-  ngOnInit(): void {
-      
-  }
+  constructor(
+    private staffService : StaffServiceService, 
+    private _Staff : FormBuilder,
+    private _dialogRef: MatDialogRef<AddStaffComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
 
-  addStaff(): void{
-    this.staffService.addStaff(this.addStaffRequest).subscribe({
-      next : (staff) => {
-        this.router.navigate(['employee/manage-staff'])
+    ) {
+
+  this.addstaff = this._Staff.group({
+      id : '',
+      employeeName: '',
+      employeeEmail: '',
+      employeeMobileNumber: '',
+      employeeExpectedSalary: 0,
+      birthday : '',
+      datejoined: '',
+      employeePosition: '',
+      employeeAddress: '',
+  })
+  }
+    ngOnInit(): void {
+        this.addstaff.patchValue(this.data);
+    }
+
+  onFormSubmit(){
+    if (this.addstaff.valid){
+        this.staffService.addStaff(this.addstaff.value).subscribe({
+          next:(val: any) => {
+            this._dialogRef.close(true);
+          },
+          error: (err: any) =>{
+            console.error(err);
+          },
+        });
       }
-    })
   }
-
+  
+    
+  
   Staff = [
+    
+  {
+    placeholder: 'ex. Juan Dela Cruz ',
+    type: 'text',
+    name: 'employeeName',
+    id: 'employeeName',
+    hold: 'Name'
+    
+  },
+  {
+    placeholder: 'ex. @example.com',
+    type: 'email',
+    name: 'employeeEmail',
+    id: 'employeeEmail',
+    hold: 'Email'
+  },
+  {
+    placeholder: '09XXXXXXXXX',
+    type: 'text',
+    name: 'employeeMobileNumber',
+    id: 'employeeMobileNumber',
+    hold: 'Mobile Number'
+  },
+  {
+    placeholder: 'XXXXXX',
+    type: 'number',
+    name: 'employeeExpectedSalary',
+    id: 'employeeExpectedSalary',
+    hold: 'Expected Salary'
+  },
+  {
+    placeholder: '00/00/0000',
+    type: 'date',
+    name: 'birthday',
+    id: 'birthday',
+    hold: 'Birthday'
+  },
+  {
+    placeholder: 'ex. Manager',
+    type: 'text',
+    name: 'employeePosition',
+    id: 'employeePosition',
+    hold: 'Position'
+  },
+  {
+    placeholder: 'ex. 2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr, Port Area, Manila, 1000 Metro Manila',
+    type: 'text',
+    name: 'employeeAddress',
+    id: 'employeeAddress',
+    hold: 'Address'
+  },
   
-{
-  placeholder: 'ex. Juan Dela Cruz ',
-  type: 'text',
-  name: 'employeeName',
-  id: 'employeeName',
-  hold: 'Name'
+  {
+    placeholder: '00/00/0000',
+    type: 'date',
+    name: 'datejoined',
+    id: 'datejoined',
+    hold: 'Date Joined'
+  }
   
-},
-{
-  placeholder: 'ex. @example.com',
-  type: 'email',
-  name: 'employeeEmail',
-  id: 'employeeEmail',
-  hold: 'Email'
-},
-{
-  placeholder: '09XXXXXXXXX',
-  type: 'text',
-  name: 'employeeMobileNumber',
-  id: 'employeeMobileNumber',
-  hold: 'Mobile Number'
-},
-{
-  placeholder: 'XXXXXX',
-  type: 'number',
-  name: 'employeeExpectedSalary',
-  id: 'employeeExpectedSalary',
-  hold: 'Expected Salary'
-},
-{
-  placeholder: 'Birthday',
-  type: 'date',
-  name: 'birthday',
-  id: 'birthday',
-  hold: 'Birthday'
-},
-{
-  placeholder: 'ex. Manager',
-  type: 'text',
-  name: 'employeePosition',
-  id: 'employeePosition',
-  hold: 'Position'
-},
-{
-  placeholder: 'ex. 2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr, Port Area, Manila, 1000 Metro Manila',
-  type: 'text',
-  name: 'employeeAddress',
-  id: 'employeeAddress',
-  hold: 'Address'
-},
-
-{
-  placeholder: 'Date Joined',
-  type: 'date',
-  name: 'datejoined',
-  id: 'datejoined',
-  hold: 'Date Joined'
-}
+  
+    ];
 
 
-  ];
-  formData = {};
-  onSubmit(){}
-}
+  }
+  

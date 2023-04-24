@@ -1,85 +1,31 @@
-::ng-deep .form-container {
-  padding: 50px;
-}
-.dialog-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.h1{
-  margin: auto;
-  padding: 0px;
-  display: flex;
-}
-.form-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
+.content {
+  padding-top: 10px;
 }
 
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row mat-form-field {
+  width: 100%;
+}
+
+.action button{
+  padding: 0px 25px 20px;
+  flex: 1;
+}
+
+.action button {
+  flex: 1;
+}
 .form-column {
   display: inline-block;
   width: 45%;
   margin-right: 5%;
   vertical-align: top;
 }
-.example-form-field {
-  max-width: 100%;
-  margin: auto;
-  padding: 10px;
-  padding-bottom: 0%;
-  padding-top: 0%;
-}
-
-.form-group {
-  margin: 0.5em 0;
-}
-
-input {
-  width: 100%;
-  height: 2rem;
-}
-
-button {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 200px;
-}
-
-.output-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
-}
-
-.column {
-  flex-basis: 50%;
-}
-
-p {
-  margin: 0.5em 0;
-}
-.example{
+.form-group mat-form-field{
   width: 100%;
 }
-@media only screen and (max-width: 768px) {
-  .form-container {
-    flex-direction: column;
-  }
-  .form-column {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 20px;
-    vertical-align: middle;
-  }
-  .form-group {
-    margin: 1em 0;
-  }
-  button {
-    margin-top: 40px;
-  }
-  .output-container {
-    margin: 40px 0;
-  }
-}
+

@@ -4,6 +4,8 @@ import { AddStaffComponent } from '../add-staff/add-staff.component';
 import { Staff } from '../models/staff.model';
 import { StaffServiceService } from '../services/staff-service.service';
 import { EditStaffComponent } from '../edit-staff/edit-staff.component';
+import { SampleComponent } from '../sample/sample.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -13,7 +15,11 @@ import { EditStaffComponent } from '../edit-staff/edit-staff.component';
 })
 
 export class ManageStaffComponent implements OnInit {
-
+  constructor (
+    public dialog: MatDialog, 
+    private staffService: StaffServiceService,
+    
+    ){}
 
   dataName = [
     {name: 'id', label: 'ID'},
@@ -26,38 +32,39 @@ export class ManageStaffComponent implements OnInit {
     {name: 'datejoined', label: 'Date Joined'},
     {name: 'employeeExpectedSalary', label: 'Expected Salary'},
   ]
-  
+  dataSource!: MatTableDataSource<any>;
 getColumns(){
 return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
 }
-
-  staff : Staff[] = [];
-  // constructor (private staffService : StaffServiceService) {}
-
-  constructor (public dialog: MatDialog, private staffService: StaffServiceService){}
+  
   openDialog() {
-    const dialogRef = this.dialog.open(AddStaffComponent, {
-      width: '40%',
-      height: '50%',
-
-    });
+    const dialogRef = this.dialog.open(AddStaffComponent);
+    dialogRef.afterClosed().subscribe({
+      next : (val) => {
+        if (val){
+          this.getAllStaff();
+        }
+      }
+    })
   }
   openDialogEdit() {
     this.dialog.open(EditStaffComponent);
   }
   openDialogAlertDelete(){
-    this.dialog.open(AddStaffComponent);
+    this.dialog.open(SampleComponent);
   }
 
   ngOnInit(): void {
-      this.staffService.getAllStaff().subscribe({
-        next : (staff) => {
-          this.staff = staff;
-        },
-        error: (response) => {
-          console.log(response)
-        }
-      });
+    this.getAllStaff();
+  }
+
+  getAllStaff(){
+    this.staffService.getAllStaff().subscribe({
+      next: (staff) => {
+        this.dataSource = new MatTableDataSource(staff);
+      },
+       error: console.log,
+    });
   }
   
 }

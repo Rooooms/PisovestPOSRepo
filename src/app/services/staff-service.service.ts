@@ -8,17 +8,20 @@ import { Staff } from '../models/staff.model';
   providedIn: 'root'
 })
 export class StaffServiceService {
+  getStafflist() {
+    throw new Error('Method not implemented.');
+  }
 
   baseAPIURL : string = environment.baseAPIURL;
 
   constructor(private http : HttpClient) { }
 
-  getAllStaff (): Observable <Staff[]>{
-    return this.http.get<Staff[]>(this.baseAPIURL + 'api/Employee');
+  getAllStaff (): Observable <any>{
+    return this.http.get(this.baseAPIURL + 'api/Employee');
   }
-  addStaff(addStaffRequest : Staff) : Observable<Staff>{
-    addStaffRequest.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.post <Staff> (this.baseAPIURL + 'api/Employee', addStaffRequest);
+  addStaff(data: any) : Observable<any>{
+    data.id = '00000000-0000-0000-0000-000000000000';
+    return this.http.post <any> (this.baseAPIURL + 'api/Employee', data);
   }
 
 }

@@ -1,56 +1,30 @@
-*{
-  margin-top: 3rem;
-}
-.container{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
+.content {
+  padding-top: 10px;
 }
 
-table {
-  width: 80%;
-  align-items: center;
+.row {
+  display: flex;
+  gap: 10px;
+}
 
+.row mat-form-field {
+  width: 100%;
 }
-mat-toolbar{
-  width: 90%;
-}
-.mat-mdc-paginator-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 8px;
-  flex-wrap: wrap-reverse;
-  width: 90%;
-  margin-top: 10%;
-}
-.btn{
-  width: 20%;
-  align-items: flex-start;
-}
-.header{
-  display: flex;
-  justify-content: space-around;
-}
-.back{
-  flex-direction: row-reverse;
-}
-.mdc-data-table__table {
-  min-width: 80%;
-  border: 1;
-  white-space: normal;
-  border-spacing: 1;
-  table-layout: fixed;
-  margin-left: auto;
-  margin-right: auto;
-}
-.actions{
-  display: flex;
 
+.action button{
+  padding: 0px 25px 20px;
+  flex: 1;
 }
-.data{
-  display: flex;
-  margin: auto;
+
+.action button {
+  flex: 1;
+}
+.form-column {
+  display: inline-block;
+  width: 45%;
+  margin-right: 5%;
+  vertical-align: top;
+}
+.form-group mat-form-field{
+  width: 100%;
 }
