@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ProductService {
 
-  baseAPIURL: string = environment.baseAPIURL;
+  baseAPIURL: string = environment.baseApiUrl;
 
   constructor(private http: HttpClient) { }
 

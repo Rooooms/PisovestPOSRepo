@@ -27,7 +27,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
+import { SampleComponent } from './sample/sample.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -45,7 +48,9 @@ import { FormsModule } from '@angular/forms';
     EditCategoryComponent,
     EditProductComponent,
     AlertdeleteComponent,
-    TestingComponent
+    TestingComponent,
+    ProductAddEditComponent,
+    SampleComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,9 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatSelectModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
     
   ],
   providers: [],

@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { EditCategoryComponent } from '../edit-category/edit-category.component';
 import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
-import { TestingComponent } from '../testing/testing.component';
 import { category } from '../Models/category.model';
 import { CategoryService } from '../services/category-services/category.service';
 
@@ -26,6 +25,9 @@ return ['categoryName', 'categoryDescription', 'actions'];
 }
 
   constructor(public dialog: MatDialog, private categoryService: CategoryService, ) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   openDialog() {
     this.dialog.open(AddCategoryComponent);
@@ -38,16 +40,16 @@ return ['categoryName', 'categoryDescription', 'actions'];
     this.dialog.open(AlertdeleteComponent);
   }
 
-  ngOnInit(): void {  
-    this.categoryService.getAllCategory().subscribe({
-      next: (category) => {
-        this.category = category;
-      },
-      error: (response) => {
-        console.log(response);
-      }
-    });
+  // ngOnInit(): void {  
+  //   this.categoryService.getAllCategory().subscribe({
+  //     next: (category) => {
+  //       this.category = category;
+  //     },
+  //     error: (response) => {
+  //       console.log(response);
+  //     }
+  //   });
       
-  }
+  // }
 }
 

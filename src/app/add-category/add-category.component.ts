@@ -24,13 +24,13 @@ export class AddCategoryComponent implements OnInit {
   }
 
 
-  addCategory(): void{
-    this.categoryService.addCategory(this.addCategoryRequest).subscribe({
-      next : (category) => {
-        this.router.navigate(['categorylist'])
-      }
-    })
-  }
+  // addCategory(): void{
+  //   this.categoryService.addCategory(this.addCategoryRequest).subscribe({
+  //     next : (category) => {
+  //       this.router.navigate(['categorylist'])
+  //     }
+  //   })
+  // }
 
   Category = [
     {

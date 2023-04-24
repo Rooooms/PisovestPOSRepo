@@ -9,55 +9,58 @@ import { category } from '../Models/category.model';
   styleUrls: ['./edit-category.component.css']
 })
 export class EditCategoryComponent implements OnInit{
-
-    categoryDetails : category = { 
-    id : '',
-    categoryName : '',
-    categoryDescription: ''
-  }
-
-  constructor (private route: ActivatedRoute, private categoryService : CategoryService, private router : Router){}
-
   ngOnInit(): void {
-    this.route.paramMap.subscribe({
-      next: (params) => {
-        const id = params.get('id');
-        console.log(id);
-
-        if (id){
-          //call the API
-          this.categoryService.getCategory(id).subscribe({
-            next: (response) => {
-              this.categoryDetails = response;
-            }
-          });
-
-        }
-      }
-    });
-    
+    throw new Error('Method not implemented.');
   }
 
-  updateCategory(): void{
-    this.categoryService.updateCategory(this.categoryDetails.id, this.categoryDetails).subscribe({
-      next : (response) => {
-        this.router.navigate(['categorylist'])
-      }
-    });
-  }
-  Category = [
+  //   categoryDetails : category = { 
+  //   id : '',
+  //   categoryName : '',
+  //   categoryDescription: ''
+  // }
+
+  // constructor (private route: ActivatedRoute, private categoryService : CategoryService, private router : Router){}
+
+  // ngOnInit(): void {
+  //   this.route.paramMap.subscribe({
+  //     next: (params) => {
+  //       const id = params.get('id');
+  //       console.log(id);
+
+  //       if (id){
+  //         //call the API
+  //         this.categoryService.getCategory(id).subscribe({
+  //           next: (response) => {
+  //             this.categoryDetails = response;
+  //           }
+  //         });
+
+  //       }
+  //     }
+  //   });
     
-    {
-      placeholder: 'Category Name',
-      type: 'text',
-      name: 'categoryName',
-    },
-    {
-      placeholder: 'Category Description',
-      type: 'string',
-      name: 'categoryDescription',
-    }
-      ];
+  // }
+
+  // updateCategory(): void{
+  //   this.categoryService.updateCategory(this.categoryDetails.id, this.categoryDetails).subscribe({
+  //     next : (response) => {
+  //       this.router.navigate(['categorylist'])
+  //     }
+  //   });
+  // }
+  // Category = [
+    
+  //   {
+  //     placeholder: 'Category Name',
+  //     type: 'text',
+  //     name: 'categoryName',
+  //   },
+  //   {
+  //     placeholder: 'Category Description',
+  //     type: 'string',
+  //     name: 'categoryDescription',
+  //   }
+  //     ];
       
 
       

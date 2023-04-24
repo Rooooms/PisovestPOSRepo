@@ -9,23 +9,24 @@ import { environment } from 'src/environments/environment.development';
 })
 export class CategoryService {
 
-  baseAPIURL: string = environment.baseAPIURL;
+  baseApiUrl: string = environment.baseApiUrl;
 
-  constructor(private http: HttpClient) { }
-
-  getAllCategory(): Observable<category[]>{
-    return this.http.get<category[]>(this.baseAPIURL + 'api/Category');
-  }
-  addCategory(addCategoryRequest: category): Observable<category>{
-    addCategoryRequest.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.post <category> (this.baseAPIURL + 'api/Category', addCategoryRequest ) 
-  }
-  getCategory(id : string): Observable<category> {
-    return this.http.get<category>(this.baseAPIURL + 'api/Category/' + id)
+  constructor(private http : HttpClient) { }
+  addEmployee(data :  any): Observable <any> {
+    data.id = '00000000-0000-0000-0000-000000000000';
+    return this.http.post (this.baseApiUrl + 'api/Employees', data )
   }
 
-  updateCategory(id:string, updateCategoryRequest: category): Observable<category> {
-    
-    return this.http.put<category>(this.baseAPIURL + 'api/Category/' + id, updateCategoryRequest)
+  getEmployeeList(): Observable <any> {
+    return this.http.get(this.baseApiUrl + 'api/Employees');
+  }
+
+  deleteEmployee(id : string) : Observable<any>{
+    return this.http.delete(`https://localhost:5125/api/Employees/${id}`)
+  }
+
+  updateEmployee(data :  any , id:string): Observable <any> {
+    data.id = '00000000-0000-0000-0000-000000000000';
+    return this.http.put (`https://localhost:5125/api/Employees/${id}`, data)
   }
 }
