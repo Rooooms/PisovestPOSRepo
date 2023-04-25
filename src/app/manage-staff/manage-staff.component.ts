@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
-import { Staff } from '../models/staff.model';
 import { StaffServiceService } from '../services/staff-service.service';
-import { EditStaffComponent } from '../edit-staff/edit-staff.component';
-import { SampleComponent } from '../sample/sample.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -18,7 +16,7 @@ export class ManageStaffComponent implements OnInit {
   constructor (
     public dialog: MatDialog, 
     private staffService: StaffServiceService,
-    
+    private datePipe: DatePipe
     ){}
 
   dataName = [
@@ -36,7 +34,10 @@ export class ManageStaffComponent implements OnInit {
 getColumns(){
 return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
 }
-  
+  ngOnInit(): void {
+    this.getAllStaff();
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(AddStaffComponent);
     dialogRef.afterClosed().subscribe({
@@ -47,25 +48,48 @@ return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEma
       }
     })
   }
-  openDialogEdit() {
-    this.dialog.open(EditStaffComponent);
-  }
-  openDialogAlertDelete(){
-    this.dialog.open(SampleComponent);
-  }
+  openDialogEdit(data: any) {
+    const dialogRef = this.dialog.open(AddStaffComponent, {
+      data,
+    });
 
-  ngOnInit(): void {
-    this.getAllStaff();
+    dialogRef.afterClosed().subscribe({
+      next: (staff) => {
+        if (staff){
+          this.getAllStaff();
+        }
+      },
+    });
   }
-
+  
+  
   getAllStaff(){
     this.staffService.getAllStaff().subscribe({
       next: (staff) => {
-        this.dataSource = new MatTableDataSource(staff);
+        this.staffService.getAllStaff().subscribe({
+          next: (staff) => {
+            const formattedStaff = staff.map((s) => ({
+              ...s,
+              birthday: this.datePipe.transform(s.birthday, 'mediumDate'),
+              datejoined: this.datePipe.transform(s.datejoined, 'mediumDate'),
+            }));
+            this.dataSource = new MatTableDataSource(formattedStaff);
+          },
+          error: console.log,
+        });
       },
        error: console.log,
     });
   }
+
+  deleteStaff(id: string ){
+        this.staffService.deleteStaff(id).subscribe({
+          next: (staff) =>{
+            this.getAllStaff();
+          },
+          error: console.log,
+        });
+        
+  }
   
 }
-  

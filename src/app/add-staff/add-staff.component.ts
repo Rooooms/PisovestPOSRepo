@@ -30,8 +30,8 @@ export class AddStaffComponent implements OnInit{
       employeeEmail: '',
       employeeMobileNumber: '',
       employeeExpectedSalary: 0,
-      birthday : '',
-      datejoined: '',
+      birthday : '0000-00-00',
+      datejoined: '0000-00-00',
       employeePosition: '',
       employeeAddress: '',
   })
@@ -42,6 +42,18 @@ export class AddStaffComponent implements OnInit{
 
   onFormSubmit(){
     if (this.addstaff.valid){
+      if (this.data){
+        this.staffService
+        .updateStaff(this.data.id, this.addstaff.value)
+        .subscribe({
+          next: (val: any) =>{
+                this._dialogRef.close(true);      
+          },
+          error: (err: any) =>{
+            console.error(err);
+          },
+        });
+      }else{
         this.staffService.addStaff(this.addstaff.value).subscribe({
           next:(val: any) => {
             this._dialogRef.close(true);
@@ -51,6 +63,7 @@ export class AddStaffComponent implements OnInit{
           },
         });
       }
+    }
   }
   
     

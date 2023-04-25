@@ -8,7 +8,6 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -27,6 +26,8 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,6 @@ import { MatSelectModule } from '@angular/material/select';
     AddStaffComponent,
     SidebarComponent,
     NavbarComponent,
-    EditStaffComponent,
     ManageStaffComponent,
     ManageSalaryComponent,
     AddSalaryComponent,
@@ -54,6 +54,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatListModule,
     MatPaginatorModule,
+    MatSortModule,
     MatGridListModule,
     MatIconModule,
     AppRoutingModule,
@@ -64,10 +65,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatOptionModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe
     
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

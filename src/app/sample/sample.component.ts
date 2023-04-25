@@ -28,8 +28,8 @@ export class SampleComponent implements OnInit {
       employeeEmail: '',
       employeeMobileNumber: '',
       employeeExpectedSalary: 0,
-      birthday : '',
-      datejoined: '',
+      birthday : '0000-00-00',
+      datejoined: '0000-00-00',
       employeePosition: '',
       employeeAddress: '',
   })
