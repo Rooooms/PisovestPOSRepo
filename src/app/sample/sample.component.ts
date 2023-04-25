@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
-export interface TableData {
-  id: number;
-  name: string;
-  age: number;
-  email: string;
-}
+import { StaffServiceService } from '../services/staff-service.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -14,30 +10,113 @@ export interface TableData {
   templateUrl: './sample.component.html',
   styleUrls: ['./sample.component.css']
 })
-export class SampleComponent {
+export class SampleComponent implements OnInit {
 
-  data = [  { id: 1, CategoryName: 'Category 1', Description: 'Description 1' },  
-  { id: 2, CategoryName: 'Category 2', Description: 'Description 2' },  
-  { id: 3, CategoryName: 'Category 3', Description: 'Description 3' }];
+  addstaff: FormGroup;
 
-dataName = [  { name: 'id', label: 'ID' },  
-    { name: 'CategoryName', label: 'Category Name' },  
-    { name: 'Description', label: 'Description' }];
+  constructor(
+    private staffService : StaffServiceService, 
+    private _Staff : FormBuilder,
+    private _dialogRef: MatDialogRef<AddStaffComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
 
-getColumns() {
-return ['id', 'CategoryName', 'Description', 'actions'];
-}
+    ) {
 
-  constructor(public dialog: MatDialog) {}
-
-  openDialog() {
-    this.dialog.open(AddStaffComponent);
+  this.addstaff = this._Staff.group({
+    id : '',
+      employeeName: '',
+      employeeEmail: '',
+      employeeMobileNumber: '',
+      employeeExpectedSalary: 0,
+      birthday : '0000-00-00',
+      datejoined: '0000-00-00',
+      employeePosition: '',
+      employeeAddress: '',
+  })
   }
-  openDialogEdit() {
-    this.dialog.open(AddStaffComponent);
-  }
+    ngOnInit(): void {
+        this.addstaff.patchValue(this.data);
+    }
 
+  onFormSubmit(){
+    if (this.addstaff.valid){
+      if(this.data){
+        this.staffService.addStaff(this.addstaff.value).subscribe({
+          next:(val: any) => {
+            this._dialogRef.close(true);
+          },
+          error: (err: any) =>{
+            console.error(err);
+          },
+        });
+      }
+    }
+  }
   
+    Staff = [
+    
+  {
+    placeholder: 'ex. Juan Dela Cruz ',
+    type: 'text',
+    name: 'employeeName',
+    id: 'employeeName',
+    hold: 'Name'
+    
+  },
+  {
+    placeholder: 'ex. @example.com',
+    type: 'email',
+    name: 'employeeEmail',
+    id: 'employeeEmail',
+    hold: 'Email'
+  },
+  {
+    placeholder: '09XXXXXXXXX',
+    type: 'text',
+    name: 'employeeMobileNumber',
+    id: 'employeeMobileNumber',
+    hold: 'Mobile Number'
+  },
+  {
+    placeholder: 'XXXXXX',
+    type: 'number',
+    name: 'employeeExpectedSalary',
+    id: 'employeeExpectedSalary',
+    hold: 'Expected Salary'
+  },
+  {
+    placeholder: '00/00/0000',
+    type: 'date',
+    name: 'birthday',
+    id: 'birthday',
+    hold: 'Birthday'
+  },
+  {
+    placeholder: 'ex. Manager',
+    type: 'text',
+    name: 'employeePosition',
+    id: 'employeePosition',
+    hold: 'Position'
+  },
+  {
+    placeholder: 'ex. 2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr, Port Area, Manila, 1000 Metro Manila',
+    type: 'text',
+    name: 'employeeAddress',
+    id: 'employeeAddress',
+    hold: 'Address'
+  },
+  
+  {
+    placeholder: '00/00/0000',
+    type: 'date',
+    name: 'datejoined',
+    id: 'datejoined',
+    hold: 'Date Joined'
+  }
+  
+  
+    ];
 
-}
 
+  }
+  

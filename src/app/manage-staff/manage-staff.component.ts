@@ -4,7 +4,8 @@ import { AddStaffComponent } from '../add-staff/add-staff.component';
 import { SharedService } from '../shared.service';
 import { Staff } from '../models/staff.model';
 import { StaffServiceService } from '../services/staff-service.service';
-import { EditStaffComponent } from '../edit-staff/edit-staff.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -43,6 +44,12 @@ export class ManageStaffComponent implements OnInit {
   ];
 
 
+  constructor (
+    public dialog: MatDialog, 
+    private staffService: StaffServiceService,
+    private datePipe: DatePipe,
+    private sharedService: SharedService
+    ){}
 
   dataName = [
     {name: 'id', label: 'ID'},
@@ -56,42 +63,67 @@ export class ManageStaffComponent implements OnInit {
     {name: 'employeeExpectedSalary', label: 'Expected Salary'},
   ]
 
+  dataSource!: MatTableDataSource<any>;
 getColumns(){
 return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
 }
+  ngOnInit(): void {
+    this.getAllStaff();
+  }
 
-  staff : Staff[] = [];
-  // constructor (private staffService : StaffServiceService) {}
 
-  constructor (public dialog: MatDialog, private staffService: StaffServiceService, private sharedService: SharedService){}
   openDialog() {
+    const dialogRef = this.dialog.open(AddStaffComponent);
+    dialogRef.afterClosed().subscribe({
+      next : (val) => {
+        if (val){
+          this.getAllStaff();
+        }
+      }
+    })
+  }
+  openDialogEdit(data: any) {
     const dialogRef = this.dialog.open(AddStaffComponent, {
-      width: '40%',
-      height: '50%',
+      data,
+    });
 
+    dialogRef.afterClosed().subscribe({
+      next: (staff) => {
+        if (staff){
+          this.getAllStaff();
+        }
+      },
     });
   }
-  openDialogEdit() {
-    this.dialog.open(EditStaffComponent);
-  }
-  openDialogAlertDelete(){
-    this.dialog.open(AddStaffComponent);
+  
+  
+  getAllStaff(){
+    this.staffService.getAllStaff().subscribe({
+      next: (staff) => {
+        this.staffService.getAllStaff().subscribe({
+          next: (staff) => {
+            const formattedStaff = staff.map((s) => ({
+              ...s,
+              birthday: this.datePipe.transform(s.birthday, 'mediumDate'),
+              datejoined: this.datePipe.transform(s.datejoined, 'mediumDate'),
+            }));
+            this.dataSource = new MatTableDataSource(formattedStaff);
+          },
+          error: console.log,
+        });
+      },
+       error: console.log,
+    });
   }
 
-  ngOnInit(): void {
-    
-      this.staffService.getAllStaff().subscribe({
-        next : (staff) => {
-          this.staff = staff;
-        },
-        error: (response) => {
-          console.log(response)
-        }
-      });
-
-    this.sharedService.pageName = 'Manage Staff';
-    this.pageTitle = 'Manage Staff';
+  deleteStaff(id: string ){
+        this.staffService.deleteStaff(id).subscribe({
+          next: (staff) =>{
+            this.getAllStaff();
+          },
+          error: console.log,
+        });
+        
   }
   
 }
-

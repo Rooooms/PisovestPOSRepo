@@ -49,7 +49,9 @@ import { TransactionDataComponent } from './transaction-data/transaction-data.co
 import { ProductDataComponent } from './product-data/product-data.component';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { PayslipComponent } from './payslip/payslip.component';
-
+import { MatNativeDateModule,} from '@angular/material/core';
+import { MatSort,} from '@angular/material/sort';
+import { DatePipe } from '@angular/common';
 
 const appRoute: Routes = [
   {path: '', component: CardComponent},
@@ -58,6 +60,7 @@ const appRoute: Routes = [
   {path: 'Transactions', component: TransactionListComponent},
   {path: 'POS', component: POSComponent}
 ]
+
 
 @NgModule({
   declarations: [
@@ -76,7 +79,6 @@ const appRoute: Routes = [
     AddStaffComponent,
     SidebarComponent,
     NavbarComponent,
-    EditStaffComponent,
     ManageStaffComponent,
     ManageSalaryComponent,
     AddSalaryComponent,
@@ -125,6 +127,7 @@ const appRoute: Routes = [
     MatInputModule,
     MatListModule,
     MatPaginatorModule,
+    MatSortModule,
     MatGridListModule,
     MatIconModule,
     RouterModule.forRoot(appRoute),
@@ -136,10 +139,11 @@ const appRoute: Routes = [
     BrowserModule,
     FormsModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
   ],
-  providers: [],
+  providers: [DatePipe],  
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
