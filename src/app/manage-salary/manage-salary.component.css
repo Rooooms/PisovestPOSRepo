@@ -1,29 +1,27 @@
-* {
+*{
+ 
   margin-bottom: 1rem;
   white-space: normal;
 }
 
-.header {
+.header{
   display: flex;
   justify-content: space-around;
 }
-
-.body {
+.body{
   display: flex;
   padding: 0%;
 }
 
 table {
-  width: 80%;
-  height: 40%;
+  width: 80%;  
+  height: 40%; 
   align-items: center;
 }
-
-.actions {
+.actions{
   display: flex;
   margin: auto;
 }
-
 .mat-mdc-paginator-container {
   display: flex;
   align-items: center;
@@ -33,16 +31,16 @@ table {
   width: 90%;
   margin-top: 10%;
 }
-
-.button {
+.button{
+  
   width: 20%;
   align-items: flex-start;
 }
 
-.back {
+.back{
   flex-direction: row-reverse;
+  
 }
-
 .mdc-data-table__table {
   min-width: 80%;
   border: 1;
@@ -50,23 +48,22 @@ table {
   border-spacing: 1;
   table-layout: auto;
   margin: auto;
+  
 }
-
-.ng-container {
+.ng-container{
   width: 80%;
   display: flex;
   flex-direction: column;
   margin: auto;
-  height: auto;
-  background: linear-gradient(white, white) padding-box,
-    linear-gradient(to right, rgb(53, 210, 124), rgba(0, 255, 98, 0.514)) border-box;
-  border: 2px solid transparent;
-  border-bottom-right-radius: 1px;
-  border-top-left-radius: 1px;
-  box-shadow: 0.5px 0.5px #2ea86548;
-  margin-top: 2%;
+    height: auto;
+    background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, rgb(53,210,124), rgba(0, 255, 98, 0.514)) border-box;
+    border: 2px solid transparent;
+    border-bottom-right-radius: 1px;
+    border-top-left-radius: 1px;
+    box-shadow: .5px .5px #2ea86548; 
+    margin-top: 2%;
 }
-
 .tools {
   background-color: #2ea86548;
   width: 100%;
@@ -75,22 +72,14 @@ table {
   align-items: center;
   padding: 20px;
 }
-
-mat-toolbar {
+mat-toolbar{
   width: 80%;
 }
 
-.Search {
+.Search{
   width: 60%;
   height: 100%;
 }
-
-.btna {
+.btna{
   margin-right: 2%;
-}
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 }

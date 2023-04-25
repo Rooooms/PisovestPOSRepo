@@ -19,7 +19,6 @@ import { AddSalaryComponent } from './add-salary/add-salary.component';
 import { SampleComponent } from './sample/sample.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule} from '@angular/material/datepicker';
@@ -40,7 +39,6 @@ import { DatePipe } from '@angular/common';
     ManageSalaryComponent,
     AddSalaryComponent,
     SampleComponent,
-    EditSalaryComponent,
     PayslipComponent,
    
   ],
