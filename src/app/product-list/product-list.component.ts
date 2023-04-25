@@ -39,7 +39,7 @@ dataSource!: MatTableDataSource<any>;
 @ViewChild(MatSort) sort!: MatSort;
 
 
-constructor (private _dialog: MatDialog , private employeeService: SampleService,
+constructor (private _dialog: MatDialog , private sampleservice: SampleService,
   private coreService : CoreService) {}
 
 ngOnInit(): void {
@@ -50,25 +50,25 @@ ngOnInit(): void {
 openAddEditForm(){
   const dialogRef = this._dialog.open(SampleComponent);
   dialogRef.afterClosed().subscribe({
-    next : (val) =>{
-      if (val){
-        this.getProductList();
+    next : (product) =>{
+      if (product){
+        this.getProductList();  
       }
     }
   })
 }
 
 getProductList(){
-  this.employeeService.getProductList().subscribe({
-    next: (res) => {
+  this.sampleservice.getProductList().subscribe({
+    next: (product) => {
 
-      console.log (res);
-      this.dataSource = new MatTableDataSource(res);
+      console.log (product);
+      this.dataSource = new MatTableDataSource(product);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     },
-    error: (err) =>{
-      console.log(err)
+    error: (product) =>{
+      console.log(product)
     }
   })
 }
@@ -81,9 +81,9 @@ applyFilter(event: Event) {
     this.dataSource.paginator.firstPage();
   }
 }
-deleteEmployee (id : string){
-  this.employeeService.deleteProduct(id).subscribe({
-    next : (res) =>{
+deleteProduct(id : string){
+  this.sampleservice.deleteProduct(id).subscribe({
+    next : (product) =>{
       this.coreService.openSnackBar('Product Deleted', 'done')
       this.getProductList();
     },
@@ -96,8 +96,8 @@ openEditForm(data : any){
   data,
  });
  dialogRef.afterClosed().subscribe({
-  next : (val) =>{
-    if (val){
+  next : (Product) =>{
+    if (Product){
       this.getProductList();
     }
   }

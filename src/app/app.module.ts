@@ -31,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { SampleComponent } from './sample/sample.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 
 
 
@@ -50,7 +51,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     AlertdeleteComponent,
     TestingComponent,
     ProductAddEditComponent,
-    SampleComponent
+    SampleComponent,
+    CategoryAddEditComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    
+    FormsModule,
+    HttpClientModule,
+    MatSelectModule,
+
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

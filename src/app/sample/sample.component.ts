@@ -10,8 +10,7 @@ import { CoreService } from '../services/core/core.service';
   styleUrls: ['./sample.component.css']
 })
 export class SampleComponent implements OnInit {
-  
-    // employees: employees[]= [];
+
     product: FormGroup; 
     
 
@@ -22,11 +21,12 @@ export class SampleComponent implements OnInit {
       ){
     this.product = this._productFb.group({
     id: '',
-    name: '',
-    email: '',
-    phone: 0,
-    salary: 0,
-    department: ''
+    categoryName: '',
+    productName: '',
+    productBrand: '',
+    productDescription: '',
+    productPrice: 0,
+    productQuantity: 0,
   });
     }
 
@@ -65,46 +65,54 @@ export class SampleComponent implements OnInit {
     }
 
     option = [
-      { value: 'option1', label: 'Clothes' },
-      { value: 'option2', label: 'Shoes' },
-      { value: 'option3', label: 'Keyboard' }
+      { value: 'option1', label: 'Clothes', categoryName: 'Clothes' },
+      { value: 'option2', label: 'Shoes' , categoryName: 'Shoes'},
+      { value: 'option3', label: 'Keyboard', categoryName: 'Keyboard' },
+      { value: 'option4', label: 'Food',categoryName: 'Food' }
     ];
+
     Product = [
       {
         placeholder: 'Category',
         type: 'text',
         id: 'categoryName',
-        name: 'Category',
+        name: 'categoryName',
+        label: 'Category',
       },
       {
         placeholder: 'Ex. Air Jordan 1 Low',
         type: 'text',
         id: 'productName',
-        name: 'Product Name',
+        name: 'productName',
+        label: 'Product Name',
       },
       {
         placeholder: 'Ex. Nike',
         type: 'text',
         id: 'productBrand',
-        name: 'Brand',
+        name: 'productBrand',
+        label: 'Brand',
       },
       {
         placeholder: 'Ex. Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look thats familiar yet always fresh. With an iconic design that pairs perfectly with any fit, these kicks ensure youll always be on point.',
         type: 'string',
         id: 'productDescription',
-        name: 'Description',
+        name: 'productDescription',
+        label: 'Description',
       },
       {
         placeholder: '6,195',
-        type: 'int',
+        type: 'text',
         id: 'productPrice',
-        name: 'Price',
+        name: 'productPrice',
+        label: 'Price',
       },
       {
         placeholder: '10',
-        type: 'int',
+        type: 'text',
         id: 'productQuantity',
-        name: 'Quantity',
+        name: 'productQuantity',
+        label: 'Quantity',
       },
         ];
 }

@@ -10,6 +10,7 @@ export class SampleService {
   baseApiUrl: string = environment.baseApiUrl;
 
   constructor(private http : HttpClient) { }
+
   addProduct(data :  any): Observable <any> {
     data.id = '00000000-0000-0000-0000-000000000000';
     return this.http.post <any> (this.baseApiUrl + 'api/Product', data )
@@ -20,11 +21,10 @@ export class SampleService {
   }
 
   deleteProduct(id : string) : Observable<any>{
-    return this.http.delete(`https://localhost:5125/api/Product/${id}`)
+    return this.http.delete(`http://localhost:5125/api/Product/${id}`)
   }
 
   updateProduct(data :  any , id:string): Observable <any> {
-    data.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.put (`https://localhost:5125/api/Product/${id}`, data)
+    return this.http.put (`http://localhost:5125/api/Product/${id}`, data)
   }
 }
