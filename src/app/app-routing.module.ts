@@ -2,10 +2,10 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductManagementComponent } from './product-management/product-management.component'; 
-import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { AppComponent } from './app.component';
-import { AddProductComponent } from './add-product/add-product.component';
+import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
+import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 
 const routes: Routes = [
 
@@ -18,21 +18,17 @@ const routes: Routes = [
   path: 'productlist',
   component: ProductListComponent
   },
-  {
-  path: 'addNewCategory',
-  component: AddCategoryComponent
-  },
    {
   path: 'categorylist',
   component: CategoryListComponent
   },
   {
     path: 'addcategory',
-    component: AddCategoryComponent
+    component: CategoryAddEditComponent
   },
   {
     path: 'addproduct',
-    component: AddProductComponent
+    component: ProductAddEditComponent
   }
 ];
 

@@ -1,33 +1,30 @@
-<div class="container">
-    <form (ngSubmit)="onSubmit()" class="form-container">
-      <h2 mat-dialog-title> Add Product </h2>
-      <ng-container *ngFor="let Product of Product">
-  
-        <ng-container *ngIf="Product.name === 'Description'">
-          <mat-form-field>
-            <mat-label>{{Product.name}}</mat-label>
-            <textarea matInput type="text" name="{{Product.name}}" placeholder="{{Product.placeholder}}" [(ngModel)]="formData[Product.name]"></textarea>
-          </mat-form-field>
-        </ng-container>
-        <ng-container *ngIf="Product.name !== 'Description' && Product.name !== 'Category'">
-          <mat-form-field>
-            <mat-label>{{Product.name}}</mat-label>
-            <input matInput type="text" name="{{Product.name}}" placeholder="{{Product.placeholder}}" [(ngModel)]="formData[Product.name]">
-          </mat-form-field>
-        </ng-container>
-        <ng-container *ngIf="Product.name === 'Category'">
-          <mat-form-field class="category-select">
-            <mat-label>Category</mat-label>
-            <mat-select name="{{Product.name}}" [(ngModel)]="formData[Product.name]">
-              <mat-option *ngFor="let option of option" [value]="option.value">{{option.label}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </ng-container>
-      </ng-container>
-      <div mat-dialog-action>
-        <button mat-raised-button>Cancel</button>
-      <button mat-raised-button type="submit" color="primary">Submit</button>
-    </div>
-    </form>
-  </div>
-  
+<form [formGroup]="product" (ngSubmit)="onFormSubmit()">
+  <h2 mat-dialog-title> Add Product </h2>
+  <ng-container *ngFor="let product of Product">
+
+    <ng-container *ngIf="product.label === 'Description'">
+      <mat-form-field>
+        <mat-label>{{product.label}}</mat-label>
+        <textarea matInput type="{{product.type}}"name="{{product.name}}" placeholder="{{product.placeholder}}" id="{{product.id}}" formControlName="{{product.name}}" ></textarea>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="product.label !== 'Description' && product.name !== 'Category'">
+      <mat-form-field>
+        <mat-label>{{product.label}}</mat-label>
+        <input matInput type="{{product.type}}" name="{{product.name}}" placeholder="{{product.placeholder}}" id="{{product.id}}" formControlName="{{product.name}}">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="product.name === 'Category'">
+      <mat-form-field class="category-select">
+        <mat-label>Category</mat-label>
+        <mat-select name="{{product.label}}" >
+          <mat-option *ngFor="let option of option" [value]="option.value">{{option.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+<div mat-dialog-actions class="action">
+  <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button color="primary" type="submit">{{data ? 'Update' : 'Save'}}</button>
+</div>
+</form>

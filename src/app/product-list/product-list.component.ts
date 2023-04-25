@@ -1,24 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddProductComponent } from '../add-product/add-product.component';
-import { EditProductComponent } from '../edit-product/edit-product.component';
-import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
 import { ProductService } from '../services/product-services/product.service';
-import { product } from '../Models/product.model';
 import { ProductAddEditComponent } from '../product-add-edit/product-add-edit.component';
-import { SampleComponent } from '../sample/sample.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CoreService } from '../services/core/core.service';
-import { SampleService } from '../services/sample/sample.service';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit{
-  product: product[] = [];
 
 dataName = [  { name: 'categoryName', label: 'Category' },                           
               { name: 'productName', label: 'Product Name' },
@@ -39,7 +33,7 @@ dataSource!: MatTableDataSource<any>;
 @ViewChild(MatSort) sort!: MatSort;
 
 
-constructor (private _dialog: MatDialog , private sampleservice: SampleService,
+constructor (private _dialog: MatDialog , private productservice: ProductService,
   private coreService : CoreService) {}
 
 ngOnInit(): void {
@@ -48,7 +42,7 @@ ngOnInit(): void {
 
 
 openAddEditForm(){
-  const dialogRef = this._dialog.open(SampleComponent);
+  const dialogRef = this._dialog.open(ProductAddEditComponent);
   dialogRef.afterClosed().subscribe({
     next : (product) =>{
       if (product){
@@ -59,7 +53,7 @@ openAddEditForm(){
 }
 
 getProductList(){
-  this.sampleservice.getProductList().subscribe({
+  this.productservice.getProductList().subscribe({
     next: (product) => {
 
       console.log (product);
@@ -82,7 +76,7 @@ applyFilter(event: Event) {
   }
 }
 deleteProduct(id : string){
-  this.sampleservice.deleteProduct(id).subscribe({
+  this.productservice.deleteProduct(id).subscribe({
     next : (product) =>{
       this.coreService.openSnackBar('Product Deleted', 'done')
       this.getProductList();
@@ -92,7 +86,7 @@ deleteProduct(id : string){
 }
 
 openEditForm(data : any){
- const dialogRef = this._dialog.open(SampleComponent, {
+ const dialogRef = this._dialog.open(ProductAddEditComponent, {
   data,
  });
  dialogRef.afterClosed().subscribe({

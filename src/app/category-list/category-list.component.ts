@@ -1,6 +1,5 @@
 import { Component , OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { category } from '../Models/category.model';
 import { CategoryService } from '../services/category-services/category.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,9 +14,6 @@ import { CategoryAddEditComponent } from '../category-add-edit/category-add-edit
 })
 
 export class CategoryListComponent implements OnInit {
-
-  category: category[] = [];
-
    
 dataName = [  { name: 'categoryName', label: 'Category Name'},  
               { name: 'categoryDescription', label: 'Description'}];

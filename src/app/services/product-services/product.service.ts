@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { product } from 'src/app/Models/product.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -9,11 +8,24 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ProductService {
 
-  baseAPIURL: string = environment.baseApiUrl;
+  baseApiUrl: string = environment.baseApiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http : HttpClient) { }
 
-  getAllProduct(): Observable<product[]>{
-    return this.http.get<product[]>(this.baseAPIURL + 'api/Product');
+  addProduct(data :  any): Observable <any> {
+    data.id = '00000000-0000-0000-0000-000000000000';
+    return this.http.post <any> (this.baseApiUrl + 'api/Product', data )
+  } 
+
+  getProductList(): Observable <any> {
+    return this.http.get(this.baseApiUrl + 'api/Product');
+  }
+
+  deleteProduct(id : string) : Observable<any>{
+    return this.http.delete(`http://localhost:5125/api/Product/${id}`)
+  }
+
+  updateProduct(data :  any , id:string): Observable <any> {
+    return this.http.put (`http://localhost:5125/api/Product/${id}`, data)
   }
 }
