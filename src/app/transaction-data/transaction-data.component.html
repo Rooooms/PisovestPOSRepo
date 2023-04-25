@@ -10,10 +10,13 @@
         {{ row[column] }}
 
 
-        
+
+        <button mat-icon-button color="warn" *ngIf="column === 'action'" (click)="onAddClicked(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
 
 
-        <button mat-raised-button color="warn" *ngIf="column === 'action'" (click)="onAddClicked(row) ">Delete</button>
+
 
       </td>
     </ng-container>

@@ -34,8 +34,10 @@ export class ProductDataComponent implements AfterViewInit {
 
   onAddClicked(row: any) {
     // Handle button click event here
-    console.log('Add button clicked for row:', row);
+    alert('Product Deleted')
   }
+
+ 
 
   constructor(private matDialog: MatDialog) {
     this.dataSource = new ProductDataDataSource();

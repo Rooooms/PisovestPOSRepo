@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductDataDataSource } from '../product-data/product-data-datasource';
 
 @Component({
   selector: 'app-pos',
@@ -7,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class PosComponent {
 
- fields = [
+  fields = [
     {
       label: 'Category',
       type: 'select',
@@ -36,10 +39,30 @@ export class PosComponent {
 
 
 
-  subtotalFields = [  {label: 'Sub Total', name: 'subTotal'},  
-                      {label: 'Tax Inclusive (%)', name: 'taxInclusive'},  
-                      {label: 'Tax Amount', name: 'taxAmount'},  
-                      {label: 'Grand Total', name: 'grandTotal'}];
+  subtotalFields = [{ label: 'Sub Total', name: 'subTotal' },
+  { label: 'Tax Inclusive (%)', name: 'taxInclusive' },
+  { label: 'Tax Amount', name: 'taxAmount' },
+  { label: 'Grand Total', name: 'grandTotal' }];
+  dataSource: ProductDataDataSource;
+
+
+
+  constructor(private matDialog: MatDialog) {
+    this.dataSource = new ProductDataDataSource();
+  }
+
+
+  openDialog() {
+    // Handle button click event here
+    this.matDialog.open(InvoiceDialogComponent, {
+      width: '30%',
+      height: '70%',
+    });
+  }
+
+  addProduct() {
+    alert('Product Added')
+  }
 
 
 }
