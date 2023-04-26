@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaffServiceService } from '../services/staff-service.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddStaffComponent implements OnInit{
 
- 
   addstaff: FormGroup;
 
   constructor(
@@ -21,31 +18,30 @@ export class AddStaffComponent implements OnInit{
     private _Staff : FormBuilder,
     private _dialogRef: MatDialogRef<AddStaffComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-
-    ) {
-
-  this.addstaff = this._Staff.group({
+  ) {
+    this.addstaff = this._Staff.group({
       id : '',
       employeeName: ['', Validators.required],
-      employeeEmail: '',
-      employeeMobileNumber: '',
+      employeeEmail: ['', Validators.email],
+      employeeMobileNumber: new FormControl('', [Validators.required, Validators.pattern('^(09|\\+639)\\d{9}$')]),
       employeeExpectedSalary: 0,
-      birthday : '0000-00-00',
-      datejoined: '0000-00-00',
-      employeePosition: '',
-      employeeAddress: '',
-  })
+      birthday : '',
+      datejoined: '',
+      employeePosition: ['', Validators.required],
+      employeeAddress: ['', Validators.required],
+    })
   }
-    ngOnInit(): void {
-        this.addstaff.patchValue(this.data);
-    }
+
+  ngOnInit(): void {
+    this.addstaff.patchValue(this.data);
+  }
 
   onFormSubmit(){
+    
     if (this.addstaff.valid){
       if (this.data){
-        this.staffService
-        .updateStaff(this.data.id, this.addstaff.value)
-        .subscribe({
+        
+        this.staffService.updateStaff(this.data.id, this.addstaff.value).subscribe({
           next: (val: any) =>{
                 this._dialogRef.close(true);      
           },
@@ -65,54 +61,50 @@ export class AddStaffComponent implements OnInit{
       }
     }
   }
-  
-    
-  
+
   Staff = [
-    
-  {
-    placeholder: 'ex. Juan Dela Cruz ',
-    type: 'text',
-    name: 'employeeName',
-    id: 'employeeName',
-    hold: 'Name'
-    
-  },
-  {
-    placeholder: 'ex. @example.com',
-    type: 'email',
-    name: 'employeeEmail',
-    id: 'employeeEmail',
-    hold: 'Email'
-  },
-  {
-    placeholder: '09XXXXXXXXX',
-    type: 'text',
-    name: 'employeeMobileNumber',
-    id: 'employeeMobileNumber',
-    hold: 'Mobile Number'
-  },
-  {
-    placeholder: 'XXXXXX',
-    type: 'number',
-    name: 'employeeExpectedSalary',
-    id: 'employeeExpectedSalary',
-    hold: 'Expected Salary'
-  },
-  {
-    placeholder: '',
-    type: 'date',
-    name: 'birthday',
-    id: 'birthday',
-    hold: 'Birthday'
-  },
-  {
-    placeholder: 'ex. Manager',
-    type: 'text',
-    name: 'employeePosition',
-    id: 'employeePosition',
-    hold: 'Position'
-  },
+    {
+      placeholder: 'ex. Juan Dela Cruz ',
+      type: 'text',
+      name: 'employeeName',
+      id: 'employeeName',
+      hold: 'Name'
+    },
+    {
+      placeholder: 'ex. @example.com',
+      type: 'email',
+      name: 'employeeEmail',
+      id: 'employeeEmail',
+      hold: 'Email'
+    },
+    {
+      placeholder: '09XXXXXXXXX',
+      type: 'text',
+      name: 'employeeMobileNumber',
+      id: 'employeeMobileNumber',
+      hold: 'Mobile Number'
+    },
+    {
+      placeholder: 'XXXXXX',
+      type: 'number',
+      name: 'employeeExpectedSalary',
+      id: 'employeeExpectedSalary',
+      hold: 'Expected Salary'
+    },
+    {
+      placeholder: 'MM/DD/YYYY',
+      type: 'date',
+      name: 'birthday',
+      id: 'birthday',
+      hold: 'Birthday'
+    },
+    {
+      placeholder: 'ex. Manager',
+      type: 'text',
+      name: 'employeePosition',
+      id: 'employeePosition',
+      hold: 'Position'
+    },
   {
     placeholder: 'ex. 2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr, Port Area, Manila, 1000 Metro Manila',
     type: 'text',
@@ -122,7 +114,7 @@ export class AddStaffComponent implements OnInit{
   },
   
   {
-    placeholder: '00/00/0000',
+    placeholder: 'MM/DD/YYYY',
     type: 'date',
     name: 'datejoined',
     id: 'datejoined',
