@@ -23,9 +23,9 @@ export class ManageSalaryComponent implements OnInit{
         {name: 'id', label: 'Position'},
         {name: 'employeeName', label: 'Name'},
         {name: 'position', label: 'Position'},
-        {name: 'salaries', label: 'Salary'},
-        {name: 'deduction', label: 'Deduction'},
-        {name: 'totalSalary', label: 'Total Salary'},
+        {name: 'salaries', label: 'Salary', type: 'number'},
+        {name: 'deduction', label: 'Deduction', type: 'number'},
+        {name: 'totalSalary', label: 'Total Salary', type: 'number'},
         {name: 'dateGiven', label: 'Paid Date'},
       ]
 

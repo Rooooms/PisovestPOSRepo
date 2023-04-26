@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaffServiceService } from '../services/staff-service.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -26,7 +26,7 @@ export class AddStaffComponent implements OnInit{
 
   this.addstaff = this._Staff.group({
       id : '',
-      employeeName: '',
+      employeeName: ['', Validators.required],
       employeeEmail: '',
       employeeMobileNumber: '',
       employeeExpectedSalary: 0,

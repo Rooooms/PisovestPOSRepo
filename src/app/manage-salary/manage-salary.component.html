@@ -14,10 +14,10 @@
       <ng-container *ngIf="dataName.name == 'dateGiven'">
         <td mat-cell *matCellDef="let row" class="{{dataName.name}}-column">{{ row[dataName.name] | date}}</td>
       </ng-container>
-      <ng-container *ngIf="dataName.name == 'salaries && totalSalary && deduction'">
+      <ng-container *ngIf="dataName.type == 'number'">
         <td mat-cell *matCellDef="let row" class="{{dataName.name}}-column">{{ row[dataName.name] | currency:'PHP'}}</td>
       </ng-container>
-      <ng-container *ngIf="dataName.name !=='dateGiven && salaries && totalSalary && deduction'">
+      <ng-container *ngIf="dataName.name !=='dateGiven' &&  dataName.type !== 'number'">
         <td mat-cell *matCellDef="let row" class="{{dataName.name}}-column">{{ row[dataName.name] }}</td>
       </ng-container>
     </ng-container>
