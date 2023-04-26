@@ -66,13 +66,11 @@ export class CategoryAddEditComponent implements OnInit{
         placeholder: 'Ex. Clothes',
         type: 'string',
         name: 'categoryName',
-        label: 'Category Name',
       },
       {
         placeholder: 'Ex. Conspicuously new and unused',
         type: 'textbox',
         name: 'categoryDescription',
-        label: 'Category Description',
       }
         ];
 }

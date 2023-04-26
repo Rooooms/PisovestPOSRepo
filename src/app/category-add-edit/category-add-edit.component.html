@@ -3,7 +3,7 @@
     
       <ng-container *ngFor="let category of Category">
         <mat-form-field>
-        <mat-label>{{category.label}}</mat-label>
+        <mat-label>{{category.name}}</mat-label>
         <input matInput type="{{category.type}}" name="{{category.name}}" placeholder="{{category.placeholder}}" formControlName="{{category.name}}">
       </mat-form-field>
       </ng-container>
