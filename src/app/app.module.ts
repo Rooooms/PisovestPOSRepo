@@ -4,13 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
-import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddProductComponent } from './add-product/add-product.component';
-import { EditCategoryComponent } from './edit-category/edit-category.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
 import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -67,13 +63,9 @@ const appRoute: Routes = [
     AppComponent,
     ProductListComponent,
     ProductManagementComponent,
-    AddCategoryComponent,
     CategoryListComponent,
     NavbarComponent,
     SidebarComponent,
-    AddProductComponent,
-    EditCategoryComponent,
-    EditProductComponent,
     TestingComponent,
     EmployeeManagementComponent,
     AddStaffComponent,
