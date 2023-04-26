@@ -54,10 +54,8 @@ export class ProductAddEditComponent implements OnInit {
         }
         
         else{
-        this.productService.addProduct(this.product.value)
-        
+        this.productService.addProduct(this.product.value)        
         .subscribe({
-          
           next : (val : any) => {
             console.log (this.product.value)
            this.coreService.openSnackBar('Product Added Successfully')

@@ -1,43 +1,42 @@
-<!-- POS Component -->
-
 <div class="container">
-    <div class="cointainer1">
-      <div class="col1">
-        <ng-container *ngFor="let field of fields">
-          <mat-form-field appearance="outline">
-            <mat-label>{{ field.label }}</mat-label>
-            <mat-select *ngIf="field.type === 'select'">
+  <div class="cointainer1">
+    <div class="col1">
+      <ng-container *ngFor="let field of fields">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <ng-container *ngIf="field.label === 'Category'">
+            <mat-select formControlName="categoryName">
+              <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </ng-container>
+          <ng-container *ngIf="field.label === 'Product'">
+            <mat-select>
               <mat-option *ngFor="let option of field.options" [value]="option.value">
                 {{ option.label }}
               </mat-option>
             </mat-select>
-            <input matInput *ngIf="field.type === 'input'" />
-          </mat-form-field>
-        </ng-container>
-
-        <!-- button for dialog box -->
-        <button mat-fab color="success" aria-label="Example icon button with a Add icon">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
+          </ng-container>
+          <input matInput *ngIf="field.type === 'input'" />
+        </mat-form-field>
+      </ng-container>
+     
+      <button mat-fab color="success" aria-label="Example icon button with a Add icon">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
-
-
-    <div class="container2">
-              <div class="row1">
-                <app-product-data></app-product-data>
-              </div>
-
-
-                <div class="row2">
-                  <ng-container *ngFor="let field of subtotalFields">
-                    <mat-form-field appearance="outline" class="form-field">
-                      <mat-label>{{field.label}}</mat-label>
-                      <input matInput [name]="field.name">
-                    </mat-form-field>
-                  </ng-container>
-                  <button mat-raised-button class="btn-submit">Submit</button>
-                </div>
+  </div>
+  <div class="container2">
+    <div class="row1">
+      <app-product-data></app-product-data>
     </div>
-
+    <div class="row2">
+      <ng-container *ngFor="let field of subtotalFields">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{field.label}}</mat-label>
+          <input matInput [name]="field.name">
+        </mat-form-field>
+      </ng-container>
+      <button mat-raised-button class="btn-submit">Submit</button>
+    </div>
+  </div>
 </div>

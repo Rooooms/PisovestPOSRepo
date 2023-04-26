@@ -94,7 +94,6 @@ const appRoute: Routes = [
     SalesDataComponent,
     TransactionListComponent,
     TransactionDataComponent,
-    POSComponent,
     ProductDataComponent,
     PayslipComponent,
     NavbarComponent,

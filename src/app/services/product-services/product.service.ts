@@ -28,4 +28,7 @@ export class ProductService {
   updateProduct(data :  any , id:string): Observable <any> {
     return this.http.put (`http://localhost:5125/api/Product/${id}`, data)
   }
+  getProducts(id : string, CategoryId:string): Observable <any> {
+    return this.http.get (`http://localhost:5125/api/Product/${id}/${CategoryId}`)
+  }
 }
