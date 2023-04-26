@@ -8,13 +8,13 @@
         <textarea matInput type="{{product.type}}"name="{{product.name}}" placeholder="{{product.placeholder}}" id="{{product.id}}" formControlName="{{product.name}}" ></textarea>
       </mat-form-field>
     </ng-container>
-    <ng-container *ngIf="product.label !== 'Description' && product.name !== 'Category'">
+    <ng-container *ngIf="product.label !== 'Description' && product.name !== 'categoryName'">
       <mat-form-field>
         <mat-label>{{product.label}}</mat-label>
         <input matInput type="{{product.type}}" name="{{product.name}}" placeholder="{{product.placeholder}}" id="{{product.id}}" formControlName="{{product.name}}">
       </mat-form-field>
     </ng-container>
-    <ng-container *ngIf="product.name === 'Category'">
+    <ng-container *ngIf="product.name === 'categoryName'">
       <mat-form-field class="category-select">
         <mat-label>Category</mat-label>
         <mat-select name="{{product.label}}" >

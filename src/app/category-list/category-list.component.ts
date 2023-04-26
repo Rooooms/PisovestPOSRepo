@@ -80,9 +80,7 @@ deleteCategory(id : string){
 }
 
 openEditForm(data : any){
- const dialogRef = this._dialog.open(CategoryAddEditComponent, {
-  data,
- });
+ const dialogRef = this._dialog.open(CategoryAddEditComponent, {data,});
  dialogRef.afterClosed().subscribe({
   next : (Category) =>{
     if (Category){
