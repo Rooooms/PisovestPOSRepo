@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../services/core/core.service';
 import { ProductService } from '../services/product-services/product.service';
+import { CategoryService } from '../services/category-services/category.service';
 
 @Component({
   selector: 'app-product-add-edit',
@@ -11,15 +12,15 @@ import { ProductService } from '../services/product-services/product.service';
 })
 export class ProductAddEditComponent implements OnInit {
   product: FormGroup; 
-    
+  categories= [];
 
     constructor(private _productFb: FormBuilder , private productService : ProductService, 
-      private _dialogRef : MatDialogRef<ProductAddEditComponent>,
+      private _dialogRef : MatDialogRef<ProductAddEditComponent>, private categoryService : CategoryService,
       @Inject(MAT_DIALOG_DATA) public data : any,
       private coreService : CoreService
       ){
     this.product = this._productFb.group({
-    id: '',
+    id:'',
     categoryName: '',
     productName: '',
     productBrand: '',
@@ -31,6 +32,10 @@ export class ProductAddEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.product.patchValue(this.data)
+        this.categoryService.getCategoryList().subscribe((categories: any) => {
+          this.categories = categories.map((category: any) => category.categoryName);
+          console.log(this.categories);
+        });
     }
 
     onFormSubmit(){
@@ -49,9 +54,12 @@ export class ProductAddEditComponent implements OnInit {
         }
         
         else{
-        this.productService.addProduct(this.product.value).subscribe({
+        this.productService.addProduct(this.product.value)
+        
+        .subscribe({
+          
           next : (val : any) => {
-           
+            console.log (this.product.value)
            this.coreService.openSnackBar('Product Added Successfully')
            this._dialogRef.close(true);
           },
@@ -62,14 +70,6 @@ export class ProductAddEditComponent implements OnInit {
       }
     }
     }
-
-    option = [
-      { value: 'option1', label: 'Clothes', categoryName: 'Clothes' },
-      { value: 'option2', label: 'Shoes' , categoryName: 'Shoes'},
-      { value: 'option3', label: 'Keyboard', categoryName: 'Keyboard' },
-      { value: 'option4', label: 'Food',categoryName: 'Food' }
-    ];
-
     Product = [
       {
         placeholder: 'Category',
@@ -77,6 +77,7 @@ export class ProductAddEditComponent implements OnInit {
         id: 'categoryName',
         name: 'categoryName',
         label: 'Category',
+        value: 'categoryName',
       },
       {
         placeholder: 'Ex. Air Jordan 1 Low',

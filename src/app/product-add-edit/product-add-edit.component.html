@@ -1,7 +1,6 @@
 <form [formGroup]="product" (ngSubmit)="onFormSubmit()">
   <h2 mat-dialog-title> Add Product </h2>
   <ng-container *ngFor="let product of Product">
-
     <ng-container *ngIf="product.label === 'Description'">
       <mat-form-field>
         <mat-label>{{product.label}}</mat-label>
@@ -17,8 +16,8 @@
     <ng-container *ngIf="product.name === 'categoryName'">
       <mat-form-field class="category-select">
         <mat-label>Category</mat-label>
-        <mat-select name="{{product.label}}" >
-          <mat-option *ngFor="let option of option" [value]="option.value">{{option.label}}</mat-option>
+        <mat-select formControlName="categoryName" >
+          <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
         </mat-select>
       </mat-form-field>
     </ng-container>
