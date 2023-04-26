@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddProductComponent } from '../add-product/add-product.component';
-import { EditProductComponent } from '../edit-product/edit-product.component';
-import { AlertdeleteComponent } from '../alertdelete/alertdelete.component';
 import { ProductService } from '../services/product-services/product.service';
-import { product } from '../Models/product.model';
-import { SharedService } from '../shared.service';
+import { ProductAddEditComponent } from '../product-add-edit/product-add-edit.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { CoreService } from '../services/core/core.service';
 
 @Component({
   selector: 'app-product-list',
@@ -13,8 +13,6 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit{
-  product: product[] = [];
-  public pageTitle: string;
 
 dataName = [  { name: 'categoryName', label: 'Category' },                           
               { name: 'productName', label: 'Product Name' },
@@ -29,44 +27,76 @@ getColumns() {
   return ['categoryName',  'productName', 'productBrand', 'productDescription', 'productPrice', 'productQuantity', 'productStatus', 'actions'];
 }
 
-      constructor(public dialog: MatDialog, private ProductService: ProductService, private sharedService : SharedService) {}
+dataSource!: MatTableDataSource<any>;
 
-  ngOnInit(): void {
-    this.ProductService.getAllProduct().subscribe({
-      next: (product) => {
-        this.product = product;
-      },
-      error: (response) => {
-        console.log(response);
-      }
-    });
+@ViewChild(MatPaginator) paginator!: MatPaginator;
+@ViewChild(MatSort) sort!: MatSort;
 
-    this.sharedService.pageName = 'Product List';
-    this.pageTitle = 'Product List';
-      
-  }
-  
 
-  openDialog() {
-      const dialogRef = this.dialog.open(AddProductComponent, {
-        width: '30%',
-        height: '58%',
-      });
-  }
-  openDialogEdit(){
-    const dialogRef = this.dialog.open(EditProductComponent, {
-      width: '30%',
-      height: '58%',
-    });
-  }
-  openDialogAlertDelete(){
-    this.dialog.open(AlertdeleteComponent);
-  }
-  // ALERT BOX
-  // confirmDelete(): void {
-  //   confirm("Are you sure you want to delete?")
-  // }
-    
+constructor (private _dialog: MatDialog , private productservice: ProductService,
+  private coreService : CoreService) {}
+
+ngOnInit(): void {
+    this.getProductList();
 }
 
+
+openAddEditForm(){
+  const dialogRef = this._dialog.open(ProductAddEditComponent);
+  dialogRef.afterClosed().subscribe({
+    next : (product) =>{
+      if (product){
+        this.getProductList();  
+      }
+    }
+  })
+}
+
+getProductList(){
+  this.productservice.getProductList().subscribe({
+    next: (product) => {
+
+      console.log (product);
+      this.dataSource = new MatTableDataSource(product);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    },
+    error: (product) =>{
+      console.log(product)
+    }
+  })
+}
+
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
+deleteProduct(id : string){
+  this.productservice.deleteProduct(id).subscribe({
+    next : (product) =>{
+      this.coreService.openSnackBar('Product Deleted', 'done')
+      this.getProductList();
+    },
+    error: console.log
+  })
+}
+
+openEditForm(data : any){
+ const dialogRef = this._dialog.open(ProductAddEditComponent, {
+  data,
+ });
+ dialogRef.afterClosed().subscribe({
+  next : (Product) =>{
+    if (Product){
+      this.getProductList();
+    }
+  }
+})
+}
+
+}
 

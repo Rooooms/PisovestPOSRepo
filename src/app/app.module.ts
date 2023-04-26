@@ -7,6 +7,7 @@ import { ProductManagementComponent } from './product-management/product-managem
 import { CategoryListComponent } from './category-list/category-list.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -47,6 +48,9 @@ import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule,} from '@angular/material/core';
 import { MatSort,} from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
+import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 
 
 const appRoute: Routes = [
@@ -93,8 +97,12 @@ const appRoute: Routes = [
     POSComponent,
     ProductDataComponent,
     PayslipComponent,
-    
-
+    NavbarComponent,
+    SidebarComponent,
+    TestingComponent,
+    ProductAddEditComponent,
+    CategoryAddEditComponent,
+    CategoryListComponent
   ],
 
   imports: [
@@ -136,6 +144,12 @@ const appRoute: Routes = [
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    MatSelectModule,
+
   ],
   providers: [DatePipe],  
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
