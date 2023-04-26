@@ -100,7 +100,7 @@ export class AddStaffComponent implements OnInit{
     hold: 'Expected Salary'
   },
   {
-    placeholder: '00/00/0000',
+    placeholder: '',
     type: 'date',
     name: 'birthday',
     id: 'birthday',

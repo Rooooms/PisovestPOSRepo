@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Salary } from '../models/salary.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SalaryService } from '../services/salary.service';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-add-salary',
   templateUrl: './add-salary.component.html',
@@ -11,71 +12,83 @@ import { Router } from '@angular/router';
 
 
 export class AddSalaryComponent implements OnInit {
-  Salary = [
-    {
-      type: 'text',
-      name: 'Position',
-      
-    },
-    {
-      type: 'text',
-      name: 'Name',
-    },
-    {
-      type: 'int',
-      name: 'Salary',
-    },
-    {
-      type: 'int',
-      name: 'Deduction',
-    },
-    {
-      type: 'int',
-      name: 'Total Salary',
-    },
-  ];
+  
 
-    addSalaryRequest : Salary = {
-      id: '',
-      dateGiven:'0000-00-00T00:00:00.0000',
-      salaries: 0,
-      deduction: 0,
-      totalSalary: 0,
-      employeeName: ''
-      
-    }
+  addsalary: FormGroup;
     
-    constructor(private dialog: MatDialog, private salaryService : SalaryService, private router
-      : Router) {}
-  ngOnInit(): void {
-    
-  }
-  addSalary(): void{
-    this.salaryService.addSalary(this.addSalaryRequest).subscribe({
-      next : (salary) =>{
-        this.router.navigate(['employee/manage-salary'])
-      }
+    constructor(
+      private _dialogRef: MatDialogRef<AddSalaryComponent>, 
+      private salaryService : SalaryService, 
+      private _Salary: FormBuilder,
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      ) {
+  
+      this.addsalary = this._Salary.group({
+        dateGiven: '0000-00-00',
+        position: '',
+        employeeName: '',
+        deduction: 0,
     })
+    }
+
+  ngOnInit(): void {
+    this.addsalary.patchValue(this.data);
   }
-      
-      formData = {};
-      onSubmit(){}
-      // option = [
-      //   { value: 'option1', label: 'Clothes' },
-      //   { value: 'option2', label: 'Shoes' },
-      //   { value: 'option3', label: 'Keyboard' }
-      // ];
-      // name = [
-      //   { value: 'option1', label: 'Edward' },
-      //   { value: 'option2', label: 'Kyle' },
-      //   { value: 'option3', label: 'Roms' }
-      // ];
 
-      option = [ {value : 'Intern', employee:[ 'Roms', 'Kyle', 'Yee' ] }, 
-                 {value : 'Manager,' ,  employee :['Edward']}
-    ]; 
-
-      
+  onFormSubmit(){
+    if (this.addsalary.valid){
+      if (this.data){
+        this.salaryService
+          .updateSalary(this.data.id, this.addsalary.value).subscribe({
+            next: (val: any) =>{
+              this._dialogRef.close(true);      
+              }, error: (err: any) =>{
+                console.error(err);
+              },
+            });
+          }else{
+            this.salaryService.addSalary(this.addsalary.value).subscribe({
+              next:(val: any) => {
+                this._dialogRef.close(true);
+              },
+              error: (err: any) =>{
+                console.error(err);
+              },
+            });
+          }
+        }
+      }
+   
+      Salary = [
+        {
+          placeholder: '',
+          type: 'date',
+          name: 'dateGiven',
+          id: 'dateGiven',
+          hold: 'Date Given'
+        },
+        {
+          placeholder: 'ex. Manager',
+          type: 'string',
+          name: 'position',
+          id: 'position',
+          hold: 'Position'
+        },
+        {
+          placeholder: '',
+          type: 'string',
+          name: 'employeeName',
+          id: 'employeeName',
+          hold: 'Name'
+        },
+        {
+          placeholder: '',
+          type: 'number',
+          name: 'deduction',
+          id: 'deduction',
+          hold: 'Deduction'
+        },
+      ];
   
 
     }

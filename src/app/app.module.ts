@@ -15,11 +15,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
-import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -52,6 +51,7 @@ import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule,} from '@angular/material/core';
 import { MatSort,} from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
+
 
 const appRoute: Routes = [
   {path: '', component: CardComponent},
@@ -101,7 +101,8 @@ const appRoute: Routes = [
     POSComponent,
     ProductDataComponent,
     PayslipComponent,
-   
+    
+
   ],
 
   imports: [
@@ -142,6 +143,7 @@ const appRoute: Routes = [
     MatNativeDateModule,
     MatOptionModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   providers: [DatePipe],  
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

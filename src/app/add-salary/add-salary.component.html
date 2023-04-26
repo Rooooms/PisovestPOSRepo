@@ -1,23 +1,34 @@
-<form (ngSubmit)="onSubmit()" class="form-container my-custom-class">
+
+
+<form [formGroup]="addsalary" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-title>
+    <h1>Add Salary</h1>
+  </div>
+
+  <div mat-dialog-content>
     <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start center">
       <div *ngFor="let salary of Salary" fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="mb-3">
-        <mat-form-field appearance="outline">
-          <mat-label>{{salary.name}}</mat-label>
-          <ng-container *ngIf="salary.name === 'Position'">
-            <mat-select name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
-              <mat-option *ngFor="let option of option" [value]="option">{{option}}</mat-option>
-            </mat-select>
-          </ng-container>
-          <ng-container *ngIf="salary.name === 'Name'">
-            <mat-select name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
-              <mat-option *ngFor="let option of option" [value]="option">{{option}}</mat-option>
-            </mat-select>
-          </ng-container>
-          <ng-container *ngIf="salary.name !== 'Position' && salary.name !== 'Name'">
-            <input matInput type="{{salary.type}}" name="{{salary.name}}" [(ngModel)]="formData[salary.name]">
-          </ng-container>
-        </mat-form-field>
+        <ng-container *ngIf="salary.type !== 'date'; else elseBlock">
+          <mat-form-field appearance="outline" class="example-form-field">
+            <mat-label >{{salary.name}}</mat-label>
+            <input matInput class="form-control" type="{{salary.type}}" name="{{salary.name}}" id="{{salary.id}}" placeholder="{{salary.placeholder}}" formControlName="{{salary.name}}">
+          </mat-form-field>
+        </ng-container>
+        <ng-template #elseBlock>
+          <mat-form-field appearance="outline" class="form-control">
+            <mat-label>Date Given</mat-label>
+            <input matInput [matDatepicker]="picker" name="{{salary.name}}" id="{{salary.id}}" placeholder="{{salary.placeholder}}" formControlName="{{salary.name}}">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </ng-template>
       </div>
     </div>
-    <button type="submit" mat-raised-button style="width: 100%;">Submit</button>
+  </div>
+
+
+  <div mat-dialog-actions class="action">
+  <button type="button" mat-raised-button [mat-dialog-close]="false">Cancel</button>
+  <button type="submit" color="primary" mat-raised-button>{{data ? 'Update': 'Save'}}</button>
+  </div>
   </form>
