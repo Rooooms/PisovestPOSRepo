@@ -8,15 +8,6 @@ import { FormsModule } from '@angular/forms'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule} from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-
-// import { MatSelect } from '@angular/material/select';
-
-
 
 const material = [
   MatButtonModule,
@@ -27,13 +18,7 @@ const material = [
   FormsModule,
   MatMenuModule,
   MatCardModule,
-  MatInputModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule
+  MatInputModule
 ]
 
 @NgModule({
