@@ -1,0 +1,111 @@
+*{
+  width: 70%;
+}
+#cardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  justify-content: center;
+}
+
+.card{
+  box-shadow: none;
+  background-color: #f2f2f2;
+  width: auto;
+  height: auto;
+  padding: 20px;
+  align-items: center;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 500px;
+    height: 200px;
+    border-radius: 10px;
+    margin: auto;
+    padding: 5px;
+    font-size: 35px;
+    background-color: #ccc;
+    border: none !important;
+    box-shadow: 5px 5px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.btn:hover {
+    background-color: #34D27C;
+    color: antiquewhite;
+}
+
+@media screen and (min-width: 1700px) {
+  #cardContainer {
+    width: 1200px;
+  }
+
+  .btn {
+    width: 900px;
+    height: 200px;
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  #cardContainer {
+    width: 1000px;
+  }
+
+  .btn {
+    width: 600px;
+    height: 200px;
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #cardContainer {
+    width: 800px;
+  }
+
+  .btn {
+    width: 400px;
+    height: 100px;
+    font-size: 15px;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+  #cardContainer {
+    width: 600px;
+  }
+
+  .btn {
+    width: 300px;
+    height: 100px;
+    font-size: 15px;
+  }
+
+}
+
+@media screen and (max-width: 700px) {
+  #cardContainer {
+    width: 150px;
+  }
+
+  .btn {
+    width: 300px;
+    height: 100px;
+    font-size: 15px;
+  }
+
+}

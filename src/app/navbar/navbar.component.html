@@ -1,16 +1,26 @@
 <mat-toolbar class="navbar">
-    <div class="container">
-        <div class="title">{{title}}</div>
+  <div class="container">
 
-        <div class="pageName">
-            <div class="name"> {{ pageName }} </div>
-        </div>
-        <div class="profile">
-            <a class="account" href="#">
-                <span class="material-symbols-outlined">
-                    account_circle
-                </span>
-            </a>
-        </div>
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="companyName">
+      <div class="title" routerLink="">{{ title }}</div>
     </div>
+
+    <div class="pageName">
+      <div class="pages">
+        <div class="name">{{ pageName }}</div>
+      </div>
+    </div>
+
+    <div class="profile">
+      <a class="account" href="#">
+        <span class="material-symbols-outlined">
+          account_circle
+        </span>
+      </a>
+    </div>
+  </div>
 </mat-toolbar>
