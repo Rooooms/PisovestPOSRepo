@@ -15,13 +15,13 @@ import { CoreService } from '../services/core/core.service';
 export class ProductListComponent implements OnInit{
 
 dataName = [  { name: 'categoryName', label: 'Category' },                           
-              { name: 'productName', label: 'Product Name' },
-              { name: 'productModel', label: 'Model' },
+              { name: 'productName', label: 'Product Name'},
+              { name: 'productModel', label: 'Model'},
               { name: 'productBrand', label: 'Brand' }, 
-              { name: 'productDescription', label: 'Description' }, 
-              { name: 'productPrice', label: 'Price' },
-              { name: 'productQuantity', label: 'Quantity' }, 
-              { name: 'productStatus', label: 'Status' },];
+              { name: 'productDescription', label: 'Description'}, 
+              { name: 'productPrice', label: 'Price'},
+              { name: 'productQuantity', label: 'Quantity'}, 
+              { name: 'productStatus', label: 'Status'},];
 
 getColumns() {
   return ['categoryName',  'productName', 'productBrand', 'productDescription', 'productPrice', 'productQuantity', 'productStatus', 'actions'];

@@ -1,5 +1,5 @@
 import { Component,Inject ,OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../services/core/core.service';
 import { ProductService } from '../services/product-services/product.service';
@@ -22,11 +22,11 @@ export class ProductAddEditComponent implements OnInit {
     this.product = this._productFb.group({
     id:'',
     categoryName: '',
-    productName: '',
-    productBrand: '',
+    productName: ['', Validators.required],
+    productBrand: ['', Validators.required],
     productDescription: '',
-    productPrice: 0,
-    productQuantity: 0,
+    productPrice: [0, Validators.required],
+    productQuantity: [0, Validators.required],
   });
     }
 
@@ -51,9 +51,7 @@ export class ProductAddEditComponent implements OnInit {
               console.log(err);
             }
           })
-        }
-        
-        else{
+        }else{
         this.productService.addProduct(this.product.value)
         
         .subscribe({
@@ -94,22 +92,21 @@ export class ProductAddEditComponent implements OnInit {
         label: 'Brand',
       },
       {
-        placeholder: 'Ex. Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look thats familiar yet always fresh. With an iconic design that pairs perfectly with any fit, these kicks ensure youll always be on point.',
-        type: 'string',
+        type: 'textarea',
         id: 'productDescription',
         name: 'productDescription',
         label: 'Description',
       },
       {
         placeholder: '6,195',
-        type: 'text',
+        type: 'number',
         id: 'productPrice',
         name: 'productPrice',
         label: 'Price',
       },
       {
         placeholder: '10',
-        type: 'text',
+        type: 'number',
         id: 'productQuantity',
         name: 'productQuantity',
         label: 'Quantity',
