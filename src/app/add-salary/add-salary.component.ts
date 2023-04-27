@@ -29,7 +29,7 @@ export class AddSalaryComponent implements OnInit {
       dateGiven: '0000-00-00',
       position: '',
       employeeName: '',
-      deduction: 0,
+      deduction: null,
     })
   }
 
@@ -57,12 +57,13 @@ export class AddSalaryComponent implements OnInit {
     }
   }
 
-  getCurrentDate(): string {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-    const day = ('0' + currentDate.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
+  getMinDate(): Date {
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - 7);
+    return cutoffDate;
+  }
+  getDate(): Date {
+    return new Date();
   }
   
   

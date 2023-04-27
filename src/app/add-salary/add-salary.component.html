@@ -20,7 +20,7 @@
         <ng-container *ngIf="salary.id == 'dateGiven'">
           <mat-form-field appearance="outline" class="form-control">
             <mat-label>Date Given</mat-label>
-            <input matInput [matDatepicker]="picker" name="{{salary.name}}" id="{{salary.id}}" placeholder="{{salary.placeholder}}" formControlName="{{salary.name}}" readonly [value]="getCurrentDate()">
+            <input matInput [matDatepicker]="picker" name="{{salary.name}}" id="{{salary.id}}" placeholder="{{salary.placeholder}}" formControlName="{{salary.name}}"  disable='true' >
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>

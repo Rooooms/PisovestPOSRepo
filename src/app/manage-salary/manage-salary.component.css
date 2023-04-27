@@ -39,8 +39,8 @@ table {
 
 .back{
   flex-direction: row-reverse;
-  
 }
+
 .mdc-data-table__table {
   min-width: 80%;
   border: 1;
@@ -48,8 +48,8 @@ table {
   border-spacing: 1;
   table-layout: auto;
   margin: auto;
-  
 }
+
 .ng-container{
   width: 80%;
   display: flex;
@@ -64,6 +64,7 @@ table {
     box-shadow: .5px .5px #2ea86548; 
     margin-top: 2%;
 }
+
 .tools {
   background-color: #2ea86548;
   width: 100%;
@@ -72,14 +73,26 @@ table {
   align-items: center;
   padding: 20px;
 }
-mat-toolbar{
-  width: 80%;
-}
 
-.Search{
-  width: 60%;
-  height: 100%;
-}
 .btna{
   margin-right: 2%;
+}
+
+.ng-container mat-form-field{
+  width: 80%;
+  padding: 10px;
+  margin-top: 2.5rem;
+  height: 4.5rem;
+}
+.mat-icon{
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%)
+}
+.material-symbols-outlined{
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%)
 }

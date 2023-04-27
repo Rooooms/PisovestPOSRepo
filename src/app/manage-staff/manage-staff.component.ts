@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
 import { StaffServiceService } from '../services/staff-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,12 +15,19 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./manage-staff.component.css']
 })
 
-export class ManageStaffComponent implements OnInit {
+export class ManageStaffComponent implements OnInit, OnDestroy {
+  private staffSubscription :Subscription = new Subscription();
   constructor (
     public dialog: MatDialog, 
     private staffService: StaffServiceService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    
     ){}
+    
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
+
 
   dataName = [
     {name: 'id', label: 'ID'},
@@ -34,9 +44,22 @@ export class ManageStaffComponent implements OnInit {
 getColumns(){
 return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
 }
+
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
+
   ngOnInit(): void {
     this.getAllStaff();
   }
+  ngOnDestroy(): void {
+    this.staffSubscription.unsubscribe();
+}
 
   openDialog() {
     const dialogRef = this.dialog.open(AddStaffComponent);
@@ -72,9 +95,13 @@ return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEma
               ...s,
               birthday: this.datePipe.transform(s.birthday, 'mediumDate'),
               datejoined: this.datePipe.transform(s.datejoined, 'mediumDate'),
+              
             }));
             this.dataSource = new MatTableDataSource(formattedStaff);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
           },
+          
           error: console.log,
         });
       },
@@ -91,5 +118,6 @@ return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEma
         });
         
   }
-  
+
+
 }

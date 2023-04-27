@@ -27,6 +27,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DatePipe } from '@angular/common';
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
-    DatePipe
+    DatePipe,
+    MatSnackBarModule
     
   ],
   providers: [DatePipe],

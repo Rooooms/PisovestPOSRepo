@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaffServiceService } from '../services/staff-service.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CoreService } from '../services/core.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class AddStaffComponent implements OnInit{
     private _Staff : FormBuilder,
     private _dialogRef: MatDialogRef<AddStaffComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private coreService : CoreService,
   ) {
     this.addstaff = this._Staff.group({
       id : '',
@@ -34,6 +36,10 @@ export class AddStaffComponent implements OnInit{
 
   ngOnInit(): void {
     this.addstaff.patchValue(this.data);
+    if (this.data?.datejoined) {
+      this.addstaff.controls['birthday'].setValue(new Date(this.data.birthday));
+      this.addstaff.controls['datejoined'].setValue(new Date(this.data.datejoined));
+    }
   }
 
   onFormSubmit(){
@@ -43,7 +49,8 @@ export class AddStaffComponent implements OnInit{
         
         this.staffService.updateStaff(this.data.id, this.addstaff.value).subscribe({
           next: (val: any) =>{
-                this._dialogRef.close(true);      
+            this.coreService.openSnackBar('Updated Successfully');
+            this._dialogRef.close(true);      
           },
           error: (err: any) =>{
             console.error(err);
@@ -52,6 +59,7 @@ export class AddStaffComponent implements OnInit{
       }else{
         this.staffService.addStaff(this.addstaff.value).subscribe({
           next:(val: any) => {
+            this.coreService.openSnackBar('Added Successfully');
             this._dialogRef.close(true);
           },
           error: (err: any) =>{
@@ -61,6 +69,7 @@ export class AddStaffComponent implements OnInit{
       }
     }
   }
+
 
   Staff = [
     {

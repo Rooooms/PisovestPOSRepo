@@ -1,17 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddSalaryComponent } from '../add-salary/add-salary.component';
 import { PayslipComponent } from '../payslip/payslip.component';
 import { SalaryService } from '../services/salary.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-manage-salary',
   templateUrl: './manage-salary.component.html',
   styleUrls: ['./manage-salary.component.css']
 })
-export class ManageSalaryComponent implements OnInit{
+export class ManageSalaryComponent implements OnInit, OnDestroy{
+
+  private salarySubscription: Subscription = new Subscription();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
     constructor(
       public dialog: MatDialog, 
@@ -31,6 +40,15 @@ export class ManageSalaryComponent implements OnInit{
 
   dataSource!: MatTableDataSource<any>;
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   getColumns(){
     return [ 'dateGiven','employeeName','position', 'salaries', 'deduction', 'totalSalary', 'payslip', 'actions'];
   }
@@ -49,9 +67,12 @@ export class ManageSalaryComponent implements OnInit{
         }
       })
     }
+    ngOnDestroy(): void {
+        this.salarySubscription.unsubscribe();
+    }
 
     getAllSalary(){
-      this.salaryService.getAllSalary().subscribe({
+      this.salarySubscription = this.salaryService.getAllSalary().subscribe({
         next: (salary) => {
           this.salaryService.getAllSalary().subscribe({
             next: (salary) => {
@@ -60,6 +81,8 @@ export class ManageSalaryComponent implements OnInit{
                 dateGiven: this.datePipe.transform(s.dateGiven, 'mediumDate'),
               }));
               this.dataSource = new MatTableDataSource(formattedSalary);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
             },
             error: console.log,
           });
@@ -82,14 +105,4 @@ export class ManageSalaryComponent implements OnInit{
     const dialogRef = this.dialog.open(PayslipComponent);
   }
 
-
-  // onPageChange(event) {
-  //   const startIndex = event.pageIndex * event.pageSize;
-  //   const endIndex = startIndex + event.pageSize;
-  //   this.salary = this.getData(startIndex, endIndex);
-  // }
-  
-  // getData(startIndex: number, endIndex: number) {
-  //   return this.salary.slice(startIndex, endIndex);
-  // }
 }
