@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { ProductService } from '../services/product-services/product.service';
 import { CategoryService } from '../services/category-services/category.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-pos',
-  templateUrl: './pos.component.html',
-  styleUrls: ['./pos.component.css'],
-  template: '<h1>{{ pageTitle }}</h1>',
+  selector: 'app-sample-pos',
+  templateUrl: './sample-pos.component.html',
+  styleUrls: ['./sample-pos.component.css']
 })
-export class POSComponent {
+
+export class SamplePosComponent {
   public pageTitle: string;
   categories= [];
+  
   posForm: FormGroup;
-  products = []; 
+  products = [];  
 
   constructor(
     private sharedService: SharedService,
     private categoryService : CategoryService,
     private productService : ProductService,
     private _Pos: FormBuilder,
-    ) {}
+  ){}
 
   ngOnInit() {
     this.sharedService.pageName = 'Point of Sale';
@@ -40,17 +40,17 @@ export class POSComponent {
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
+  }
 
-}
+  onCategorySelected(selectedCategoryId : any){
+    this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
+      data => {
+        this.products = data.filter(products => products.categoryId == selectedCategoryId)
+        console.log('Product', this.products);
+      }
+    )
+  }
 
-onCategorySelected(selectedCategoryId : any){
-  this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
-    data => {
-      this.products = data.filter(products => products.categoryId == selectedCategoryId)
-      console.log('Product', this.products);
-    }
-  )
-}
   fields = [
     {
       placeholder: 'Category',
@@ -63,10 +63,7 @@ onCategorySelected(selectedCategoryId : any){
     {
       label: 'Product',
       type: 'select',
-      options: [
-        { label: 'First option', value: 'one' },
-        { label: 'Second option', value: 'two' },
-      ]
+      options: []
     },
     {
       label: 'Quantity',

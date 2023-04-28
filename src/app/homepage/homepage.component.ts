@@ -21,8 +21,8 @@ export class HomepageComponent {
   constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
-    this.sharedService.pageName = 'Home';
-    this.pageTitle = 'Home';
+    this.sharedService.pageName = '';
+    this.pageTitle = '';
 
 }
 

@@ -14,8 +14,8 @@ export class SidebarComponent{
     { routerLink: [""], icon: "home", btnName: "Home" },
     { routerLink: ["/POS"], icon: "payments", btnName: "POS" },
     { routerLink: ["/product"], icon: "list", btnName: "Product Management" },
-    { routerLink: ["/POS"], icon: "leaderboard", btnName: "Sales Report" },
-    { routerLink: ["/POS"], icon: "receipt-long", btnName: "Transactions" },
+    { routerLink: ["/sales-report"], icon: "leaderboard", btnName: "Sales Report" },
+    { routerLink: ["/transactions"], icon: "receipt-long", btnName: "Transactions" },
     { routerLink: ["/employee"], icon: "person", btnName: "Employees" }
   ];
 

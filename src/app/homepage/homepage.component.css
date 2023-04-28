@@ -47,7 +47,7 @@ mat-card-actions {
     color: antiquewhite;
 }
 
-@media screen and (min-width: 1700px) {
+/* @media screen and (min-width: 1700px) {
   #cardContainer {
     width: 1200px;
   }
@@ -57,7 +57,7 @@ mat-card-actions {
     height: 200px;
     font-size: 35px;
   }
-}
+} */
 
 @media screen and (max-width: 1200px) {
   #cardContainer {

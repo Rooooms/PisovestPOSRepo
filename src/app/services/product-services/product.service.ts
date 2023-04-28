@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -25,10 +25,12 @@ export class ProductService {
     return this.http.delete(`http://localhost:5125/api/Product/${id}`)
   }
 
-  updateProduct(data :  any , id:string): Observable <any> {
+  updateProduct(data :  any , id : string): Observable <any> {
     return this.http.put (`http://localhost:5125/api/Product/${id}`, data)
   }
-  getProducts(id : string, CategoryId:string): Observable <any> {
-    return this.http.get (`http://localhost:5125/api/Product/${id}/${CategoryId}`)
+
+  getProductsofSelectedCategory(selectedCategoryId : string): Observable <any> {
+    let param1 =  new HttpParams().set('categoryId', selectedCategoryId)
+    return this.http.get (`http://localhost:5125/api/Product/`, {params : param1})
   }
 }

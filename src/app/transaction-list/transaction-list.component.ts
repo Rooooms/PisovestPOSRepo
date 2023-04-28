@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-transaction-list',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./transaction-list.component.css']
 })
 export class TransactionListComponent {
+  public pageTitle: string;
 
+  constructor(private sharedService: SharedService) {}
+
+  ngOnInit() {
+    this.sharedService.pageName = 'Transaction List';
+    this.pageTitle = 'Transaction List';
+
+}
 }

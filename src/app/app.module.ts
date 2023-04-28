@@ -7,7 +7,6 @@ import { ProductManagementComponent } from './product-management/product-managem
 import { CategoryListComponent } from './category-list/category-list.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -46,11 +45,11 @@ import { ProductDataComponent } from './product-data/product-data.component';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule,} from '@angular/material/core';
-import { MatSort,} from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
+import { SamplePosComponent } from './sample-pos/sample-pos.component';
 
 
 const appRoute: Routes = [
@@ -101,7 +100,8 @@ const appRoute: Routes = [
     TestingComponent,
     ProductAddEditComponent,
     CategoryAddEditComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    SamplePosComponent
   ],
 
   imports: [

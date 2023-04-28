@@ -17,6 +17,8 @@ import { SalesDataComponent } from './sales-data/sales-data.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
+import { SamplePosComponent } from './sample-pos/sample-pos.component';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
 
 const routes: Routes = [
 
@@ -30,65 +32,11 @@ const routes: Routes = [
     component: POSComponent, //name: 'POS',
   },
 
-{
-  path: 'employee',
-  component: EmployeeManagementComponent
-},
-{
-  path: 'employee/manage-staff',
-  component: ManageStaffComponent
-},
-{
-  path: 'sample',
-  component: SampleComponent
-},
-{
-  path: 'employee/manage-salary',
-  component: ManageSalaryComponent
-},
-  {
-    path: 'sales-report',
-    component: SalesReportComponent, //name: 'Sales Report'
-  },
-
-  {
-    path: 'product-list',
-    component: ProductManagementComponent, //name: 'Product List',
-  },
-
-  {
-    path: 'transactions',
-    component: TransactionsComponent, //name: 'Transactions',
-  },
-
   {
     path: 'employee',
     component: EmployeeManagementComponent
   },
 
-  {
-  path: 'product',
-  component: ProductManagementComponent
-  },
-
-  {
-  path: 'productlist',
-  component: ProductListComponent
-  },
-   {
-  path: 'categorylist',
-  component: CategoryListComponent
-  },
-
-  {
-    path: 'addcategory',
-    component: CategoryAddEditComponent
-  },
-
-  {
-    path: 'addproduct',
-    component: ProductAddEditComponent
-  },
   {
     path: 'employee/manage-staff',
     component: ManageStaffComponent
@@ -105,9 +53,69 @@ const routes: Routes = [
   },
 
   {
+    path: 'sales-report',
+    component: SalesReportComponent, //name: 'Sales Report'
+  },
+
+  {
+    path: 'product-list',
+    component: ProductManagementComponent, //name: 'Product List',
+  },
+
+  {
+    path: 'transactions',
+    component: TransactionListComponent, //name: 'Transactions',
+  },
+
+  {
+    path: 'employee',
+    component: EmployeeManagementComponent
+  },
+
+  {
+  path: 'product',
+  component: ProductManagementComponent
+  },
+
+  {
+  path: 'productlist',
+  component: ProductListComponent
+  },
+
+  {
+  path: 'categorylist',
+  component: CategoryListComponent
+  },
+
+  {
+    path: 'addcategory',
+    component: CategoryAddEditComponent
+  },
+
+  {
+    path: 'addproduct',
+    component: ProductAddEditComponent
+  },
+
+  {
+    path: 'employee/manage-staff',
+    component: ManageStaffComponent
+  },
+
+  {
+    path: 'employee/manage-salary',
+    component: ManageSalaryComponent
+  },
+
+  {
     path: 'employee/edit-salary',
     component: EditSalaryComponent
-  }
+  },
+
+  {
+    path: 'sample-pos',
+    component: SamplePosComponent
+  },
 
   ];
 
