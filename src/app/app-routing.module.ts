@@ -11,7 +11,6 @@ import { combineLatest } from 'rxjs';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
-import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
@@ -105,11 +104,6 @@ const routes: Routes = [
   {
     path: 'employee/manage-salary',
     component: ManageSalaryComponent
-  },
-
-  {
-    path: 'employee/edit-salary',
-    component: EditSalaryComponent
   },
 
   {
