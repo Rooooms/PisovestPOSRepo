@@ -22,10 +22,11 @@ export class ProductService {
   }
 
   deleteProduct(id : string) : Observable<any>{
-    return this.http.delete(`http://localhost:5125/api/Product/${id}`)
+    return this.http.delete(`http://localhost:5125/api/Product/${id}`);
   }
 
-  updateProduct(data :  any , id:string): Observable <any> {
-    return this.http.put (`http://localhost:5125/api/Product/${id}`, data)
+  updateProduct( id:string, data :  any ): Observable<any> {
+    return this.http.put(`http://localhost:5125/api/Product/${id}`, data);
   }
+
 }

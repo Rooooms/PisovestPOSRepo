@@ -14,60 +14,61 @@ export class ProductAddEditComponent implements OnInit {
   product: FormGroup; 
   categories= [];
 
-    constructor(private _productFb: FormBuilder , private productService : ProductService, 
-      private _dialogRef : MatDialogRef<ProductAddEditComponent>, private categoryService : CategoryService,
+    constructor(private _productFb: FormBuilder , 
+      private productService : ProductService, 
+      private _dialogRef : MatDialogRef<ProductAddEditComponent>,
+      private categoryService : CategoryService,
       @Inject(MAT_DIALOG_DATA) public data : any,
       private coreService : CoreService
       ){
     this.product = this._productFb.group({
     id:'',
     categoryName: '',
-    productName: ['', Validators.required],
-    productBrand: ['', Validators.required],
+    productName: '',
+    productBrand: '',
     productDescription: '',
-    productPrice: [0, Validators.required],
-    productQuantity: [0, Validators.required],
+    productPrice: null,
+    productQuantity: null,
   });
     }
 
     ngOnInit(): void {
         this.product.patchValue(this.data)
         this.categoryService.getCategoryList().subscribe((categories: any) => {
-          this.categories = categories.map((category: any) => category.categoryName);
-          console.log(this.categories);
+        this.categories = categories.map((category: any) => category.categoryName);
+        
         });
     }
 
+  
     onFormSubmit(){
-      if(this.product.valid){
-        if(this.data){
-          this.productService.updateProduct(this.product.value, this.data.id).subscribe({
-            next : (val : any) => {
-             
-             this.coreService.openSnackBar('Product Update Successfully')
-             this._dialogRef.close(true);
+      if (this.product.valid){
+        if (this.data){
+          console.log(this.data)
+          this.productService.updateProduct(this.data.id, this.product.value).subscribe({
+            
+            next: (val: any) =>{
+              this.coreService.openSnackBar('Product Update Successfully');
+              this._dialogRef.close(true);      
             },
-            error:(err:any)=>{
-              console.log(err);
-            }
-          })
+            error: (err: any) =>{
+              console.error(err);
+            },
+          });
         }else{
-        this.productService.addProduct(this.product.value)
-        
-        .subscribe({
-          
-          next : (val : any) => {
-            console.log (this.product.value)
-           this.coreService.openSnackBar('Product Added Successfully')
-           this._dialogRef.close(true);
-          },
-          error:(err:any)=>{
-            console.log(err);
-          }
-        })
+          this.productService.addProduct(this.product.value).subscribe({
+            next:(val: any) => {
+              this.coreService.openSnackBar('Added Successfully');
+              this._dialogRef.close(true);
+            },
+            error: (err: any) =>{
+              console.error(err);
+            },
+          });
+        }
       }
     }
-    }
+
     Product = [
       {
         placeholder: 'Category',
