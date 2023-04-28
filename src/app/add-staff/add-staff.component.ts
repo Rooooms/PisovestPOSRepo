@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaffServiceService } from '../services/staff-service.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CoreService } from '../services/core.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,8 +11,9 @@ import { CoreService } from '../services/core.service';
   templateUrl: './add-staff.component.html',
   styleUrls: ['./add-staff.component.css']
 })
-export class AddStaffComponent implements OnInit{
-
+export class AddStaffComponent implements OnInit, OnDestroy{
+  
+  private aStaffSubscription: Subscription = new Subscription();
   addstaff: FormGroup;
 
   constructor(
@@ -41,6 +43,9 @@ export class AddStaffComponent implements OnInit{
       this.addstaff.controls['datejoined'].setValue(new Date(this.data.datejoined));
     }
   }
+    ngOnDestroy(): void {
+        this.aStaffSubscription.unsubscribe();
+    }
 
   onFormSubmit(){
     

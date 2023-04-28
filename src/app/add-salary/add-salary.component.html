@@ -17,15 +17,6 @@
           </mat-form-field>
         </ng-container>
 
-        <ng-container *ngIf="salary.id == 'dateGiven'">
-          <mat-form-field appearance="outline" class="form-control">
-            <mat-label>Date Given</mat-label>
-            <input matInput [matDatepicker]="picker" name="{{salary.name}}" id="{{salary.id}}" placeholder="{{salary.placeholder}}" formControlName="{{salary.name}}"  disable='true' >
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </ng-container>
-
         <ng-container *ngIf="salary.id !== 'employeeName' && salary.id !=='dateGiven'">
           <mat-form-field appearance="outline" class="example-form-field">
             <mat-label >{{salary.hold}}</mat-label>

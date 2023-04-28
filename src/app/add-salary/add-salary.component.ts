@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SalaryService } from '../services/salary.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaffServiceService } from '../services/staff-service.service';
-
+import { CoreService } from '../services/core.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-salary',
@@ -11,7 +12,10 @@ import { StaffServiceService } from '../services/staff-service.service';
   styleUrls: ['./add-salary.component.css']
 })
 
-export class AddSalaryComponent implements OnInit {
+export class AddSalaryComponent implements OnInit, OnDestroy {
+
+  private aSalarySubscription: Subscription = new Subscription();
+
   addsalary: FormGroup;
   employeeNames = [];
 
@@ -23,10 +27,11 @@ export class AddSalaryComponent implements OnInit {
     private nameService: StaffServiceService,
     private _Salary: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private coreService : CoreService,
   ) 
   {
     this.addsalary = this._Salary.group({
-      dateGiven: '0000-00-00',
+      dateGiven: [{ value: this.getDate()}],
       position: '',
       employeeName: '',
       deduction: null,
@@ -43,11 +48,18 @@ export class AddSalaryComponent implements OnInit {
     });
     
   }
-
+  
+  ngOnDestroy(): void {
+      this.aSalarySubscription.unsubscribe();
+  }
   onFormSubmit() {
+    const currentDate = new Date();
+    this.addsalary.patchValue({ dateGiven: currentDate });
+    
     if (this.addsalary.valid) {
       this.salaryService.addSalary(this.addsalary.value).subscribe({
         next: (val: any) => {
+          this.coreService.openSnackBar('Added Successfully');
           this._dialogRef.close(true);
         },
         error: (err: any) => {
@@ -56,6 +68,8 @@ export class AddSalaryComponent implements OnInit {
       });
     }
   }
+
+  
 
   getMinDate(): Date {
     const cutoffDate = new Date();

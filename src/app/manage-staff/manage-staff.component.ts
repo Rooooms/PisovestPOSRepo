@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
+import { CoreService } from '../services/core.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ManageStaffComponent implements OnInit, OnDestroy {
     public dialog: MatDialog, 
     private staffService: StaffServiceService,
     private datePipe: DatePipe,
-    
+    private coreService: CoreService,
     ){}
     
 
@@ -112,6 +113,7 @@ applyFilter(event: Event) {
   deleteStaff(id: string ){
         this.staffService.deleteStaff(id).subscribe({
           next: (staff) =>{
+            this.coreService.openSnackBar('Deleted Successfully');
             this.getAllStaff();
           },
           error: console.log,

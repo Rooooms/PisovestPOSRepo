@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
+import { CoreService } from '../services/core.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class ManageSalaryComponent implements OnInit, OnDestroy{
       public dialog: MatDialog, 
       private salaryService: SalaryService,
       private datePipe: DatePipe,
+      private coreService : CoreService
       ){}
 
       dataName = [
@@ -95,6 +97,7 @@ export class ManageSalaryComponent implements OnInit, OnDestroy{
       console.log(id);
       this.salaryService.deleteSalary(id).subscribe({
         next: (salary) =>{
+          this.coreService.openSnackBar('Deleted Successfully');
           this.getAllSalary();
         },
         error: console.log,

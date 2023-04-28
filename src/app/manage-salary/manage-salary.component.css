@@ -76,6 +76,7 @@ table {
 
 .btna{
   margin-right: 2%;
+  margin-top: 10px;
 }
 
 .ng-container mat-form-field{
@@ -92,7 +93,12 @@ table {
 }
 .material-symbols-outlined{
   position: absolute;
+  
   top: 50%; 
   left: 50%; 
   transform: translate(-50%, -50%)
+}
+
+.td mat-cell{
+  padding: 10px;
 }
