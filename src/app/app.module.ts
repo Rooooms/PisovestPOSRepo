@@ -26,7 +26,6 @@ import { AddSalaryComponent } from './add-salary/add-salary.component';
 import { SampleComponent } from './sample/sample.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { EditSalaryComponent } from './edit-salary/edit-salary.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -60,7 +59,6 @@ const appRoute: Routes = [
   {path: 'POS', component: POSComponent}
 ]
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +76,6 @@ const appRoute: Routes = [
     ManageSalaryComponent,
     AddSalaryComponent,
     SampleComponent,
-    EditSalaryComponent,
     NavbarComponent,
     SidebarComponent,
     HomepageComponent,
@@ -101,7 +98,7 @@ const appRoute: Routes = [
     ProductAddEditComponent,
     CategoryAddEditComponent,
     CategoryListComponent,
-    SamplePosComponent
+    SamplePosComponent,
   ],
 
   imports: [
@@ -148,7 +145,8 @@ const appRoute: Routes = [
     FormsModule,
     HttpClientModule,
     MatSelectModule,
-
+    DatePipe
+    
   ],
   providers: [DatePipe],  
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
 import { SharedService } from '../shared.service';
@@ -6,6 +6,10 @@ import { Staff } from '../models/staff.model';
 import { StaffServiceService } from '../services/staff-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
+import { CoreService } from '../services/core.service';
 
 
 @Component({
@@ -14,42 +18,19 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./manage-staff.component.css']
 })
 
-export class ManageStaffComponent implements OnInit {
-
-  public pageTitle: string;
-
-  data = [
-{
-  id: 1, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-{
-  id: 2, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-{
-  id: 3, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-{
-  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-{
-  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-{
-  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-{
-  id: 4, fullName: 'John', position: 'Doe', mobile:'09652344133' ,email: 'john@example.com' , birthday:'02/12/85', address:'Manila', dateJoined:'03/14/23', action: 'n/a'
-},
-
-  ];
-
-
+export class ManageStaffComponent implements OnInit, OnDestroy {
+  private staffSubscription :Subscription = new Subscription();
   constructor (
     public dialog: MatDialog, 
     private staffService: StaffServiceService,
     private datePipe: DatePipe,
-    private sharedService: SharedService
+    private coreService: CoreService,
     ){}
+    
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
+
 
   dataName = [
     {name: 'id', label: 'ID'},
@@ -67,9 +48,22 @@ export class ManageStaffComponent implements OnInit {
 getColumns(){
 return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
 }
+
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
+
   ngOnInit(): void {
     this.getAllStaff();
   }
+  ngOnDestroy(): void {
+    this.staffSubscription.unsubscribe();
+}
 
 
   openDialog() {
@@ -106,9 +100,13 @@ return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEma
               ...s,
               birthday: this.datePipe.transform(s.birthday, 'mediumDate'),
               datejoined: this.datePipe.transform(s.datejoined, 'mediumDate'),
+              
             }));
             this.dataSource = new MatTableDataSource(formattedStaff);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
           },
+          
           error: console.log,
         });
       },
@@ -119,11 +117,11 @@ return ['employeeName', 'employeePosition', 'employeeMobileNumber', 'employeeEma
   deleteStaff(id: string ){
         this.staffService.deleteStaff(id).subscribe({
           next: (staff) =>{
+            this.coreService.openSnackBar('Deleted Successfully');
             this.getAllStaff();
           },
           error: console.log,
         });
         
   }
-  
 }
