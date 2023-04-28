@@ -7,6 +7,9 @@ import { ProductManagementComponent } from './product-management/product-managem
 import { CategoryListComponent } from './category-list/category-list.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
 import { TestingComponent } from './testing/testing.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,15 +20,12 @@ import { EmployeeManagementComponent } from './employee-management/employee-mana
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import {MatTableModule} from '@angular/material/table';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
 import { AddSalaryComponent } from './add-salary/add-salary.component';
 import { SampleComponent } from './sample/sample.component';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
