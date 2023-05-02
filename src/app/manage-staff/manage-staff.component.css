@@ -17,12 +17,12 @@ table {
   width: 80%;  
   height: 40%; 
   align-items: center;
-  border-spacing: 10px;
+
 }
 .actions{
   display: flex;
   margin: auto;
-  
+  justify-content: center;
   padding: 10px;
 }
 .mat-mdc-paginator-container {
@@ -88,6 +88,8 @@ table {
 }
 .btna{
   margin-right: 2%;
+  margin-top: auto;
+  justify-content: center;
 }
 
 .ng-container mat-form-field{
@@ -103,8 +105,19 @@ table {
   transform: translate(-50%, -50%);
 }
 .ng-container th{
-  white-space: nowrap;
+  white-space: normal;
 }
 .ng-container th, td{
   text-align: center;
+  vertical-align: center;
+  overflow-y: auto;
+  word-wrap: break-word;
 }
+
+.actions button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto ;
+}
+
