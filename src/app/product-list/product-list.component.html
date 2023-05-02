@@ -1,7 +1,10 @@
  <div class="ng-container">
   <mat-toolbar class="tools">
     <button mat-icon-button [routerLink] = '["/product"]'> <mat-icon>keyboard_backspace</mat-icon></button>
-    <input type="text" class="Search" matInput placeholder="Search" >    
+    <mat-form-field class='Search'>
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" class='filter' #input>
+    </mat-form-field>
     <button mat-raised-button (click)="openAddEditForm()"><mat-icon>add</mat-icon>Add Product</button>
 </mat-toolbar>
   <table mat-table [dataSource]="dataSource">
@@ -19,7 +22,7 @@
         <button class="btna" mat-fab color="warn" (click)="deleteProduct(row.id)" style="width: 2.5rem; height: 2.5rem;" ><mat-icon>delete</mat-icon></button>
       </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="getColumns()"></tr>
     <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
   </table>

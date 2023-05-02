@@ -17,8 +17,8 @@ import { Subscription } from 'rxjs';
 export class CategoryListComponent implements OnInit,OnDestroy{
 
 private productSubscription:Subscription = new Subscription();
-   
-dataName = [  { name: 'categoryName', label: 'Category Name'},  
+
+dataName = [  { name: 'categoryName', label: 'Category Name'},
               { name: 'categoryDescription', label: 'Description'}];
 
 getColumns() {
@@ -32,7 +32,7 @@ dataSource!: MatTableDataSource<any>;
 
 constructor (private _dialog: MatDialog , private categoryservice: CategoryService,
   private coreService : CoreService) {}
- 
+
   ngOnDestroy(): void {
     this.productSubscription.unsubscribe();
   }
@@ -41,13 +41,21 @@ ngOnInit(): void {
     this.getCategoryList();
 }
 
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
 
 openAddEditForm(){
   const dialogRef = this._dialog.open(CategoryAddEditComponent);
   dialogRef.afterClosed().subscribe({
     next : (Category) =>{
       if (Category){
-        this.getCategoryList();  
+        this.getCategoryList();
       }
     }
   })
@@ -70,10 +78,10 @@ getCategoryList(){
 
 // applyFilter(event: Event) {
 //   const filterValue = (event.target as HTMLInputElement).value;
-//   this.dataSource.filter = filterValue.trim().toLowerCase();        gawa ni romeo 
- 
+//   this.dataSource.filter = filterValue.trim().toLowerCase();        gawa ni romeo
+
 //   if (this.dataSource.paginator) {
-//     this.dataSource.paginator.firstPage(); 
+//     this.dataSource.paginator.firstPage();
 //   }
 // }
 deleteCategory(id : string){

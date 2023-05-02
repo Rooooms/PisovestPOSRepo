@@ -15,13 +15,13 @@ import { Subscription } from 'rxjs';
 })
 export class ProductListComponent implements OnInit, OnDestroy{
 private productSubscription: Subscription = new Subscription();
-dataName = [  { name: 'categoryName', label: 'Category' },                           
+dataName = [  { name: 'categoryName', label: 'Category' },
               { name: 'productName', label: 'Product Name'},
               { name: 'productModel', label: 'Model'},
-              { name: 'productBrand', label: 'Brand' }, 
-              { name: 'productDescription', label: 'Description'}, 
+              { name: 'productBrand', label: 'Brand' },
+              { name: 'productDescription', label: 'Description'},
               { name: 'productPrice', label: 'Price'},
-              { name: 'productQuantity', label: 'Quantity'}, 
+              { name: 'productQuantity', label: 'Quantity'},
               { name: 'productStatus', label: 'Status'},];
 
 getColumns() {
@@ -44,12 +44,21 @@ ngOnDestroy(): void {
   this.productSubscription.unsubscribe();
 }
 
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
+
 openAddEditForm(){
   const dialogRef = this._dialog.open(ProductAddEditComponent);
   dialogRef.afterClosed().subscribe({
     next : (product) =>{
       if (product){
-        this.getProductList();  
+        this.getProductList();
       }
     }
   })
@@ -70,14 +79,6 @@ getProductList(){
   })
 }
 
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  if (this.dataSource.paginator) {
-    this.dataSource.paginator.firstPage();
-  }
-}
 deleteProduct(id : string){
   this.productservice.deleteProduct(id).subscribe({
     next : (product) =>{
