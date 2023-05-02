@@ -22,15 +22,15 @@ export class ProductService {
   }
 
   deleteProduct(id : string) : Observable<any>{
-    return this.http.delete(`http://localhost:5125/api/Product/${id}`)
-  }
-
-  updateProduct(data :  any , id : string): Observable <any> {
-    return this.http.put (`http://localhost:5125/api/Product/${id}`, data)
+    return this.http.delete(`http://localhost:5125/api/Product/${id}`);
   }
 
   getProductsofSelectedCategory(selectedCategoryId : string): Observable <any> {
     let param1 =  new HttpParams().set('categoryId', selectedCategoryId)
     return this.http.get (`http://localhost:5125/api/Product/`, {params : param1})
   }
+  updateProduct( id:string, data :  any ): Observable<any> {
+    return this.http.put(`http://localhost:5125/api/Product/${id}`, data);
+  }
+
 }
