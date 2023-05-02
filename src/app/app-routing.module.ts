@@ -6,7 +6,7 @@ import { combineLatest } from 'rxjs';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
-import { AddSalaryComponent } from './add-salary/add-salary.component';
+
 
 
 const routes: Routes = [
@@ -27,10 +27,7 @@ const routes: Routes = [
   path: 'employee/manage-salary',
   component: ManageSalaryComponent
 },
-{
-  path: 'employee/add-salary',
-  component: AddSalaryComponent
-}
+
 ];
 
 @NgModule({

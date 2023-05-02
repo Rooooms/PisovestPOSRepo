@@ -17,6 +17,7 @@ table {
   width: 80%;  
   height: 40%; 
   align-items: center;
+  border-spacing: 10px;
 }
 .actions{
   display: flex;
@@ -74,6 +75,9 @@ table {
   align-items: center;
   padding: 20px;
 }
+.tools button{
+  margin: 0 10px;
+}
 .mat-toolbar{
   width: 100%;
 }
@@ -97,4 +101,10 @@ table {
   top: 50%; 
   left: 50%; 
   transform: translate(-50%, -50%);
+}
+.ng-container th{
+  white-space: nowrap;
+}
+.ng-container th, td{
+  text-align: center;
 }
