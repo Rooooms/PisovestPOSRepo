@@ -40,7 +40,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
-import { ProductDataComponent } from './product-data/product-data.component';
+
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule,} from '@angular/material/core';
@@ -49,6 +49,8 @@ import { ProductAddEditComponent } from './product-add-edit/product-add-edit.com
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
+import { PosProductDataComponent } from './pos-product-data/pos-product-data.component';
+
 
 
 const appRoute: Routes = [
@@ -90,7 +92,7 @@ const appRoute: Routes = [
     SalesDataComponent,
     TransactionListComponent,
     TransactionDataComponent,
-    ProductDataComponent,
+
     PayslipComponent,
     NavbarComponent,
     SidebarComponent,
@@ -99,6 +101,8 @@ const appRoute: Routes = [
     CategoryAddEditComponent,
     CategoryListComponent,
     SamplePosComponent,
+    PosProductDataComponent
+
   ],
 
   imports: [
@@ -145,10 +149,11 @@ const appRoute: Routes = [
     FormsModule,
     HttpClientModule,
     MatSelectModule,
-    DatePipe
-    
+    DatePipe,
+
+
   ],
-  providers: [DatePipe],  
+  providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

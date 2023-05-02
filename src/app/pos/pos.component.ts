@@ -15,7 +15,7 @@ export class POSComponent {
   public pageTitle: string;
   categories= [];
   posForm: FormGroup;
-  products = []; 
+  products = [];
 
   constructor(
     private sharedService: SharedService,
@@ -72,10 +72,7 @@ onCategorySelected(selectedCategoryId : any){
       label: 'Quantity',
       type: 'input',
     },
-    {
-      label: 'Search',
-      type: 'input',
-    },
+
   ];
 
 

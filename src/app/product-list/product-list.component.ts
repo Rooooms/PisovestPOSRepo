@@ -14,13 +14,12 @@ import { CoreService } from '../services/core/core.service';
 })
 export class ProductListComponent implements OnInit{
 
-dataName = [  { name: 'categoryName', label: 'Category' },                           
+dataName = [  { name: 'categoryName', label: 'Category' },
               { name: 'productName', label: 'Product Name'},
-              { name: 'productModel', label: 'Model'},
-              { name: 'productBrand', label: 'Brand' }, 
-              { name: 'productDescription', label: 'Description'}, 
+              { name: 'productBrand', label: 'Brand' },
+              { name: 'productDescription', label: 'Description'},
               { name: 'productPrice', label: 'Price'},
-              { name: 'productQuantity', label: 'Quantity'}, 
+              { name: 'productQuantity', label: 'Quantity'},
               { name: 'productStatus', label: 'Status'},];
 
 getColumns() {
@@ -46,7 +45,7 @@ openAddEditForm(){
   dialogRef.afterClosed().subscribe({
     next : (product) =>{
       if (product){
-        this.getProductList();  
+        this.getProductList();
       }
     }
   })
@@ -62,7 +61,7 @@ getProductList(){
       this.dataSource.paginator = this.paginator;
     },
     error: (product) =>{
-      console.log(product)
+      console.log('error' , product)
     }
   })
 }

@@ -14,14 +14,14 @@ import { CategoryAddEditComponent } from '../category-add-edit/category-add-edit
 })
 
 export class CategoryListComponent implements OnInit {
-   
-dataName = [  { name: 'categoryName', label: 'Category Name'},  
+
+dataName = [  { name: 'categoryName', label: 'Category Name'},
               { name: 'categoryDescription', label: 'Description'}];
 
 getColumns() {
 return ['categoryName', 'categoryDescription', 'actions'];
 }
-dataSource!: MatTableDataSource<any>;
+dataSource! : MatTableDataSource<any>;
 
 @ViewChild(MatPaginator) paginator!: MatPaginator;
 @ViewChild(MatSort) sort!: MatSort;
@@ -40,7 +40,7 @@ openAddEditForm(){
   dialogRef.afterClosed().subscribe({
     next : (Category) =>{
       if (Category){
-        this.getCategoryList();  
+        this.getCategoryList();
       }
     }
   })
@@ -63,10 +63,10 @@ getCategoryList(){
 
 // applyFilter(event: Event) {
 //   const filterValue = (event.target as HTMLInputElement).value;
-//   this.dataSource.filter = filterValue.trim().toLowerCase();        gawa ni romeo 
- 
+//   this.dataSource.filter = filterValue.trim().toLowerCase();        gawa ni romeo
+
 //   if (this.dataSource.paginator) {
-//     this.dataSource.paginator.firstPage(); 
+//     this.dataSource.paginator.firstPage();
 //   }
 // }
 deleteCategory(id : string){
