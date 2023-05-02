@@ -40,7 +40,6 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
-
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule,} from '@angular/material/core';
@@ -92,7 +91,6 @@ const appRoute: Routes = [
     SalesDataComponent,
     TransactionListComponent,
     TransactionDataComponent,
-
     PayslipComponent,
     NavbarComponent,
     SidebarComponent,
@@ -150,8 +148,6 @@ const appRoute: Routes = [
     HttpClientModule,
     MatSelectModule,
     DatePipe,
-
-
   ],
   providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
