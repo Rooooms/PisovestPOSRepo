@@ -1,16 +1,18 @@
-import { Component,Inject ,OnInit } from '@angular/core';
+import { Component,Inject ,OnDestroy,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../services/core/core.service';
 import { ProductService } from '../services/product-services/product.service';
 import { CategoryService } from '../services/category-services/category.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-add-edit',
   templateUrl: './product-add-edit.component.html',
   styleUrls: ['./product-add-edit.component.css']
 })
-export class ProductAddEditComponent implements OnInit {
+export class ProductAddEditComponent implements OnInit , OnDestroy{
+  private productSubscription: Subscription = new Subscription();
   product: FormGroup; 
   categories= [];
 
@@ -31,6 +33,10 @@ export class ProductAddEditComponent implements OnInit {
     productQuantity: null,
   });
     }
+
+  ngOnDestroy(): void {
+  this.productSubscription.unsubscribe();
+}
 
     ngOnInit(): void {
         this.product.patchValue(this.data)

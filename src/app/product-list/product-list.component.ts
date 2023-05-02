@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductService } from '../services/product-services/product.service';
 import { ProductAddEditComponent } from '../product-add-edit/product-add-edit.component';
@@ -6,14 +6,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CoreService } from '../services/core/core.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit{
-
+export class ProductListComponent implements OnInit, OnDestroy{
+private productSubscription: Subscription = new Subscription();
 dataName = [  { name: 'categoryName', label: 'Category' },                           
               { name: 'productName', label: 'Product Name'},
               { name: 'productModel', label: 'Model'},
@@ -39,7 +40,9 @@ constructor (private _dialog: MatDialog , private productservice: ProductService
 ngOnInit(): void {
     this.getProductList();
 }
-
+ngOnDestroy(): void {
+  this.productSubscription.unsubscribe();
+}
 
 openAddEditForm(){
   const dialogRef = this._dialog.open(ProductAddEditComponent);
