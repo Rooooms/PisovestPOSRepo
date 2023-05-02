@@ -5,24 +5,24 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface ProductDataItem {
-  category: string;
-  product: string;
-  quantity: number;
-  price: number;
-  total: number;
+export interface PosItem {
+  Category: string;
+  Product: string;
+  Quantity: number;
+  Price: number;
+  Total: number;
 }
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: ProductDataItem[] = [
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
-  {category: 'apparel' , product: 'shoes', quantity: 1, price: 5, total: 1},
+const EXAMPLE_DATA: PosItem[] = [
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 6000, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7000, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7000, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 5000, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 5435, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 2355, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7455, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7345, Total: 1},
 
 ];
 
@@ -31,8 +31,8 @@ const EXAMPLE_DATA: ProductDataItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ProductDataDataSource extends DataSource<ProductDataItem> {
-  data: ProductDataItem[] = EXAMPLE_DATA;
+export class PosDataSource extends DataSource<PosItem> {
+  data: PosItem[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -45,7 +45,7 @@ export class ProductDataDataSource extends DataSource<ProductDataItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<ProductDataItem[]> {
+  connect(): Observable<PosItem[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
@@ -68,7 +68,7 @@ export class ProductDataDataSource extends DataSource<ProductDataItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: ProductDataItem[]): ProductDataItem[] {
+  private getPagedData(data: PosItem[]): PosItem[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -81,7 +81,7 @@ export class ProductDataDataSource extends DataSource<ProductDataItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: ProductDataItem[]): ProductDataItem[] {
+  private getSortedData(data: PosItem[]): PosItem[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -89,8 +89,8 @@ export class ProductDataDataSource extends DataSource<ProductDataItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'category': return compare(a.category, b.category, isAsc);
-        case 'price': return compare(+a.price, +b.price, isAsc);
+        case 'category': return compare(a.Category, b.Category, isAsc);
+        case 'Price': return compare(+a.Price, +b.Price, isAsc);
         default: return 0;
       }
     });
