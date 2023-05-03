@@ -58,6 +58,7 @@ export class POSComponent implements OnInit, AfterViewInit {
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
       console.log('Categories are:' ,this.categories)
+      console.log(this.dataSource)
     });
     
 
@@ -78,6 +79,8 @@ export class POSComponent implements OnInit, AfterViewInit {
 
 }
 
+
+
 onCategorySelected(selectedCategoryId : any){
   this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
     data => {
@@ -97,6 +100,7 @@ ngAfterViewInit(): void {
   this.dataSource.paginator = this.paginator;
   this.table.dataSource = this.dataSource;
 }
+
 
   fields = [
     {
