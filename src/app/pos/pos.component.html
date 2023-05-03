@@ -66,9 +66,9 @@
         <div class="row2">
           <ng-container *ngFor="let field of subtotalFields">
             <mat-form-field appearance="outline" class="form-field">
-              <mat-label>{{field.label}}</mat-label>
-              <input matInput [name]="field.name">
+              <input matInput [name]="field.name" type="number" placeholder="{{field.value}}" readonly>
             </mat-form-field>
+            <mat-label for="{{field.name}}">{{field.label}}</mat-label>
           </ng-container>
           <button mat-raised-button class="btn-submit">Submit</button>
         </div>
