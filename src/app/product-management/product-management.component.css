@@ -5,6 +5,7 @@
     margin-top: 150px;
     border: none !important;
     box-shadow: none;
+    background-color: #f2f2f2;
 }
 
 mat-card-actions {
@@ -20,6 +21,9 @@ mat-card-actions {
     margin:auto;
     margin-bottom: 20px;
     font-size: 35px;
+    background-color: #ccc !important;
+    border: none !important;
+    box-shadow: 5px 5px;
 }
 
 
@@ -30,7 +34,7 @@ p {
 }
 
 .btn:hover {
-    background-color: #34D27C;
+    background-color: #34D27C !important;
     color: antiquewhite;
 }
 
@@ -52,8 +56,7 @@ p {
     .btn {
         width: 80px;
         height: 60px;
-        border: solid 1px;
-        border-radius: 10px;
+        border: none;
         margin:auto;
     }
 
