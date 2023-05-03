@@ -19,24 +19,21 @@ import { MaterialModule } from './material/material.module';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
 import { AddSalaryComponent } from './add-salary/add-salary.component';
 import { SampleComponent } from './sample/sample.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { POSComponent } from './pos/pos.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CardComponent } from './card/card.component';
-import { HomeComponent } from './home/home.component';
 import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
@@ -51,8 +48,8 @@ import { SamplePosComponent } from './sample-pos/sample-pos.component';
 
 
 const appRoute: Routes = [
-  {path: '', component: CardComponent},
-  {path: 'Home', component: CardComponent},
+  {path: '', component: HomepageComponent},
+  {path: 'Home', component: HomepageComponent},
   {path: 'Sales', component: SalesReportComponent},
   {path: 'Transactions', component: TransactionListComponent},
   {path: 'POS', component: POSComponent}
@@ -79,13 +76,10 @@ const appRoute: Routes = [
     SidebarComponent,
     HomepageComponent,
     POSComponent,
-    CardComponent,
-    HomeComponent,
     SidebarComponent,
     NavbarComponent,
     InvoiceDialogComponent,
     SalesReportComponent,
-    TransactionsComponent,
     SalesDataComponent,
     TransactionListComponent,
     TransactionDataComponent,
@@ -144,9 +138,9 @@ const appRoute: Routes = [
     HttpClientModule,
     MatSelectModule,
     DatePipe,
-    
+
   ],
-  providers: [DatePipe],  
+  providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

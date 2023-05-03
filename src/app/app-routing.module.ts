@@ -11,7 +11,6 @@ import { combineLatest } from 'rxjs';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';

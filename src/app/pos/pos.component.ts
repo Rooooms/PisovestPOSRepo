@@ -26,7 +26,11 @@ export class POSComponent implements OnInit, AfterViewInit {
   categories= [];
   posForm: FormGroup;
   totalForm: FormGroup;
-  products = []; 
+  products = [];
+  subTotal:any = '';
+  taxInclusive = 0.12;
+  taxAmount:any = '';
+  grandTotal:any = '';
 
   constructor(
     private sharedService: SharedService,
@@ -59,7 +63,7 @@ export class POSComponent implements OnInit, AfterViewInit {
       this.categories = categories //Fetches the Entire Category List.
       console.log('Categories are:' ,this.categories)
     });
-    
+
 
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
@@ -70,10 +74,10 @@ export class POSComponent implements OnInit, AfterViewInit {
     });
 
     this.totalForm = this._Total.group({
-      subTotal: [''],
-      taxInclusive: [{value: '12%'}],
-      taxAmount: [{value: 887}], // Initial value for the price of the product
-      GrandTotal: ['']
+      subtotal: [null],
+      taxInclusive: ['12%'],
+      taxAmount: [null],
+      grandTotal: [null],
     });
 
 }
@@ -96,6 +100,12 @@ ngAfterViewInit(): void {
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
   this.table.dataSource = this.dataSource;
+}
+
+calculateTotals() {
+  this.subTotal = this.dataSource.data.reduce((total, item) => total + (item.Quantity * item.Price), 0);
+  this.taxAmount = this.subTotal * this.taxInclusive;
+  this.grandTotal = this.subTotal + this.taxAmount;
 }
 
   fields = [
@@ -123,26 +133,20 @@ ngAfterViewInit(): void {
 
 
 
-  subtotalFields = [  
+  subtotalFields = [
   {
     label: 'Sub Total',
     name: 'subTotal',
-    value: '',
   },
   {
     label: 'Tax Inclusive (%)',
     name: 'taxInclusive',
-    value: 12
   },
   {
-    label: 'Tax Amount', 
+    label: 'Tax Amount',
     name: 'taxAmount',
-    value: 887,
   },
-  {label: 'Grand Total', 
+  {label: 'Grand Total',
   name: 'grandTotal',
-  value: '',
 }];
-
-
 }

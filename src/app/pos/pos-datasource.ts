@@ -15,14 +15,14 @@ export interface PosItem {
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: PosItem[] = [
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 6000, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7000, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7000, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 5000, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 5435, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 2355, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7455, Total: 1},
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 7345, Total: 1},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 4000, Total: 4000},
+  {Category: 'apparel' , Product: 'skirt', Quantity: 1, Price: 600, Total: 600},
+  {Category: 'apparel' , Product: 'pants', Quantity: 1, Price: 800, Total: 800},
+  {Category: 'apparel' , Product: 'crew neck', Quantity: 1, Price: 500, Total: 500},
+  {Category: 'apparel' , Product: 'hoodie', Quantity: 1, Price: 800, Total: 800},
+  {Category: 'apparel' , Product: 'shirt', Quantity: 1, Price: 400, Total: 400},
+  {Category: 'apparel' , Product: 'socks', Quantity: 1, Price: 150, Total: 150},
+  {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
 
 ];
 
