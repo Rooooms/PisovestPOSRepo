@@ -75,7 +75,6 @@ export class POSComponent implements OnInit, AfterViewInit {
       taxAmount: 887, // Initial value for the price of the product
       GrandTotal: ['']
     });
-
 }
 
 onCategorySelected(selectedCategoryId : any){
@@ -127,6 +126,4 @@ ngAfterViewInit(): void {
                       {label: 'Tax Inclusive (%)', name: 'taxInclusive'},
                       {label: 'Tax Amount', name: 'taxAmount'},
                       {label: 'Grand Total', name: 'grandTotal'}];
-
-
 }
