@@ -20,6 +20,9 @@ export class ProductService {
   getProductList(): Observable <any> {
     return this.http.get(this.baseApiUrl + 'api/Product');
   }
+  getProductbyId(id : string) : Observable<any>{
+    return this.http.get(`http://localhost:5125/api/Product/${id}`);
+  }
 
   deleteProduct(id : string) : Observable<any>{
     return this.http.delete(`http://localhost:5125/api/Product/${id}`);

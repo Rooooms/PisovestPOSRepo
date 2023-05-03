@@ -51,7 +51,7 @@ export class POSComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sharedService.pageName = 'Point of Sale';
     this.pageTitle = 'Point of Sale';
 
