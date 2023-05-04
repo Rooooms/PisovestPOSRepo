@@ -13,24 +13,48 @@ import { PosDataSource, PosItem } from './pos-datasource';
   selector: 'app-pos',
   templateUrl: './pos.component.html',
   styleUrls: ['./pos.component.css'],
-  template: '<h1>{{ pageTitle }}</h1>',
 })
+
 export class POSComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<PosItem>;
-  dataSource: PosDataSource;
 
   public pageTitle: string;
   categories= [];
+  products = [];
   posForm: FormGroup;
   totalForm: FormGroup;
-  products = [];
-  subTotal:any = '';
+  dataSource:  PosDataSource;
+  subTotal:any;
   taxInclusive = 0.12;
-  taxAmount:any = '';
-  grandTotal:any = '';
+  taxAmount:any;
+  grandTotal:any;
+
+  fields =
+  [
+    {
+      placeholder: 'Category',
+      type: 'select',
+      id: 'categoryName',
+      name: 'categoryName',
+      label: 'Category',
+      value: 'categoryName',
+    },
+    {
+      label: 'Product',
+      type: 'select',
+    },
+    {
+      label: 'Quantity',
+      type: 'input',
+    },
+    {
+      label: 'Search',
+      type: 'input',
+    },
+  ];
 
   constructor(
     private sharedService: SharedService,
@@ -42,7 +66,7 @@ export class POSComponent implements OnInit, AfterViewInit {
       this.dataSource = new PosDataSource();
     }
 
-    /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   columnNames: {[key: string]: string} = {
     'id': 'ID',
     'dateTime': 'Date and Time',
@@ -74,79 +98,82 @@ export class POSComponent implements OnInit, AfterViewInit {
     });
 
     this.totalForm = this._Total.group({
-      subtotal: [null],
-      taxInclusive: ['12%'],
-      taxAmount: [null],
-      grandTotal: [null],
+      subtotal: 0,
+      taxInclusive: 0.12,
+      taxAmount: 0,
+      grandTotal: 0,
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+
+    this.calculateTotals();
+  }
+
+
+  onCategorySelected(selectedCategoryId : any){
+    this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
+      data => {
+        this.products = data.filter(products => products.categoryId == selectedCategoryId)
+        console.log('Product', this.products);
+      }
+    )
+  }
+
+  onAddClicked(row: any) {
+    // Handle button click event here
+    console.log('Add button clicked for row:', row);
+  }
+
+  calculateTotals() {
+    const data = this.dataSource.data;
+    let subTotal = 0;
+    let taxInclusive = .12;
+    let taxAmount = 0;
+    let grandTotal = 0;
+
+    data.forEach((item: PosItem) => {
+      subTotal += item.Quantity * item.Price;
     });
 
-}
+    taxAmount = subTotal * taxInclusive;
+    grandTotal = subTotal + taxAmount;
 
-onCategorySelected(selectedCategoryId : any){
-  this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
-    data => {
-      this.products = data.filter(products => products.categoryId == selectedCategoryId)
-      console.log('Product', this.products);
+    this.subTotal = subTotal;
+    this.taxAmount = taxAmount;
+    this.grandTotal = grandTotal;
+  }
+
+  onRowAdded() {
+    this.calculateTotals();
+  }
+
+  onRowDeleted() {
+    this.calculateTotals();
+  }
+
+  onChange(event: any) {
+    const label = event.target.previousElementSibling.innerText;
+    const value = event.target.value;
+
+    switch (label) {
+      case 'Subtotal':
+        console.log('Subtotal:', value);
+        break;
+      case 'Tax Inclusive':
+        console.log('Tax Inclusive:', value);
+        break;
+      case 'Tax Amount':
+        console.log('Tax Amount:', value);
+        break;
+      case 'Grand Total':
+        console.log('Grand Total:', value);
+        break;
+      default:
+        break;
     }
-  )
-}
-
-onAddClicked(row: any) {
-  // Handle button click event here
-  console.log('Add button clicked for row:', row);
-}
-
-ngAfterViewInit(): void {
-  this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;
-  this.table.dataSource = this.dataSource;
-}
-
-calculateTotals() {
-  this.subTotal = this.dataSource.data.reduce((total, item) => total + (item.Quantity * item.Price), 0);
-  this.taxAmount = this.subTotal * this.taxInclusive;
-  this.grandTotal = this.subTotal + this.taxAmount;
-}
-
-  fields = [
-    {
-      placeholder: 'Category',
-        type: 'select',
-        id: 'categoryName',
-        name: 'categoryName',
-        label: 'Category',
-        value: 'categoryName',
-    },
-    {
-      label: 'Product',
-      type: 'select',
-    },
-    {
-      label: 'Quantity',
-      type: 'input',
-    },
-    {
-      label: 'Search',
-      type: 'input',
-    },
-  ];
-
-
-
-  subtotalFields = [
-  {
-    label: 'Sub Total',
-    name: 'subTotal',
-  },
-  {
-    label: 'Tax Inclusive (%)',
-    name: 'taxInclusive',
-  },
-  {
-    label: 'Tax Amount',
-    name: 'taxAmount',
-  },
-  {label: 'Grand Total',
-  name: 'grandTotal',
-}];
+  }
 }

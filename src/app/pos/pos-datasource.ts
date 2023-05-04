@@ -19,11 +19,11 @@ const EXAMPLE_DATA: PosItem[] = [
   {Category: 'apparel' , Product: 'skirt', Quantity: 1, Price: 600, Total: 600},
   {Category: 'apparel' , Product: 'pants', Quantity: 1, Price: 800, Total: 800},
   {Category: 'apparel' , Product: 'crew neck', Quantity: 1, Price: 500, Total: 500},
-  {Category: 'apparel' , Product: 'hoodie', Quantity: 1, Price: 800, Total: 800},
+  {Category: 'apparel' , Product: 'hoodie', Quantity: 3, Price: 800, Total: 2400},
   {Category: 'apparel' , Product: 'shirt', Quantity: 1, Price: 400, Total: 400},
   {Category: 'apparel' , Product: 'socks', Quantity: 1, Price: 150, Total: 150},
   {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
-
+  {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
 ];
 
 /**

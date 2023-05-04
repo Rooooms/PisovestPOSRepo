@@ -64,31 +64,24 @@
         </div>
 
         <div class="row2">
-          <!-- <ng-container *ngFor="let field of subtotalFields">
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>{{field.label}}</mat-label>
-              <input matInput [name]="field.name">
-            </mat-form-field>
-          </ng-container> -->
-
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Subtotal</mat-label>
-            <input matInput formControlName="subtotal">
+            <input matInput formControlName="subTotal" [value]="subTotal" (change)="onChange($event)" readonly>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Tax Inclusive</mat-label>
-            <input matInput formControlName="taxInclusive">
+            <input matInput formControlName="taxInclusive"  [value]="taxInclusive" (change)="onChange($event)" readonly>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Tax Amount</mat-label>
-            <input matInput formControlName="taxAmount">
+            <input matInput formControlName="taxAmount"  [value]="taxAmount"  (change)="onChange($event)" readonly>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Grand Total</mat-label>
-            <input matInput formControlName="grandTotal">
+            <input matInput formControlName="grandTotal"   [value]="grandTotal" (change)="onChange($event)" readonly>
           </mat-form-field>
 
           <button mat-raised-button class="btn-submit">Submit</button>
