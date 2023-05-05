@@ -3,7 +3,7 @@
     <div class="container1">
       <ng-container *ngFor="let field of fields">
         <mat-form-field appearance="outline">
-          <mat-label>{{ field.label }}</mat-label>
+          <mat-label>{{ field.placeholder }}</mat-label>
           <ng-container *ngIf="field.label === 'Category'">
             <mat-select formControlName="categoryName" (ngModelChange)="onCategorySelected($event)">
               <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</mat-option>
@@ -18,10 +18,10 @@
             </mat-select>
           </ng-container>
           
-          <ng-container *ngIf="field.type === 'input' && field.label === 'Quantity'">
+          <ng-container *ngIf="field.label === 'input'">
             <input matInput formControlName="quantity"/>
           </ng-container>
-          <input matInput *ngIf="field.type === 'input'" />
+          <input matInput *ngIf="field.label === 'input'" />
         </mat-form-field>
       </ng-container>
 
@@ -37,6 +37,7 @@
       <tr>
         <th>Product Name</th>
         <th>Category</th>
+        <th>Quantity</th>
         <th> <button mat-raised-button color="warn" (click)="resetSales()" >Reset</button> </th>
       </tr>
     </thead>
@@ -44,6 +45,7 @@
       <tr *ngFor="let sale of sales">
         <td>{{ sale.productName }}</td>
         <td>{{ sale.category }}</td>
+        <td>{{ sale.quantity }}</td>
       </tr>
     </tbody>
   </table>

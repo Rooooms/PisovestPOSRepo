@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sample',
@@ -34,7 +34,7 @@ export class SampleComponent implements OnInit{
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: [''], // Initial value for the quantity input
+      quantity: ['', [Validators.required, Validators.min(1), Validators.max(1000)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
@@ -71,14 +71,6 @@ export class SampleComponent implements OnInit{
 
   isReset: boolean = false;
 
-addProductLoop() {
-  while(!this.isReset) {
-    this.addProduct();
-  }
-}
-
-
-  
 addProduct() {
   const product = this.posForm.value.product;
   const quantity = this.posForm.value.quantity;
@@ -128,6 +120,15 @@ addProduct() {
       id:'productId',
       name:'productName',
       type: 'select',
+      placeholder: 'Product',
+    },
+    {
+      label: 'input',
+      id:'Quantity',
+      name:'Quantity',
+      type: 'number',
+      value: 'number',
+      placeholder: 'Quantity',
     },
   ];
 }
