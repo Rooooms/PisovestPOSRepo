@@ -18,6 +18,7 @@ import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 const routes: Routes = [
 
@@ -109,6 +110,11 @@ const routes: Routes = [
   {
     path: 'sample-pos',
     component: SamplePosComponent
+  },
+
+  {
+    path: 'manageorder',
+    component: ManageOrderComponent
   },
 
   ];

@@ -81,6 +81,7 @@ onCategorySelected(selectedCategoryId : any){
   this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
     data => {
       this.products = data.filter(products => products.categoryId == selectedCategoryId)
+      console.log(selectedCategoryId)
       console.log('Product', this.products);
     }
   )

@@ -1,29 +1,51 @@
 <div class="container">
-  <form [formGroup] = 'posForm'>
-        <div class="container1">
-            <ng-container *ngFor="let field of fields">
-              <mat-form-field appearance="outline">
-                  <mat-label>{{ field.label }}</mat-label>
-                    <ng-container *ngIf="field.label === 'Category'">
-                      <mat-select formControlName="categoryName" (ngModelChange) = "onCategorySelected($event)">
-                          <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
-                      </mat-select>
-                    </ng-container>
-  
-                    <ng-container *ngIf="field.label === 'Product'">
-                      <mat-select formControlName="product">
-                          <mat-option *ngFor="let product of products" [value]="product">
-                          {{ product.productName }}
-                          </mat-option>
-                      </mat-select>
-                    
-                    </ng-container>
-                  <input matInput *ngIf="field.type === 'input'" />
-            </mat-form-field>
-            </ng-container>
-        
-            <button mat-fab color="success" aria-label="Example icon button with a Add icon" >
-            <mat-icon>add</mat-icon>
-            </button>
-        </div>
-      </form>
+  <form [formGroup]="posForm">
+    <div class="container1">
+      <ng-container *ngFor="let field of fields">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <ng-container *ngIf="field.label === 'Category'">
+            <mat-select formControlName="categoryName" (ngModelChange)="onCategorySelected($event)">
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</mat-option>
+            </mat-select>
+          </ng-container>
+
+          <ng-container *ngIf="field.label === 'Product'">
+            <mat-select formControlName="product">
+              <mat-option *ngFor="let product of products" [value]="product">
+                {{ product.productName }}
+              </mat-option>
+            </mat-select>
+          </ng-container>
+          
+          <ng-container *ngIf="field.type === 'input' && field.label === 'Quantity'">
+            <input matInput formControlName="quantity"/>
+          </ng-container>
+          <input matInput *ngIf="field.type === 'input'" />
+        </mat-form-field>
+      </ng-container>
+
+      <button mat-fab color="success" aria-label="Example icon button with a Add icon"  (click)="addProduct()" >
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </div>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th> <button mat-raised-button color="warn" (click)="resetSales()" >Reset</button> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sale of sales">
+        <td>{{ sale.productName }}</td>
+        <td>{{ sale.category }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
