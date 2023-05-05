@@ -1,5 +1,5 @@
 import { HomepageComponent } from './homepage/homepage.component';
-import { POSComponent } from './pos/pos.component';
+import { PosComponent } from './pos/pos.component';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
 
   {
     path: 'POS',
-    component: POSComponent, //name: 'POS',
+    component: PosComponent, //name: 'POS',
   },
 
   {

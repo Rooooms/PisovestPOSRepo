@@ -6,8 +6,32 @@ import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { PosDataSource, PosItem } from './pos-datasource';
+import { DataSource } from '@angular/cdk/collections';
+import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, merge } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
+
+export interface PosItem {
+  Category: string;
+  Product: string;
+  Quantity: number;
+  Price: number;
+  Total: number;
+}
+
+// TODO: replace this with real data from your application
+const STATIC_DATA: PosItem[] = [
+  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 4000, Total: 4000},
+  {Category: 'apparel' , Product: 'skirt', Quantity: 1, Price: 600, Total: 600},
+  {Category: 'apparel' , Product: 'pants', Quantity: 1, Price: 800, Total: 800},
+  {Category: 'apparel' , Product: 'crew neck', Quantity: 1, Price: 500, Total: 500},
+  {Category: 'apparel' , Product: 'hoodie', Quantity: 3, Price: 800, Total: 2400},
+  {Category: 'apparel' , Product: 'shirt', Quantity: 1, Price: 400, Total: 400},
+  {Category: 'apparel' , Product: 'socks', Quantity: 1, Price: 150, Total: 150},
+  {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
+  {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
+];
 
 @Component({
   selector: 'app-pos',
@@ -15,7 +39,7 @@ import { PosDataSource, PosItem } from './pos-datasource';
   styleUrls: ['./pos.component.css'],
 })
 
-export class POSComponent implements OnInit, AfterViewInit {
+export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterViewInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -26,11 +50,11 @@ export class POSComponent implements OnInit, AfterViewInit {
   products = [];
   posForm: FormGroup;
   totalForm: FormGroup;
-  dataSource:  PosDataSource;
   subTotal:any;
   taxInclusive = 0.12;
   taxAmount:any;
   grandTotal:any;
+  data: PosItem[] = STATIC_DATA;
 
   fields =
   [
@@ -63,7 +87,7 @@ export class POSComponent implements OnInit, AfterViewInit {
     private _Pos: FormBuilder,
     private _Total: FormBuilder,
     ) {
-      this.dataSource = new PosDataSource();
+      super();
     }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -99,16 +123,16 @@ export class POSComponent implements OnInit, AfterViewInit {
 
     this.totalForm = this._Total.group({
       subtotal: 0,
-      taxInclusive: 0.12,
+      taxInclusive: '12%',
       taxAmount: 0,
       grandTotal: 0,
     });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    this.sort = this.sort;
+    this.paginator = this.paginator;
+    this.table.dataSource = new MatTableDataSource(this.data);
 
     this.calculateTotals();
   }
@@ -129,7 +153,7 @@ export class POSComponent implements OnInit, AfterViewInit {
   }
 
   calculateTotals() {
-    const data = this.dataSource.data;
+    const data = this.data;
     let subTotal = 0;
     let taxInclusive = .12;
     let taxAmount = 0;
@@ -176,4 +200,65 @@ export class POSComponent implements OnInit, AfterViewInit {
         break;
     }
   }
+
+    /**
+   * Connect this data source to the table. The table will only update when
+   * the returned stream emits new items.
+   * @returns A stream of the items to be rendered.
+   */
+    connect(): Observable<PosItem[]> {
+      if (this.paginator && this.sort) {
+        // Combine everything that affects the rendered data into one update
+        // stream for the data-table to consume.
+        return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
+          .pipe(map(() => {
+            return this.getPagedData(this.getSortedData([...this.data ]));
+          }));
+      } else {
+        throw Error('Please set the paginator and sort on the data source before connecting.');
+      }
+    }
+
+    /**
+     *  Called when the table is being destroyed. Use this function, to clean up
+     * any open connections or free any held resources that were set up during connect.
+     */
+    disconnect(): void {}
+
+    /**
+     * Paginate the data (client-side). If you're using server-side pagination,
+     * this would be replaced by requesting the appropriate data from the server.
+     */
+    private getPagedData(data: PosItem[]): PosItem[] {
+      if (this.paginator) {
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        return data.splice(startIndex, this.paginator.pageSize);
+      } else {
+        return data;
+      }
+    }
+
+    /**
+     * Sort the data (client-side). If you're using server-side sorting,
+     * this would be replaced by requesting the appropriate data from the server.
+     */
+    private getSortedData(data: PosItem[]): PosItem[] {
+      if (!this.sort || !this.sort.active || this.sort.direction === '') {
+        return data;
+      }
+
+    return data.sort((a, b) => {
+      const isAsc = this.sort?.direction === 'asc';
+        switch (this.sort?.active) {
+          case 'category': return compare(a.Category, b.Category, isAsc);
+          case 'Price': return compare(+a.Price, +b.Price, isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
+
+  /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
+function compare(a: string | number, b: string | number, isAsc: boolean): number {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { POSComponent } from './pos/pos.component';
+import { PosComponent } from './pos/pos.component';
 import { RouterModule, Routes } from '@angular/router';
 import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
@@ -52,7 +52,7 @@ const appRoute: Routes = [
   {path: 'Home', component: HomepageComponent},
   {path: 'Sales', component: SalesReportComponent},
   {path: 'Transactions', component: TransactionListComponent},
-  {path: 'POS', component: POSComponent}
+  {path: 'POS', component: PosComponent}
 ]
 
 @NgModule({
@@ -75,7 +75,7 @@ const appRoute: Routes = [
     NavbarComponent,
     SidebarComponent,
     HomepageComponent,
-    POSComponent,
+    PosComponent,
     SidebarComponent,
     NavbarComponent,
     InvoiceDialogComponent,
