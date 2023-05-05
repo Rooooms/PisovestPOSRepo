@@ -1,65 +1,51 @@
-
-
-<form [formGroup]="addstaff" (ngSubmit)="onFormSubmit()">
-  
-    <div mat-dialog-title>
-      <h1>Add Staff</h1>
-    </div>
-
-    <div mat-dialog-content>
-      
-  <div class="form-container">
-    
-    
-    <div class="form-column">
-      <ng-container *ngFor="let staff of Staff; let i = index">
-        <div *ngIf="i % 2 === 0" class="form-group">
-          <ng-container *ngIf="staff.type !== 'date'; else elseBlock">
-            <mat-form-field appearance="outline" class="example-form-field">
-              <mat-label >{{staff.hold}}</mat-label>
-              <input matInput class="form-control" type="{{staff.type}}" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" >
-            </mat-form-field>
+<div class="container">
+  <form [formGroup]="posForm">
+    <div class="container1">
+      <ng-container *ngFor="let field of fields">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <ng-container *ngIf="field.label === 'Category'">
+            <mat-select formControlName="categoryName" (ngModelChange)="onCategorySelected($event)">
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</mat-option>
+            </mat-select>
           </ng-container>
-          <ng-template #elseBlock>
-            <mat-form-field appearance="outline" class="form-control">
-              <mat-label>Birthday</mat-label>
-              <input matInput [matDatepicker]="picker" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}">
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </ng-template>
-        </div>
-      </ng-container>
-    </div>
 
-    <div class="form-column">
-      <ng-container *ngFor="let staff of Staff; let i = index">
-        <div *ngIf="i % 2 === 1" class="form-group">
-          <ng-container *ngIf="staff.type !== 'date'; else elseBlock">
-            <mat-form-field appearance="outline" class="example-form-field">
-              <mat-label >{{staff.hold}}</mat-label>
-              <input matInput class="form-control" type="{{staff.type}}" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" >
-            </mat-form-field>
+          <ng-container *ngIf="field.label === 'Product'">
+            <mat-select formControlName="product">
+              <mat-option *ngFor="let product of products" [value]="product">
+                {{ product.productName }}
+              </mat-option>
+            </mat-select>
           </ng-container>
-          <ng-template #elseBlock>
-            <mat-form-field appearance="outline" class="form-control">
-              <mat-label>Date Joined</mat-label>
-              <input matInput [matDatepicker]="picker" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}">
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </ng-template>
-        
-        </div>
+          
+          <ng-container *ngIf="field.type === 'input' && field.label === 'Quantity'">
+            <input matInput formControlName="quantity"/>
+          </ng-container>
+          <input matInput *ngIf="field.type === 'input'" />
+        </mat-form-field>
       </ng-container>
-    </div>
 
-    
-   </div>
-  </div>
-   <div mat-dialog-actions>
-    <button type="button" mat-raised-button>Cancel</button>
-    <button type="submit" mat-raised-button>Submit</button>
-  </div>
-    
-</form>
+      <button mat-fab color="success" aria-label="Example icon button with a Add icon"  (click)="addProduct()" >
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </div>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th> <button mat-raised-button color="warn" (click)="resetSales()" >Reset</button> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sale of sales">
+        <td>{{ sale.productName }}</td>
+        <td>{{ sale.category }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

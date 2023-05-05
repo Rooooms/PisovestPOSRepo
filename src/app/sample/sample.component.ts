@@ -1,122 +1,144 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AddStaffComponent } from '../add-staff/add-staff.component';
-import { StaffServiceService } from '../services/staff-service.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../services/category-services/category.service';
+import { ProductService } from '../services/product-services/product.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sample',
   templateUrl: './sample.component.html',
   styleUrls: ['./sample.component.css']
 })
-export class SampleComponent implements OnInit {
+export class SampleComponent implements OnInit{
+  categories= [];
+  products = [];
+  id : any;
+  selectedCategory: any;
+  selectedProduct: any;
+  selectedQuantity: any;
+  addedProducts: any[] = [];
+  posForm: FormGroup;
+  sales: any[] = []; // temporary array to hold sales data
+  newcategories= []	
+  constructor(private categoryService : CategoryService, 
+    private productService : ProductService,
+    private _Pos: FormBuilder,
+    ){}
+  
+  ngOnInit(): void {
+    this.categoryService.getCategoryList().subscribe((categories: any) => {
+      this.categories = categories //Fetches the Entire Category List.
+      console.log('Categories are:' ,this.categories)
+    });
 
-  addstaff: FormGroup;
-
-  constructor(
-    private staffService : StaffServiceService, 
-    private _Staff : FormBuilder,
-    private _dialogRef: MatDialogRef<AddStaffComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-
-    ) {
-
-  this.addstaff = this._Staff.group({
-    id : '',
-      employeeName: '',
-      employeeEmail: '',
-      employeeMobileNumber: '',
-      employeeExpectedSalary: 0,
-      birthday : '0000-00-00',
-      datejoined: '0000-00-00',
-      employeePosition: '',
-      employeeAddress: '',
-  })
+    this.posForm = this._Pos.group({
+      categoryName: [''], // Initial value for the category select
+      product: [''], // Initial value for the product select
+      quantity: [''], // Initial value for the quantity input
+      search: [''], // Initial value for the search input
+      categoryId: [''],
+    });
+    
+    
   }
-    ngOnInit(): void {
-        this.addstaff.patchValue(this.data);
-    }
 
-  onFormSubmit(){
-    if (this.addstaff.valid){
-      if(this.data){
-        this.staffService.addStaff(this.addstaff.value).subscribe({
-          next:(val: any) => {
-            this._dialogRef.close(true);
-          },
-          error: (err: any) =>{
-            console.error(err);
-          },
-        });
+  onCategorySelected(selectedCategoryId: any) {
+    this.selectedCategory = selectedCategoryId;
+    this.posForm.get('categoryId').setValue(selectedCategoryId); // set the value of the categoryId control
+    this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
+      data => {
+        this.products = data.filter(products => products.categoryId == selectedCategoryId)
+        console.log('Product', this.products);
       }
+    )
+  }
+  
+
+  onProductSelected(selectedProductId: any) {
+    this.selectedProduct = selectedProductId;
+  }
+
+  onQuantitySelected(selectedQuantity: any) {
+    this.selectedQuantity = selectedQuantity;
+  }
+  
+  addProducts(productName: string) {
+    const product = this.products.find(p => p.name === productName);
+    if (product && this.selectedCategory) {
+      this.selectedCategory.products.push(product);
     }
   }
-  
-    Staff = [
-    
-  {
-    placeholder: 'ex. Juan Dela Cruz ',
-    type: 'text',
-    name: 'employeeName',
-    id: 'employeeName',
-    hold: 'Name'
-    
-  },
-  {
-    placeholder: 'ex. @example.com',
-    type: 'email',
-    name: 'employeeEmail',
-    id: 'employeeEmail',
-    hold: 'Email'
-  },
-  {
-    placeholder: '09XXXXXXXXX',
-    type: 'text',
-    name: 'employeeMobileNumber',
-    id: 'employeeMobileNumber',
-    hold: 'Mobile Number'
-  },
-  {
-    placeholder: 'XXXXXX',
-    type: 'number',
-    name: 'employeeExpectedSalary',
-    id: 'employeeExpectedSalary',
-    hold: 'Expected Salary'
-  },
-  {
-    placeholder: '00/00/0000',
-    type: 'date',
-    name: 'birthday',
-    id: 'birthday',
-    hold: 'Birthday'
-  },
-  {
-    placeholder: 'ex. Manager',
-    type: 'text',
-    name: 'employeePosition',
-    id: 'employeePosition',
-    hold: 'Position'
-  },
-  {
-    placeholder: 'ex. 2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr, Port Area, Manila, 1000 Metro Manila',
-    type: 'text',
-    name: 'employeeAddress',
-    id: 'employeeAddress',
-    hold: 'Address'
-  },
-  
-  {
-    placeholder: '00/00/0000',
-    type: 'date',
-    name: 'datejoined',
-    id: 'datejoined',
-    hold: 'Date Joined'
+
+  isReset: boolean = false;
+
+addProductLoop() {
+  while(!this.isReset) {
+    this.addProduct();
   }
-  
-  
-    ];
+}
 
 
+  
+  addProduct() {
+    const product = this.posForm.value.product;
+    const quantity = this.posForm.value.quantity;
+    const categoryName = this.categories;
+    
+    
+    console.log(`categoryName: ${categoryName}`);
+    console.log(`product: ${product}`);
+
+    const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
+
+    // const selectedCategory = categoryName;
+    
+    this.categoryService.getById(this.selectedCategory).subscribe((categories: any) => {
+      this.categories = categories
+      
+      console.log('Categories ares:' ,this.categories)
+    });
+    // console.log('selectedcategory', selectedCategory)
+    if (this.categories) {
+      // const selectedProduct = selectedCategory.products.find(p => p.productId === product);
+      const selectedProduct = product;
+      
+      // console.log('category', selectedCategory)
+      const productToAdd = {
+        id: selectedProduct.productId,
+        // catId: selectedCategory.categoryId,
+        productName: selectedProduct.productName,
+        category: this.categories[0]['categoryName'],
+        quantity: quantity
+      };
+  
+      this.sales.push(productToAdd); 
+      this.posForm.reset();
+      console.log(this.sales);
+    } else {
+      console.log(`Category '${categoryName}'not found.`);
+    }
+  }
+
+  
+  resetSales() {
+    this.sales = [];
+    this.isReset = true;
   }
   
+  fields = [
+    {
+      placeholder: 'Category',
+        type: 'select',
+        id: 'categoryId',
+        name: 'categoryName',
+        label: 'Category',
+        value: 'categoryName',
+    },
+    {
+      label: 'Product',
+      id:'productId',
+      name:'productName',
+      type: 'select',
+    },
+  ];
+}

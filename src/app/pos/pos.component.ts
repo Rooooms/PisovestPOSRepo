@@ -22,7 +22,7 @@ export interface PosItem {
 
 // TODO: replace this with real data from your application
 const STATIC_DATA: PosItem[] = [
-  {Category: 'apparel' , Product: 'shoes', Quantity: 1, Price: 4000, Total: 4000},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 134, Price: 4000, Total: 4000},
   {Category: 'apparel' , Product: 'skirt', Quantity: 1, Price: 600, Total: 600},
   {Category: 'apparel' , Product: 'pants', Quantity: 1, Price: 800, Total: 800},
   {Category: 'apparel' , Product: 'crew neck', Quantity: 1, Price: 500, Total: 500},
@@ -103,7 +103,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
 
   displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sharedService.pageName = 'Point of Sale';
     this.pageTitle = 'Point of Sale';
 
