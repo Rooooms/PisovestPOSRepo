@@ -28,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AddPositionComponent } from './add-position/add-position.component';
+import { ManagePositionComponent } from './manage-position/manage-position.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     AddSalaryComponent,
     SampleComponent,
     PayslipComponent,
+    AddPositionComponent,
+    ManagePositionComponent,
    
   ],
   imports: [

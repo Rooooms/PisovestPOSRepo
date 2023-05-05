@@ -83,7 +83,7 @@ table {
 }
 
 .mat-toolbar filter{
-  width: 100%;
+  width: 800%;
   height: 100%;
 }
 .btna{
@@ -93,7 +93,7 @@ table {
 }
 
 .ng-container mat-form-field{
-  width: 80%;
+  width: 70%;
   padding: 10px;
   margin-top: 2.5rem;
   height: 4.5rem;
