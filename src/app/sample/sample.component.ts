@@ -38,9 +38,11 @@ export class SampleComponent implements OnInit{
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
-    
-    
   }
+
+  getColumns(){
+    return ['categoryName', 'product', 'quantity', 'categoryId'];
+    }
 
   onCategorySelected(selectedCategoryId: any) {
     this.selectedCategory = selectedCategoryId;
@@ -71,53 +73,35 @@ export class SampleComponent implements OnInit{
 
   isReset: boolean = false;
 
-addProductLoop() {
-  while(!this.isReset) {
-    this.addProduct();
-  }
+  
+addProduct() {
+  const product = this.posForm.value.product;
+  const quantity = this.posForm.value.quantity;
+  const categoryName = this.categories;
+  
+  console.log(`categoryName: ${categoryName}`);
+  console.log(`product: ${product}`);
+
+  const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
+
+  this.categoryService.getById(this.selectedCategory).subscribe((selectedCategory: any) => {
+    const categoryName = selectedCategory.categoryName;
+    console.log('Category name:', categoryName);
+
+    const selectedProduct = product;
+  
+    const productToAdd = {
+      id: selectedProduct.productId,
+      productName: selectedProduct.productName,
+      category: categoryName,
+      quantity: quantity
+    };
+
+    this.sales.push(productToAdd); 
+    this.posForm.reset();
+    console.log(this.sales);
+  });
 }
-
-
-  
-  addProduct() {
-    const product = this.posForm.value.product;
-    const quantity = this.posForm.value.quantity;
-    const categoryName = this.categories;
-    
-    
-    console.log(`categoryName: ${categoryName}`);
-    console.log(`product: ${product}`);
-
-    const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
-
-    // const selectedCategory = categoryName;
-    
-    this.categoryService.getById(this.selectedCategory).subscribe((categories: any) => {
-      this.categories = categories
-      
-      console.log('Categories ares:' ,this.categories)
-    });
-    // console.log('selectedcategory', selectedCategory)
-    if (this.categories) {
-      // const selectedProduct = selectedCategory.products.find(p => p.productId === product);
-      const selectedProduct = product;
-      
-      // console.log('category', selectedCategory)
-      const productToAdd = {
-        id: selectedProduct.productId,
-        // catId: selectedCategory.categoryId,
-        productName: selectedProduct.productName,
-        category: this.categories[0]['categoryName'],
-        quantity: quantity
-      };
-  
-      this.sales.push(productToAdd); 
-      this.posForm.reset();
-      console.log(this.sales);
-    } else {
-      console.log(`Category '${categoryName}'not found.`);
-    }
-  }
 
   
   resetSales() {
