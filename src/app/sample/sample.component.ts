@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sample',
@@ -34,7 +34,7 @@ export class SampleComponent implements OnInit{
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: [''], // Initial value for the quantity input
+      quantity: ['', [Validators.required, Validators.min(1), Validators.max(1000)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
@@ -71,53 +71,34 @@ export class SampleComponent implements OnInit{
 
   isReset: boolean = false;
 
-addProductLoop() {
-  while(!this.isReset) {
-    this.addProduct();
-  }
+addProduct() {
+  const product = this.posForm.value.product;
+  const quantity = this.posForm.value.quantity;
+  const categoryName = this.categories;
+  
+  console.log(`categoryName: ${categoryName}`);
+  console.log(`product: ${product}`);
+
+  const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
+
+  this.categoryService.getById(this.selectedCategory).subscribe((selectedCategory: any) => {
+    const categoryName = selectedCategory.categoryName;
+    console.log('Category name:', categoryName);
+
+    const selectedProduct = product;
+  
+    const productToAdd = {
+      id: selectedProduct.productId,
+      productName: selectedProduct.productName,
+      category: categoryName,
+      quantity: quantity
+    };
+
+    this.sales.push(productToAdd); 
+    this.posForm.reset();
+    console.log(this.sales);
+  });
 }
-
-
-  
-  addProduct() {
-    const product = this.posForm.value.product;
-    const quantity = this.posForm.value.quantity;
-    const categoryName = this.categories;
-    
-    
-    console.log(`categoryName: ${categoryName}`);
-    console.log(`product: ${product}`);
-
-    const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
-
-    // const selectedCategory = categoryName;
-    
-    this.categoryService.getById(this.selectedCategory).subscribe((categories: any) => {
-      this.categories = categories
-      
-      console.log('Categories ares:' ,this.categories)
-    });
-    // console.log('selectedcategory', selectedCategory)
-    if (this.categories) {
-      // const selectedProduct = selectedCategory.products.find(p => p.productId === product);
-      const selectedProduct = product;
-      
-      // console.log('category', selectedCategory)
-      const productToAdd = {
-        id: selectedProduct.productId,
-        // catId: selectedCategory.categoryId,
-        productName: selectedProduct.productName,
-        category: this.categories[0]['categoryName'],
-        quantity: quantity
-      };
-  
-      this.sales.push(productToAdd); 
-      this.posForm.reset();
-      console.log(this.sales);
-    } else {
-      console.log(`Category '${categoryName}'not found.`);
-    }
-  }
 
   
   resetSales() {
@@ -139,6 +120,15 @@ addProductLoop() {
       id:'productId',
       name:'productName',
       type: 'select',
+      placeholder: 'Product',
+    },
+    {
+      label: 'input',
+      id:'Quantity',
+      name:'Quantity',
+      type: 'number',
+      value: 'number',
+      placeholder: 'Quantity',
     },
   ];
 }
