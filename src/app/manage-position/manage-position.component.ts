@@ -1,28 +1,24 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
-import { AddStaffComponent } from '../add-staff/add-staff.component';
-import { SharedService } from '../shared.service';
-import { Staff } from '../models/staff.model';
-import { StaffServiceService } from '../services/staff-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { CoreService } from '../services/core.service';
-
+import { PositionService } from '../services/position.service';
+import { AddPositionComponent } from '../add-position/add-position.component';
 
 @Component({
-  selector: 'app-manage-staff',
-  templateUrl: './manage-staff.component.html',
-  styleUrls: ['./manage-staff.component.css']
+  selector: 'app-manage-position',
+  templateUrl: './manage-position.component.html',
+  styleUrls: ['./manage-position.component.css']
 })
-
-export class ManageStaffComponent implements OnInit, OnDestroy {
-  private staffSubscription :Subscription = new Subscription();
+export class ManagePositionComponent implements OnInit, OnDestroy {
+  private positionSubscription :Subscription = new Subscription();
   constructor (
     public dialog: MatDialog, 
-    private staffService: StaffServiceService,
+    private positionService: PositionService,
     private datePipe: DatePipe,
     private coreService: CoreService,
     ){}
@@ -34,19 +30,12 @@ export class ManageStaffComponent implements OnInit, OnDestroy {
 
   dataName = [
     {name: 'id', label: 'ID'},
-    {name: 'employeeName', label: 'Full Name'},
     {name: 'positionName', label: 'Position'},
-    {name: 'employeeMobileNumber', label: 'Mobile Number'},
-    {name: 'employeeEmail', label: 'Email'},
-    {name: 'birthday', label: 'Birthday'},
-    {name: 'employeeAddress', label: 'Address'},
-    {name: 'datejoined', label: 'Date Joined'},
-    {name: 'employeeExpectedSalary', label: 'Expected Salary'},
+    {name: 'expectedSalary', label: 'Expected Salary'},
   ]
-
   dataSource!: MatTableDataSource<any>;
 getColumns(){
-return ['employeeName', 'positionName', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
+return ['positionName','expectedSalary', 'actions'];
 }
 
 applyFilter(event: Event) {
@@ -59,50 +48,49 @@ applyFilter(event: Event) {
 }
 
   ngOnInit(): void {
-    this.getAllStaff();
+    this.getAllPosition();
   }
   ngOnDestroy(): void {
-    this.staffSubscription.unsubscribe();
+    this.positionSubscription.unsubscribe();
 }
 
-
   openDialog() {
-    const dialogRef = this.dialog.open(AddStaffComponent);
+    const dialogRef = this.dialog.open(AddPositionComponent);
     dialogRef.afterClosed().subscribe({
       next : (val) => {
         if (val){
-          this.getAllStaff();
+          this.getAllPosition();
         }
       }
     })
   }
   openDialogEdit(data: any) {
-    const dialogRef = this.dialog.open(AddStaffComponent, {
+    const dialogRef = this.dialog.open(AddPositionComponent, {
       data,
     });
 
     dialogRef.afterClosed().subscribe({
-      next: (staff) => {
-        if (staff){
-          this.getAllStaff();
+      next: (position) => {
+        if (position){
+          this.getAllPosition();
         }
       },
     });
   }
   
   
-  getAllStaff(){
-    this.staffService.getAllStaff().subscribe({
-      next: (staff) => {
-        this.staffService.getAllStaff().subscribe({
-          next: (staff) => {
-            const formattedStaff = staff.map((s) => ({
+  getAllPosition(){
+    this.positionService.getAllPosition().subscribe({
+      next: (position) => {
+        this.positionService.getAllPosition().subscribe({
+          next: (position) => {
+            const formattedPosition = position.map((s) => ({
               ...s,
               birthday: this.datePipe.transform(s.birthday, 'mediumDate'),
               datejoined: this.datePipe.transform(s.datejoined, 'mediumDate'),
               
             }));
-            this.dataSource = new MatTableDataSource(formattedStaff);
+            this.dataSource = new MatTableDataSource(formattedPosition);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
           },
@@ -114,14 +102,16 @@ applyFilter(event: Event) {
     });
   }
 
-  deleteStaff(id: string ){
-        this.staffService.deleteStaff(id).subscribe({
-          next: (staff) =>{
+  deletePosition(id: string ){
+        this.positionService.deletePosition(id).subscribe({
+          next: (position) =>{
             this.coreService.openSnackBar('Deleted Successfully');
-            this.getAllStaff();
+            this.getAllPosition();
           },
           error: console.log,
         });
         
   }
+
+
 }

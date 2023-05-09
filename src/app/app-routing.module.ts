@@ -18,6 +18,9 @@ import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { ManagePositionComponent } from './manage-position/manage-position.component';
+
+
 
 const routes: Routes = [
 
@@ -25,6 +28,28 @@ const routes: Routes = [
     path: '',
     component: HomepageComponent,
   },
+
+{
+  path: 'employee',
+  component: EmployeeManagementComponent
+},
+{
+  path: 'employee/manage-staff',
+  component: ManageStaffComponent
+},
+{
+  path: 'sample',
+  component: SampleComponent
+},
+{
+  path: 'employee/manage-salary',
+  component: ManageSalaryComponent
+},
+{
+  path: 'employee/manage-staff/position',
+  component:ManagePositionComponent
+},
+
 
   {
     path: 'POS',

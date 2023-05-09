@@ -32,7 +32,7 @@ export class AddSalaryComponent implements OnInit, OnDestroy {
   {
     this.addsalary = this._Salary.group({
       dateGiven: [{ value: this.getDate()}],
-      position: '',
+      positionName: '',
       employeeName: '',
       deduction: null,
     })
@@ -89,13 +89,6 @@ export class AddSalaryComponent implements OnInit, OnDestroy {
       name: 'dateGiven',
       id: 'dateGiven',
       hold: 'Date Given'
-    },
-    {
-      placeholder: 'ex. Manager',
-      type: 'string',
-      name: 'position',
-      id: 'position',
-      hold: 'Position'
     },
     {
       placeholder: '',
