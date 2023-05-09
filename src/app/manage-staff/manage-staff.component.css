@@ -17,11 +17,12 @@ table {
   width: 80%;  
   height: 40%; 
   align-items: center;
+
 }
 .actions{
   display: flex;
   margin: auto;
-  
+  justify-content: center;
   padding: 10px;
 }
 .mat-mdc-paginator-container {
@@ -74,20 +75,25 @@ table {
   align-items: center;
   padding: 20px;
 }
+.tools button{
+  margin: 0 10px;
+}
 .mat-toolbar{
   width: 100%;
 }
 
 .mat-toolbar filter{
-  width: 100%;
+  width: 800%;
   height: 100%;
 }
 .btna{
   margin-right: 2%;
+  margin-top: auto;
+  justify-content: center;
 }
 
 .ng-container mat-form-field{
-  width: 80%;
+  width: 70%;
   padding: 10px;
   margin-top: 2.5rem;
   height: 4.5rem;
@@ -98,3 +104,20 @@ table {
   left: 50%; 
   transform: translate(-50%, -50%);
 }
+.ng-container th{
+  white-space: normal;
+}
+.ng-container th, td{
+  text-align: center;
+  vertical-align: center;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+
+.actions button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto ;
+}
+
