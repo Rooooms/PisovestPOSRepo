@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { ProductService } from '../services/product-services/product.service';
 import { CategoryService } from '../services/category-services/category.service';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -22,7 +22,7 @@ export interface PosItem {
 
 // TODO: replace this with real data from your application
 const STATIC_DATA: PosItem[] = [
-  {Category: 'apparel' , Product: 'shoes', Quantity: 134, Price: 4000, Total: 4000},
+  {Category: 'apparel' , Product: 'shoes', Quantity: 4, Price: 4000, Total: 4000},
   {Category: 'apparel' , Product: 'skirt', Quantity: 1, Price: 600, Total: 600},
   {Category: 'apparel' , Product: 'pants', Quantity: 1, Price: 800, Total: 800},
   {Category: 'apparel' , Product: 'crew neck', Quantity: 1, Price: 500, Total: 500},
@@ -48,6 +48,13 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
   public pageTitle: string;
   categories= [];
   products = [];
+  id : any;
+  selectedCategory: any;
+  selectedProduct: any;
+  selectedQuantity: any;
+  addedProducts: any[] = [];
+  sales: any[] = []; // temporary array to hold sales data
+  newcategories= []	
   posForm: FormGroup;
   totalForm: FormGroup;
   subTotal:any;
@@ -91,15 +98,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  columnNames: {[key: string]: string} = {
-    'id': 'ID',
-    'dateTime': 'Date and Time',
-    'code': 'Code',
-    'total': 'Total',
-    'tax': 'Tax',
-    'quantity': 'Quantity',
-    'Action': 'Action'
-  };
+  columnNames: {[key: string]: string} = {};
 
   displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
@@ -117,7 +116,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: [''], // Initial value for the quantity input
+      quantity: ['', [Validators.required, Validators.min(1), Validators.max(1000)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
@@ -140,6 +139,8 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
 
 
   onCategorySelected(selectedCategoryId : any){
+    this.selectedCategory = selectedCategoryId;
+    this.posForm.get('categoryId').setValue(selectedCategoryId); // set the value of the categoryId control
     this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
       data => {
         this.products = data.filter(products => products.categoryId == selectedCategoryId)
@@ -148,9 +149,47 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     )
   }
 
-  onAddClicked(row: any) {
-    // Handle button click event here
-    console.log('Add button clicked for row:', row);
+  onProductSelected(selectedProductId: any) {
+    this.selectedProduct = selectedProductId;
+  }
+
+  onQuantitySelected(selectedQuantity: any) {
+    this.selectedQuantity = selectedQuantity;
+  }
+  
+  addProducts(productName: string) {
+    const product = this.products.find(p => p.name === productName);
+    if (product && this.selectedCategory) {
+      this.selectedCategory.products.push(product);
+    }
+  }
+  addProduct() {
+    const product = this.posForm.value.product;
+    const quantity = this.posForm.value.quantity;
+    const categoryName = this.categories;
+    
+    console.log(`categoryName: ${categoryName}`);
+    console.log(`product: ${product}`);
+  
+    const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
+  
+    this.categoryService.getById(this.selectedCategory).subscribe((selectedCategory: any) => {
+      const categoryName = selectedCategory.categoryName;
+      console.log('Category name:', categoryName);
+  
+      const selectedProduct = product;
+    
+      const productToAdd = {
+        id: selectedProduct.productId,
+        productName: selectedProduct.productName,
+        category: categoryName,
+        quantity: quantity
+      };
+  
+      this.sales.push(productToAdd); 
+      this.posForm.reset();
+      console.log(this.sales);
+    });
   }
 
   calculateTotals() {
@@ -172,11 +211,11 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     this.grandTotal = grandTotal;
   }
 
-  onRowAdded() {
+  onAddProduct() {
     this.calculateTotals();
   }
 
-  onRowDeleted() {
+  onDeletedProduct() {
     this.calculateTotals();
   }
 
