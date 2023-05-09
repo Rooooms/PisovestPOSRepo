@@ -2,7 +2,7 @@
   <h2 mat-dialog-title> Add Product </h2>
   <ng-container *ngFor="let product of Product">
     <ng-container *ngIf="product.label === 'Description'">
-      <mat-form-field>
+      <mat-form-field class="description-col">
         <mat-label>{{product.label}}</mat-label>
         <textarea matInput type="{{product.type}}"name="{{product.name}}" placeholder="{{product.placeholder}}" id="{{product.id}}" formControlName="{{product.name}}" ></textarea>
       </mat-form-field>

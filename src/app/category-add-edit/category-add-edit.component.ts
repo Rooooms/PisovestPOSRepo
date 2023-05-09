@@ -1,15 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../services/category-services/category.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../services/core/core.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-category-add-edit',
   templateUrl: './category-add-edit.component.html',
   styleUrls: ['./category-add-edit.component.css']
 })
-export class CategoryAddEditComponent implements OnInit{
+export class CategoryAddEditComponent implements OnInit, OnDestroy{
+  private productSubscription:Subscription = new Subscription();
 
   category: FormGroup; 
     
@@ -31,6 +33,9 @@ export class CategoryAddEditComponent implements OnInit{
         this.category.patchValue(this.data)
     }
 
+    ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
+   }
     onFormSubmit(){
       if (this.category.valid){
         if (this.data){
@@ -40,6 +45,7 @@ export class CategoryAddEditComponent implements OnInit{
           .subscribe({
             next: (val: any) =>{
                   this.coreService.openSnackBar('Product Update Successfully')
+                  
                   this._dialogRef.close(true);      
             },
             error: (err: any) =>{
