@@ -12,7 +12,7 @@
     border: 2px solid transparent;
     border-bottom-right-radius: 1px;
     border-top-left-radius: 1px;
-    box-shadow: .5px .5px #2ea86548; 
+    box-shadow: .5px .5px #2ea86548;
     margin-top: 2%;
 }
 .tools {
@@ -34,7 +34,8 @@ table {
 }
 .Search{
   width: 60%;
-  height: 100%;
+  margin-top: 1.4rem;
+  flex: wrap;
 }
 .mat-mdc-paginator-container {
   display: flex;
