@@ -51,7 +51,7 @@ export class POSComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sharedService.pageName = 'Point of Sale';
     this.pageTitle = 'Point of Sale';
 
@@ -76,7 +76,6 @@ export class POSComponent implements OnInit, AfterViewInit {
       taxAmount: [{value: 887}], // Initial value for the price of the product
       GrandTotal: ['']
     });
-
 }
 
 
@@ -85,6 +84,7 @@ onCategorySelected(selectedCategoryId : any){
   this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
     data => {
       this.products = data.filter(products => products.categoryId == selectedCategoryId)
+      console.log(selectedCategoryId)
       console.log('Product', this.products);
     }
   )
@@ -147,3 +147,4 @@ ngAfterViewInit(): void {
 
 
 }
+

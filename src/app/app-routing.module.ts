@@ -135,7 +135,6 @@ const routes: Routes = [
     path: 'sample-pos',
     component: SamplePosComponent
   },
-
   ];
 
   @NgModule({

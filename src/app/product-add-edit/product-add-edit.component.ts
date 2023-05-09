@@ -93,12 +93,6 @@ export class ProductAddEditComponent implements OnInit {
         label: 'Brand',
       },
       {
-        type: 'textarea',
-        id: 'productDescription',
-        name: 'productDescription',
-        label: 'Description',
-      },
-      {
         placeholder: '6,195',
         type: 'number',
         id: 'productPrice',
@@ -111,6 +105,12 @@ export class ProductAddEditComponent implements OnInit {
         id: 'productQuantity',
         name: 'productQuantity',
         label: 'Quantity',
+      },
+      {
+        type: 'textarea',
+        id: 'productDescription',
+        name: 'productDescription',
+        label: 'Description',
       },
         ];
 }

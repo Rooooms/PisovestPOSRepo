@@ -28,4 +28,8 @@ export class CategoryService {
   updateCategory(id:string, data:any): Observable <any> {
     return this.http.put (`http://localhost:5125/api/Category/${id}`, data)
   }
+
+  getById(id:string): Observable<any> {
+    return this.http.get(this.baseApiUrl + `api/Category/${id}`);
+  }
 }

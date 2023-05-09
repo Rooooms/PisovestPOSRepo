@@ -51,6 +51,7 @@ import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { AddPositionComponent } from './add-position/add-position.component';
 import { ManagePositionComponent } from './manage-position/manage-position.component';import { PosProductDataComponent } from './pos-product-data/pos-product-data.component';
 
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 
 const appRoute: Routes = [
@@ -101,6 +102,7 @@ const appRoute: Routes = [
     CategoryAddEditComponent,
     CategoryListComponent,
     SamplePosComponent,
+    ManageOrderComponent,
   ],
 
   imports: [
