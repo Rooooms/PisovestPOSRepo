@@ -1,4 +1,4 @@
-import { Component , OnInit, ViewChild } from '@angular/core';
+import { Component , OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryService } from '../services/category-services/category.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CoreService } from '../services/core/core.service';
 import { CategoryAddEditComponent } from '../category-add-edit/category-add-edit.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-category-list',
@@ -13,9 +14,11 @@ import { CategoryAddEditComponent } from '../category-add-edit/category-add-edit
   styleUrls: ['./category-list.component.css']
 })
 
-export class CategoryListComponent implements OnInit {
-   
-dataName = [  { name: 'categoryName', label: 'Category Name'},  
+export class CategoryListComponent implements OnInit,OnDestroy{
+
+private productSubscription:Subscription = new Subscription();
+
+dataName = [  { name: 'categoryName', label: 'Category Name'},
               { name: 'categoryDescription', label: 'Description'}];
 
 getColumns() {
@@ -30,17 +33,29 @@ dataSource!: MatTableDataSource<any>;
 constructor (private _dialog: MatDialog , private categoryservice: CategoryService,
   private coreService : CoreService) {}
 
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
+  }
+
 ngOnInit(): void {
     this.getCategoryList();
 }
 
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
 
 openAddEditForm(){
   const dialogRef = this._dialog.open(CategoryAddEditComponent);
   dialogRef.afterClosed().subscribe({
     next : (Category) =>{
       if (Category){
-        this.getCategoryList();  
+        this.getCategoryList();
       }
     }
   })
@@ -63,10 +78,10 @@ getCategoryList(){
 
 // applyFilter(event: Event) {
 //   const filterValue = (event.target as HTMLInputElement).value;
-//   this.dataSource.filter = filterValue.trim().toLowerCase();        gawa ni romeo 
- 
+//   this.dataSource.filter = filterValue.trim().toLowerCase();        gawa ni romeo
+
 //   if (this.dataSource.paginator) {
-//     this.dataSource.paginator.firstPage(); 
+//     this.dataSource.paginator.firstPage();
 //   }
 // }
 deleteCategory(id : string){

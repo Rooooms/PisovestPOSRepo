@@ -110,6 +110,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
       console.log('Categories are:' ,this.categories)
+      console.log(this.data)
     });
 
 

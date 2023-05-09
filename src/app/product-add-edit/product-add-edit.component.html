@@ -2,19 +2,19 @@
   <h2 mat-dialog-title> Add Product </h2>
   <ng-container *ngFor="let product of Product">
     <ng-container *ngIf="product.label === 'Description'">
-      <mat-form-field>
+      <mat-form-field class="description-col" appearance="outline">
         <mat-label>{{product.label}}</mat-label>
         <textarea matInput type="{{product.type}}"name="{{product.name}}" placeholder="{{product.placeholder}}" id="{{product.id}}" formControlName="{{product.name}}" ></textarea>
       </mat-form-field>
     </ng-container>
     <ng-container *ngIf="product.label !== 'Description' && product.name !== 'categoryName'">
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>{{product.label}}</mat-label>
         <input matInput type="{{product.type}}" name="{{product.name}}" id="{{product.id}}" formControlName="{{product.name}}">
       </mat-form-field>
     </ng-container>
     <ng-container *ngIf="product.name === 'categoryName'">
-      <mat-form-field class="category-select">
+      <mat-form-field class="category-select" appearance="outline">
         <mat-label>Category</mat-label>
         <mat-select formControlName="categoryName" >
           <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
