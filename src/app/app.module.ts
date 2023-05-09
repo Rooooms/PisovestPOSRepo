@@ -46,6 +46,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { AddPositionComponent } from './add-position/add-position.component';
+import { ManagePositionComponent } from './manage-position/manage-position.component';
 
 
 const appRoute: Routes = [
@@ -55,6 +57,7 @@ const appRoute: Routes = [
   {path: 'Transactions', component: TransactionListComponent},
   {path: 'POS', component: PosComponent}
 ]
+
 
 @NgModule({
   declarations: [
@@ -93,6 +96,9 @@ const appRoute: Routes = [
     CategoryListComponent,
     SamplePosComponent,
     ManageOrderComponent,
+    AddPositionComponent,
+    ManagePositionComponent,
+   
   ],
 
   imports: [
