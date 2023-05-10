@@ -21,9 +21,9 @@
         </ng-container>
 
         <ng-container *ngIf="staff.name === 'positionName'">
-          <mat-form-field class="position-select">
+          <mat-form-field class="position-select" appearance="outline">
             <mat-label>{{staff.hold}}</mat-label>
-            <mat-select formControlName="positionName" >
+            <mat-select formControlName="positionName">
               <mat-option *ngFor="let position of position" [value]="position">{{position}}</mat-option>
             </mat-select>
           </mat-form-field>
