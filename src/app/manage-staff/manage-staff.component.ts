@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
+import { SharedService } from '../shared.service';
+import { Staff } from '../models/staff.model';
 import { StaffServiceService } from '../services/staff-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
@@ -41,6 +43,7 @@ export class ManageStaffComponent implements OnInit, OnDestroy {
     {name: 'datejoined', label: 'Date Joined'},
     {name: 'employeeExpectedSalary', label: 'Expected Salary'},
   ]
+
   dataSource!: MatTableDataSource<any>;
 getColumns(){
 return ['employeeName', 'positionName', 'employeeMobileNumber', 'employeeEmail', 'birthday', 'employeeAddress', 'datejoined', 'employeeExpectedSalary', 'actions'];
@@ -61,6 +64,7 @@ applyFilter(event: Event) {
   ngOnDestroy(): void {
     this.staffSubscription.unsubscribe();
 }
+
 
   openDialog() {
     const dialogRef = this.dialog.open(AddStaffComponent);
@@ -120,6 +124,4 @@ applyFilter(event: Event) {
         });
         
   }
-
-
 }

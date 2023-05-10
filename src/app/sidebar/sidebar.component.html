@@ -1,35 +1,14 @@
-<div class="container">
-  <mat-sidenav class="sidenav" #sidenav [(opened)]="opened">
-        <div class="btnContainer">
-            <a class="btn" href="#">
-                <span class="material-symbols-outlined button">home</span>
-                <p class="category">Home</p>
-            </a>
+<!-- sidebar.component.html -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" mode="side" closed>
+    <!-- Sidebar content goes here -->
+    <button mat-fab extended class="btn" *ngFor="let menuItem of menuItems" [routerLink]="menuItem.routerLink">
+      <mat-icon>{{ menuItem.icon }}</mat-icon><span class="btnName">{{ menuItem.btnName }}</span>
+    </button>
+  </mat-sidenav>
 
-            <a class="btn" [routerLink]='["/POS"]'>
-                <span class="material-symbols-outlined button">payments</span>
-                <p class="category">POS</p>
-            </a>
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 
-            <a class="btn" href="#">
-                <span class="material-symbols-outlined button">leaderboard</span>
-                <p class="category">Sales</p>
-            </a>
-
-            <a class="btn" href="#">
-                <span class="material-symbols-outlined button">receipt_long</span>
-                <p class="category">Transactions</p>
-            </a>
-
-            <a class="btn" href="#">
-                <span class="material-symbols-outlined button">list</span>
-                <p class="category">Products</p>
-            </a>
-
-            <a class="btn" routerLink="employee">
-                <span class="material-symbols-outlined button">person</span>
-                <p class="category">Employees</p>
-            </a>
-        </div>
-    </mat-sidenav>
-</div>
+</mat-sidenav-container>
