@@ -1,0 +1,31 @@
+*content {
+  padding-top: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row mat-form-field {
+  width: 100%;
+}
+
+.action button{
+  flex: 1;
+}
+
+.action button {
+  flex: 1;
+}
+.form-column {
+  display: inline-block;
+  width: 45%;
+  margin-right: 5%;
+  vertical-align: top;
+}
+.mb-3 mat-form-field{
+  width: 100%;
+}
+
+
