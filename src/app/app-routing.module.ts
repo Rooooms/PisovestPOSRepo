@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { HomepageComponent } from './homepage/homepage.component';
 import { POSComponent } from './pos/pos.component';
 import { Component, NgModule } from '@angular/core';
@@ -43,6 +44,12 @@ const routes: Routes = [
   path: 'employee/manage-staff/position',
   component:ManagePositionComponent
 },
+=======
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [];
+>>>>>>> parent of d257cf2 (Merge branch 'SirPat' into Develop)
 
   {
     path: '',

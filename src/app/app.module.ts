@@ -1,7 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+<<<<<<< HEAD
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
 import { CategoryListComponent } from './category-list/category-list.component';
@@ -50,6 +52,9 @@ import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+=======
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+>>>>>>> parent of d257cf2 (Merge branch 'SirPat' into Develop)
 
 
 const appRoute: Routes = [
@@ -62,6 +67,7 @@ const appRoute: Routes = [
 
 @NgModule({
   declarations: [
+<<<<<<< HEAD
     AppComponent,
     ProductListComponent,
     ProductManagementComponent,
@@ -99,11 +105,15 @@ const appRoute: Routes = [
     CategoryAddEditComponent,
     CategoryListComponent,
     SamplePosComponent,
+=======
+    AppComponent
+>>>>>>> parent of d257cf2 (Merge branch 'SirPat' into Develop)
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
+<<<<<<< HEAD
     BrowserAnimationsModule,
     MaterialModule,
     MatTableModule,
@@ -152,6 +162,11 @@ const appRoute: Routes = [
   ],
   providers: [DatePipe],  
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+=======
+    BrowserAnimationsModule
+  ],
+  providers: [],
+>>>>>>> parent of d257cf2 (Merge branch 'SirPat' into Develop)
   bootstrap: [AppComponent]
 })
 export class AppModule { }
