@@ -9,15 +9,15 @@ import { environment } from 'src/environments/environment.development';
 })
 export class SalaryService {
 
-  baseAPIURL : string = environment.baseAPIURL;
+  baseApiUrl : string = environment.baseApiUrl;
   constructor(private http : HttpClient) { }
 
   getAllSalary (): Observable <any>{
-    return this.http.get(this.baseAPIURL + 'api/Salary');
+    return this.http.get(this.baseApiUrl + 'api/Salary');
   }
   addSalary(data: any): Observable<any>{
     data.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.post <any> (this.baseAPIURL + 'api/Salary', data);
+    return this.http.post <any> (this.baseApiUrl + 'api/Salary', data);
   }
   updateSalary(id: string, data: any): Observable<any>{
     return this.http.put(`http://localhost:5125/api/Salary/${id}`, data);
