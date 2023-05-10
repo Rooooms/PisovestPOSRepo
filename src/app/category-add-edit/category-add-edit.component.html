@@ -1,0 +1,14 @@
+<form [formGroup]="category" (ngSubmit)="onFormSubmit()">
+    <h2 mat-dialog-title> Add Category </h2>
+    
+      <ng-container *ngFor="let category of Category">
+        <mat-form-field appearance="outline" >
+        <mat-label>{{category.label}}</mat-label>
+        <input matInput type="{{category.type}}" name="{{category.name}}" placeholder="{{category.placeholder}}" formControlName="{{category.name}}">
+      </mat-form-field>
+      </ng-container>
+      <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button type="submit" color="primary">{{data ? 'Update' : 'Save'}}</button>
+</div>
+</form>

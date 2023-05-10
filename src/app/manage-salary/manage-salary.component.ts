@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { AddSalaryComponent } from '../add-salary/add-salary.component';
+import { SharedService } from '../shared.service';
 import { PayslipComponent } from '../payslip/payslip.component';
 import { SalaryService } from '../services/salary.service';
 import { MatTableDataSource } from '@angular/material/table';

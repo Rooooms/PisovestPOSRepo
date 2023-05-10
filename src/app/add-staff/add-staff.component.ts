@@ -31,6 +31,7 @@ export class AddStaffComponent implements OnInit, OnDestroy{
       employeeName: ['', Validators.required],
       employeeEmail: ['', Validators.email],
       employeeMobileNumber: new FormControl('', [Validators.required, Validators.pattern('^(09|\\+639)\\d{9}$')]),
+      employeeExpectedSalary: null,
       birthday : '',
       datejoined: '',
       positionName: ['', Validators.required],
