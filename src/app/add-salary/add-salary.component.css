@@ -1,4 +1,4 @@
-.content {
+*content {
   padding-top: 10px;
 }
 
@@ -27,7 +27,5 @@
 .mb-3 mat-form-field{
   width: 100%;
 }
-.form-control{
-  padding-top: 10px;
-}
+
 

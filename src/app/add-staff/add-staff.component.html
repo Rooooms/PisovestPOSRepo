@@ -1,5 +1,4 @@
 
-
 <form [formGroup]="addstaff" (ngSubmit)="onFormSubmit()">
   
   <div mat-dialog-title>
@@ -14,20 +13,30 @@
   <div class="form-column">
     <div *ngFor="let staff of Staff; let i = index">
       <div *ngIf="i % 2 === 0" class="form-group">
-        <ng-container *ngIf="staff.type !== 'date'; else elseBlock">
+        <ng-container *ngIf="staff.type !== 'date' && staff.name !== 'positionName'">
           <mat-form-field appearance="outline" class="example-form-field">
             <mat-label >{{staff.hold}}</mat-label>
             <input matInput class="form-control" type="{{staff.type}}" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" formControlName="{{staff.name}}">
           </mat-form-field>
         </ng-container>
-        <ng-template #elseBlock>
+
+        <ng-container *ngIf="staff.name === 'positionName'">
+          <mat-form-field class="position-select" appearance="outline">
+            <mat-label>{{staff.hold}}</mat-label>
+            <mat-select formControlName="positionName">
+              <mat-option *ngFor="let position of position" [value]="position">{{position}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="staff.type === 'date'">
           <mat-form-field appearance="outline" class="form-control">
-            <mat-label>Birthday</mat-label>
+            <mat-label>{{staff.hold}}</mat-label>
             <input matInput [matDatepicker]="picker" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" formControlName="{{staff.name}}">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-        </ng-template>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -35,20 +44,22 @@
   <div class="form-column">
     <div *ngFor="let staff of Staff; let i = index">
       <div *ngIf="i % 2 === 1" class="form-group">
-        <div *ngIf="staff.type !== 'date'; else elseBlock">
+        <div *ngIf="staff.type !== 'date' && staff.name !== 'positionName'">
           <mat-form-field appearance="outline" class="example-form-field">
             <mat-label >{{staff.hold}}</mat-label>
             <input matInput class="form-control" type="{{staff.type}}" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" formControlName="{{staff.name}}">
           </mat-form-field>
         </div>
-        <ng-template #elseBlock>
+        
+
+        <ng-container *ngIf="staff.type === 'date'">
           <mat-form-field appearance="outline" class="form-control">
-            <mat-label>Date Joined</mat-label>
+            <mat-label>{{staff.hold}}</mat-label>
             <input matInput [matDatepicker]="picker" name="{{staff.name}}" id="{{staff.id}}" placeholder="{{staff.placeholder}}" formControlName="{{staff.name}}">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-        </ng-template>
+        </ng-container>
       
       </div>
     </div>

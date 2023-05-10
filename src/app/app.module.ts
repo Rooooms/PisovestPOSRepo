@@ -45,11 +45,12 @@ import { PayslipComponent } from './payslip/payslip.component';
 import { MatNativeDateModule,} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
-
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AddPositionComponent } from './add-position/add-position.component';
+import { ManagePositionComponent } from './manage-position/manage-position.component';
 
 const appRoute: Routes = [
   {path: '', component: CardComponent},
@@ -58,6 +59,7 @@ const appRoute: Routes = [
   {path: 'Transactions', component: TransactionListComponent},
   {path: 'POS', component: POSComponent}
 ]
+
 
 @NgModule({
   declarations: [
@@ -99,6 +101,9 @@ const appRoute: Routes = [
     CategoryListComponent,
     SamplePosComponent,
     ManageOrderComponent,
+    AddPositionComponent,
+    ManagePositionComponent,
+   
   ],
 
   imports: [

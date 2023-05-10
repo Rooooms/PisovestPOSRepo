@@ -17,6 +17,7 @@ table {
   width: 80%;  
   height: 40%; 
   align-items: center;
+  border-spacing: 0px;
 }
 .actions{
   display: flex;
@@ -73,6 +74,9 @@ table {
   align-items: center;
   padding: 20px;
 }
+.tools button{
+  margin: 0 10px;
+}
 
 .btna{
   margin-right: 2%;
@@ -101,4 +105,7 @@ table {
 
 .td mat-cell{
   padding: 10px;
+}
+.ng-container th, td{
+  text-align: center;
 }

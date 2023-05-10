@@ -34,7 +34,7 @@ export class ManageSalaryComponent implements OnInit, OnDestroy{
       dataName = [
         {name: 'id', label: 'Position'},
         {name: 'employeeName', label: 'Name'},
-        {name: 'position', label: 'Position'},
+        {name: 'positionName', label: 'Position'},
         {name: 'salaries', label: 'Salary', type: 'number'},
         {name: 'deduction', label: 'Deduction', type: 'number'},
         {name: 'totalSalary', label: 'Total Salary', type: 'number'},
@@ -53,7 +53,7 @@ export class ManageSalaryComponent implements OnInit, OnDestroy{
   }
 
   getColumns(){
-    return [ 'dateGiven','employeeName','position', 'salaries', 'deduction', 'totalSalary', 'payslip', 'actions'];
+    return [ 'dateGiven','employeeName','positionName', 'salaries', 'deduction', 'totalSalary', 'payslip', 'actions'];
   }
 
     ngOnInit(): void {
