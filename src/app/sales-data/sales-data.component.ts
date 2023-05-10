@@ -17,18 +17,7 @@ export class SalesDataComponent implements AfterViewInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   // displayedColumns = ['product', 'totalQuantity', 'totalGross', 'totalNet', 'refund', 'discount', 'tax', 'cost'];
-  columnNames: {[key: string]: string} = {
-    'product': 'Product',
-    'totalQuantity': 'Total Quantity',
-    'totalGross': 'Total Gross',
-    'totalNet': 'Total Net',
-    'refund': 'Refund',
-    'discount': 'Discount',
-    'tax': 'Tax',
-    'cost': 'Cost',
   
-  };
-
   salesDisplay: string[] = ['product', 'totalQuantity', 'totalGross', 'totalNet', 'refund', 'discount', 'tax', 'cost'];
  
 

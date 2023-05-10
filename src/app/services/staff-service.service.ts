@@ -10,17 +10,17 @@ import { environment } from 'src/environments/environment.development';
 export class StaffServiceService {
  
 
-  baseApiUrl : string = environment.baseApiUrl;
+  baseAPIURL : string = environment.baseAPIURL;
 
   constructor(private http : HttpClient) { }
 
   getAllStaff (): Observable <any>{
 
-    return this.http.get(this.baseApiUrl + 'api/Employee');
+    return this.http.get(this.baseAPIURL + 'api/Employee');
   }
   addStaff(data: any) : Observable<any>{  
     data.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.post <any> (this.baseApiUrl + 'api/Employee', data);
+    return this.http.post <any> (this.baseAPIURL + 'api/Employee', data);
   }
   updateStaff(id: string, data: any): Observable<any>{
     return this.http.put(`http://localhost:5125/api/Employee/${id}`, data);

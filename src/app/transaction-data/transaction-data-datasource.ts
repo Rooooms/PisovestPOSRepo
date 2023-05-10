@@ -14,7 +14,6 @@ export interface TransactionDataItem {
   tax: number;
   quantity: number;
 
-
 }
 
 // TODO: replace this with real data from your application

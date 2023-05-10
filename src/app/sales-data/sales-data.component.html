@@ -1,8 +1,16 @@
-<div class="sales-table ">
+
+<div class="sales-table">
   <table mat-table class="sales-table-design" matSort aria-label="Elements">
     <ng-container *ngFor="let column of salesDisplay" [matColumnDef]="column">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ columnNames[column] || column }}
+        {{ column === 'product' ? 'Product / Service' :
+        column === 'totalQuantity' ? 'Total Quantity' : 
+        column === 'totalGross' ? 'Total Gross' :
+        column === 'totalNet' ? 'Total Net' :
+        column === 'refund' ? 'Refund' :
+        column === 'discount' ? 'Discount' : 
+        column === 'tax' ? 'Tax' :
+        column === 'cost' ? 'Cost' : column}}
       </th>
       <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
     </ng-container>
@@ -18,5 +26,4 @@
       [pageSizeOptions]="[5, 10, 20]"
       aria-label="Select page">
   </mat-paginator>
-
 </div>

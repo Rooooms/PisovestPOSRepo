@@ -17,13 +17,11 @@ mat-card-actions {
 .btn {
     width: 500px;
     height: 200px;
-    border: none;
+    border: solid 1px;
     border-radius: 10px;
     margin:auto;
     margin-bottom: 20px;
     font-size: 35px;
-    background-color: #ccc !important;
-    box-shadow: 5px 5px;
 }
 
 
@@ -33,7 +31,7 @@ p {
 }
 
 .btn:hover {
-    background-color: #34D27C !important;
+    background-color: #18A558;
     color: antiquewhite;
 }
 
