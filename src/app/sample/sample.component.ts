@@ -39,9 +39,11 @@ export class SampleComponent implements OnInit{
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
-    
-    
   }
+
+  getColumns(){
+    return ['categoryName', 'product', 'quantity', 'categoryId'];
+    }
 
   onCategorySelected(selectedCategoryId: any) {
     this.selectedCategory = selectedCategoryId;
