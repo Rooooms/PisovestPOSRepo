@@ -1,0 +1,35 @@
+
+<form [formGroup]="addsalary" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-title>
+    <h1>Add Salary</h1>
+  </div>
+
+  <div mat-dialog-content>
+    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start center">
+      <div *ngFor="let salary of Salary" fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="mb-3">
+
+        <ng-container *ngIf="salary.id == 'employeeName'">
+          <mat-form-field appearance="outline" class="example-form-field">
+            <mat-label >{{salary.hold}}</mat-label>
+            <mat-select formControlName="employeeName">
+              <mat-option *ngFor="let employeeNames of employeeNames" [value]="employeeNames">{{employeeNames}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="salary.id !== 'employeeName' && salary.id !=='dateGiven'">
+          <mat-form-field appearance="outline" class="example-form-field">
+            <mat-label >{{salary.hold}}</mat-label>
+            <input matInput class="form-control" type="{{salary.type}}" name="{{salary.name}}" id="{{salary.id}}" placeholder="{{salary.placeholder}}" formControlName="{{salary.name}}" >
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <div mat-dialog-actions class="action">
+  <button type="button" mat-raised-button [mat-dialog-close]="false">Cancel</button>
+  <button type="submit" color="primary" mat-raised-button>{{data ? 'Update': 'Save'}}</button>
+  </div>
+  </form>

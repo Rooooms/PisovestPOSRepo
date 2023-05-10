@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
   opened = true;
-
-  log(state: any) {
-    console.log(state);
-  }
 }

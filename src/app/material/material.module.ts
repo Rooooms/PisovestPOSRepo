@@ -7,9 +7,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 
 const material = [
   MatButtonModule,
@@ -19,10 +16,7 @@ const material = [
   MatToolbarModule,
   FormsModule,
   MatMenuModule,
-  MatCardModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule
+  MatCardModule
 ]
 
 @NgModule({
