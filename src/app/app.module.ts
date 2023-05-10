@@ -53,6 +53,7 @@ import { ManagePositionComponent } from './manage-position/manage-position.compo
 
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { PointOfSaleComponent } from './point-of-sale/point-of-sale.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 const appRoute: Routes = [
@@ -60,7 +61,7 @@ const appRoute: Routes = [
   {path: 'Home', component: CardComponent},
   {path: 'Sales', component: SalesReportComponent},
   {path: 'Transactions', component: TransactionListComponent},
-  {path: 'POS', component: POSComponent}
+  {path: 'POS', component: PointOfSaleComponent}
 ]
 
 
@@ -106,7 +107,8 @@ const appRoute: Routes = [
     ManageOrderComponent,
     ManagePositionComponent,
     AddPositionComponent,
-    PointOfSaleComponent
+    PointOfSaleComponent,
+
 
   ],
 
@@ -155,6 +157,8 @@ const appRoute: Routes = [
     HttpClientModule,
     MatSelectModule,
     DatePipe,
+
+
   ],
   providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

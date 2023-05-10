@@ -3,13 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+
 @Component({
   selector: 'app-point-of-sale',
   templateUrl: './point-of-sale.component.html',
   styleUrls: ['./point-of-sale.component.css']
 })
 
+
+
 export class PointOfSaleComponent implements OnInit{
+
   categories= [];
   products = [];
   prices  = [];
@@ -22,6 +27,16 @@ export class PointOfSaleComponent implements OnInit{
   posForm: FormGroup;
   sales: any[] = []; // temporary array to hold sales data
   newcategories= []
+
+  subTotal: number;
+  taxAmount: number;
+  grandTotal: number;
+
+
+  displayedColumns = ['productName', 'category', 'quantity', 'price', 'total'];
+
+
+
   constructor(private categoryService : CategoryService,
     private productService : ProductService,
     private _Pos: FormBuilder,
@@ -36,7 +51,7 @@ export class PointOfSaleComponent implements OnInit{
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: ['', [Validators.required, Validators.min(1), Validators.max(1000)]], // Initial value for the quantity input
+      quantity: ['', [Validators.min(1), Validators.max(1000)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
@@ -101,10 +116,36 @@ addProduct() {
     };
 
     this.sales.push(productToAdd);
+     this.calculateTotals();
     this.posForm.reset();
     console.log(this.sales);
+
+
   });
 }
+
+  calculateTotals() {
+    let data = this.sales;
+    let subTotal = 0;
+    let taxInclusive = .12;
+    let taxAmount = 0;
+    let grandTotal = 0;
+
+    data.forEach((data) => {
+      subTotal += data.quantity * data.price;
+    });
+
+    taxAmount = subTotal * taxInclusive;
+    grandTotal = subTotal + taxAmount;
+
+    this.subTotal = subTotal;
+    this.taxAmount = taxAmount;
+    this.grandTotal = grandTotal;
+
+    // console.log("THIS IS SUB TOTAL",subTotal)
+    // console.log("THIS IS TAX AMOUNT",taxAmount)
+    // console.log("THIS IS GRAND TOTAL",grandTotal)
+  }
 
 
   resetSales() {
@@ -137,6 +178,9 @@ addProduct() {
       placeholder: 'Quantity',
     },
   ];
+
+
+
 
     subtotalFields = [
   {
