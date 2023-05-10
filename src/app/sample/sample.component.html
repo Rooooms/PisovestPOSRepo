@@ -17,9 +17,9 @@
               </mat-option>
             </mat-select>
           </ng-container>
-          
+
           <ng-container *ngIf="field.label === 'input'">
-            <input matInput formControlName="quantity"/>
+            <input type="number" matInput formControlName="quantity"/>
           </ng-container>
           <input matInput *ngIf="field.label === 'input'" />
         </mat-form-field>
@@ -38,6 +38,8 @@
         <th>Product Name</th>
         <th>Category</th>
         <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
         <th> <button mat-raised-button color="warn" (click)="resetSales()" >Reset</button> </th>
       </tr>
     </thead>
@@ -46,6 +48,8 @@
         <td>{{ sale.productName }}</td>
         <td>{{ sale.category }}</td>
         <td>{{ sale.quantity }}</td>
+        <td>{{ sale.price}}</td>
+        <td>{{ sale.total }}</td>
       </tr>
     </tbody>
   </table>

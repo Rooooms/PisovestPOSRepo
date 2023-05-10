@@ -15,45 +15,51 @@ import { PosDataSource, PosItem } from './pos-datasource';
   styleUrls: ['./pos.component.css'],
   template: '<h1>{{ pageTitle }}</h1>',
 })
+
 export class POSComponent implements OnInit, AfterViewInit {
+
+    // temporary data
+dataObj: DataObj;
+dataArr: DataObj[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<PosItem>;
   dataSource: PosDataSource;
 
+
+
+
+
   public pageTitle: string;
   categories= [];
   posForm: FormGroup;
   totalForm: FormGroup;
   products = [];
+  price = [];
 
   constructor(
+
     private sharedService: SharedService,
     private categoryService : CategoryService,
     private productService : ProductService,
     private _Pos: FormBuilder,
     private _Total: FormBuilder,
     ) {
-      this.dataSource = new PosDataSource();
+      // this.dataSource = new PosDataSource();
+      this.dataObj = new DataObj();
+
     }
 
-    /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  columnNames: {[key: string]: string} = {
-    'id': 'ID',
-    'dateTime': 'Date and Time',
-    'code': 'Code',
-    'total': 'Total',
-    'tax': 'Tax',
-    'quantity': 'Quantity',
-    'Action': 'Action'
-  };
+
 
   displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
-  ngOnInit(): void {
+  ngOnInit() {
+        this.getAllEmployee();
     this.sharedService.pageName = 'Point of Sale';
     this.pageTitle = 'Point of Sale';
+
 
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
@@ -76,24 +82,57 @@ export class POSComponent implements OnInit, AfterViewInit {
       taxAmount: [{value: 887}], // Initial value for the price of the product
       GrandTotal: ['']
     });
+
+
+
 }
 
+ onSave(){
+
+    this.dataArr.push(this.dataObj);
 
 
-onCategorySelected(selectedCategoryId : any){
-  this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
+    const isData = localStorage.getItem("EmpData");
+    if(isData == null){
+      const newArr = [];
+      newArr.push(this.dataObj);
+      localStorage.setItem("EmpData", JSON.stringify(newArr));
+      location.reload();
+    }else
+    {
+      const oldData = JSON.parse(isData);
+      oldData.push(this.dataObj);
+      localStorage.setItem("EmpData", JSON.stringify(oldData));
+      location.reload();
+    }
+  }
+
+  getAllEmployee(){
+    const isData = localStorage.getItem("EmpData");
+    if(isData != null){
+      const localData = JSON.parse(isData);
+      this.dataArr = localData;
+    }
+  }
+
+onCategorySelected(selectedCategoryName : any){
+  this.productService.getProductsofSelectedCategory(selectedCategoryName).subscribe(
     data => {
-      this.products = data.filter(products => products.categoryId == selectedCategoryId)
-      console.log(selectedCategoryId)
-      console.log('Product', this.products);
+      this.products = data.filter(products => products.categoryName == selectedCategoryName);
+      console.log(data);
+
+
+
+      // this.price = data.filter(price => price.categoryName == selectedCategoryName)
+      // console.log('price', this.price);
     }
   )
 }
 
-onAddClicked(row: any) {
-  // Handle button click event here
-  console.log('Add button clicked for row:', row);
-}
+
+
+
+
 
 ngAfterViewInit(): void {
   this.dataSource.sort = this.sort;
@@ -101,6 +140,14 @@ ngAfterViewInit(): void {
   this.table.dataSource = this.dataSource;
 }
 
+getPrice(){
+
+}
+
+checkout(){
+  localStorage.clear()
+  location.reload();
+}
 
   fields = [
     {
@@ -115,6 +162,8 @@ ngAfterViewInit(): void {
       label: 'Product',
       type: 'select',
     },
+
+
     {
       label: 'Quantity',
       type: 'input',
@@ -124,7 +173,7 @@ ngAfterViewInit(): void {
 
 
 
-  subtotalFields = [  
+  subtotalFields = [
   {
     label: 'Sub Total',
     name: 'subTotal',
@@ -136,15 +185,39 @@ ngAfterViewInit(): void {
     value: 12
   },
   {
-    label: 'Tax Amount', 
+    label: 'Tax Amount',
     name: 'taxAmount',
     value: 887,
   },
-  {label: 'Grand Total', 
+  {label: 'Grand Total',
   name: 'grandTotal',
   value: '',
 }];
 
 
+
 }
 
+
+
+export class DataObj{
+  category: string;
+  product: string;
+  quantity: number;
+  price: number;
+  total: number;
+
+
+
+  constructor(){
+    this.category = "";
+    this.product = "";
+    this.quantity = null;
+    this.price = null;
+    this.total = null;
+
+
+  }
+
+
+}

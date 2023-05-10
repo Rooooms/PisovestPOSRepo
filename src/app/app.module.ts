@@ -49,9 +49,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { AddPositionComponent } from './add-position/add-position.component';
-import { ManagePositionComponent } from './manage-position/manage-position.component';import { PosProductDataComponent } from './pos-product-data/pos-product-data.component';
+import { ManagePositionComponent } from './manage-position/manage-position.component';
 
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { PointOfSaleComponent } from './point-of-sale/point-of-sale.component';
 
 
 const appRoute: Routes = [
@@ -103,6 +104,10 @@ const appRoute: Routes = [
     CategoryListComponent,
     SamplePosComponent,
     ManageOrderComponent,
+    ManagePositionComponent,
+    AddPositionComponent,
+    PointOfSaleComponent
+
   ],
 
   imports: [

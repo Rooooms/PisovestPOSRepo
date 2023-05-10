@@ -1,0 +1,85 @@
+
+
+
+
+
+<div class="container">
+  <div class="container1">
+      <div class="row1">
+        <form [formGroup]="posForm">
+          <div class="container1">
+            <ng-container *ngFor="let field of fields">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ field.placeholder }}</mat-label>
+                <ng-container *ngIf="field.label === 'Category'">
+                  <mat-select formControlName="categoryName" (ngModelChange)="onCategorySelected($event)">
+                    <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName
+                      }}</mat-option>
+                  </mat-select>
+                </ng-container>
+
+                <ng-container *ngIf="field.label === 'Product'">
+                  <mat-select formControlName="product">
+                    <mat-option *ngFor="let product of products" [value]="product">
+                      {{ product.productName }}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+
+                <ng-container *ngIf="field.label === 'input'">
+                  <input type="number" matInput formControlName="quantity" />
+                </ng-container>
+                <input matInput *ngIf="field.label === 'input'" />
+              </mat-form-field>
+            </ng-container>
+
+            <button mat-fab color="success" aria-label="Example icon button with a Add icon" (click)="addProduct()">
+              <mat-icon>add</mat-icon>
+            </button>
+
+          </div>
+        </form>
+      </div>
+  </div>
+
+  <div class="row2">
+
+    <div class="container2">
+        <div class="col1">
+          <table>
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sale of sales">
+                <td>{{ sale.productName }}</td>
+                <td>{{ sale.category }}</td>
+                <td>{{ sale.quantity }}</td>
+                <td>{{ sale.price}}</td>
+                <td>{{ sale.total }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="col2">
+
+          <ng-container *ngFor="let field of subtotalFields">
+            <mat-form-field appearance="outline" class="form-field">
+              <input matInput [name]="field.name" type="number" placeholder="{{field.value}}" readonly>
+            </mat-form-field>
+            <mat-label for="{{field.name}}">{{field.label}}</mat-label>
+          </ng-container>
+          <button mat-raised-button class="btn-submit" (click)="resetSales()">Submit</button>
+        </div>
+        </div>
+    </div>
+
+</div>

@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 @Component({
-  selector: 'app-sample',
-  templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.css']
+  selector: 'app-point-of-sale',
+  templateUrl: './point-of-sale.component.html',
+  styleUrls: ['./point-of-sale.component.css']
 })
-export class SampleComponent implements OnInit{
+
+export class PointOfSaleComponent implements OnInit{
   categories= [];
   products = [];
   prices  = [];
@@ -86,7 +86,7 @@ addProduct() {
 
   this.categoryService.getById(this.selectedCategory).subscribe((selectedCategory: any) => {
     const categoryName = selectedCategory.categoryName;
-    console.log('Category name:', categoryName);
+    // console.log('Category name:', categoryName);
 
     const selectedProduct = product;
 
@@ -137,4 +137,27 @@ addProduct() {
       placeholder: 'Quantity',
     },
   ];
+
+    subtotalFields = [
+  {
+    label: 'Sub Total',
+    name: 'subTotal',
+    value: '',
+  },
+  {
+    label: 'Tax Inclusive (%)',
+    name: 'taxInclusive',
+    value: 12
+  },
+  {
+    label: 'Tax Amount',
+    name: 'taxAmount',
+    value: 887,
+  },
+  {label: 'Grand Total',
+  name: 'grandTotal',
+  value: '',
+}];
 }
+
+

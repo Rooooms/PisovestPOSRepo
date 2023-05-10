@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PosProductDataComponent } from './pos-product-data.component';
+import { PointOfSaleComponent } from './point-of-sale.component';
 
-describe('PosProductDataComponent', () => {
-  let component: PosProductDataComponent;
-  let fixture: ComponentFixture<PosProductDataComponent>;
+describe('PointOfSaleComponent', () => {
+  let component: PointOfSaleComponent;
+  let fixture: ComponentFixture<PointOfSaleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PosProductDataComponent ]
+      declarations: [ PointOfSaleComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PosProductDataComponent);
+    fixture = TestBed.createComponent(PointOfSaleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

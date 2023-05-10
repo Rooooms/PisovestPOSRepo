@@ -1,42 +1,52 @@
 <div class="container">
   <form [formGroup] = 'posForm'>
       <div class="cointainer1">
+
       <div class="col1">
+
           <ng-container *ngFor="let field of fields">
+
             <mat-form-field appearance="outline">
                 <mat-label>{{ field.label }}</mat-label>
                   <ng-container *ngIf="field.label === 'Category'">
-                    <mat-select formControlName="categoryName" (ngModelChange) = "onCategorySelected($event)">
-                        <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
+                    <mat-select formControlName="categoryName" (ngModelChange) = "onCategorySelected($event)" name="category" [(ngModel)]="dataObj.category">
+                        <mat-option *ngFor="let category of categories" [value]="category.categoryName">{{category.categoryName}}</mat-option>
                     </mat-select>
                   </ng-container>
 
                   <ng-container *ngIf="field.label === 'Product'">
-                    <mat-select formControlName="product">
-                        <mat-option *ngFor="let product of products" [value]="product">
+                    <mat-select formControlName="product"  name="product" [(ngModel)]="dataObj.product">
+                        <mat-option *ngFor="let product of products" [value]="product.productName">
                         {{ product.productName }}
                         </mat-option>
                     </mat-select>
-
                   </ng-container>
-                <input matInput *ngIf="field.type === 'input'" />
+
+
+
+                  <ng-container >
+                    <input type="number" formControlName="quantity" [(ngModel)]="dataObj.quantity"  matInput *ngIf="field.type === 'input'">
+                  </ng-container>
+
 
               </mat-form-field>
+
           </ng-container>
 
-          <button mat-fab color="success" aria-label="Example icon button with a Add icon">
-          <mat-icon>add</mat-icon>
+          <button mat-fab color="success" aria-label="Example icon button with a Add icon" (click)="onSave()">
+          <mat-icon >add</mat-icon>
           </button>
       </div>
       </div>
   </form>
 
   <form [formGroup] = 'totalForm'>
+
     <div class="container2">
 
         <div class="row1">
           <div class="container">
-            <table mat-table class="sales-table-design" matSort aria-label="Elements">
+            <!-- <table mat-table class="sales-table-design" matSort aria-label="Elements">
               <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   {{ columnNames[column] || column }}
@@ -59,7 +69,36 @@
                 [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 20]"
                 aria-label="Select page">
-            </mat-paginator>
+            </mat-paginator> -->
+
+
+                            <table class="table table-bordered">
+
+                              <thead>
+                                <tr>
+                                  <th>Category</th>
+                                  <th>Product</th>
+                                  <th>Quantity</th>
+                                  <th>Price</th>
+                                  <th>Total</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <tr *ngFor="let item of dataArr; let sr = index   ">
+                                  <td>{{item.category}}</td>
+                                  <td>{{item.product}}</td>
+                                  <td>{{item.quantity}}</td>
+                                  <td>{{item.price}}</td>
+                                  <td>{{item.total}}</td>
+                                  <td><button>delete</button></td>
+                                </tr>
+                              </tbody>
+
+                            </table>
+
+
           </div>
         </div>
 
@@ -70,9 +109,9 @@
             </mat-form-field>
             <mat-label for="{{field.name}}">{{field.label}}</mat-label>
           </ng-container>
-          <button mat-raised-button class="btn-submit">Submit</button>
+          <button mat-raised-button class="btn-submit" (click)="checkout()">Submit</button>
         </div>
-        
+
 
     </div>
   </form>
