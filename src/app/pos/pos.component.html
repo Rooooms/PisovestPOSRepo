@@ -17,14 +17,17 @@
                         {{ product.productName }}
                         </mat-option>
                     </mat-select>
-
+                  </ng-container>
+                  
+                  <ng-container *ngIf="field.label === 'input'">
+                    <input matInput formControlName="quantity">
                   </ng-container>
                 <input matInput *ngIf="field.type === 'input'" />
 
               </mat-form-field>
           </ng-container>
 
-          <button mat-fab color="success" aria-label="Example icon button with a Add icon">
+          <button mat-fab color="success" aria-label="Example icon button with a Add icon" (click)="addProduct()">
           <mat-icon>add</mat-icon>
           </button>
       </div>
@@ -54,7 +57,7 @@
             </table>
 
             <mat-paginator #paginator
-                [length]="data?.length"
+                [length]="sales?.length"
                 [pageIndex]="0"
                 [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 20]"

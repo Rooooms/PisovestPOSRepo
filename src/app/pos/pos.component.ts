@@ -20,18 +20,6 @@ export interface PosItem {
   Total: number;
 }
 
-// TODO: replace this with real data from your application
-const STATIC_DATA: PosItem[] = [
-  {Category: 'apparel' , Product: 'shoes', Quantity: 4, Price: 4000, Total: 4000},
-  {Category: 'apparel' , Product: 'skirt', Quantity: 1, Price: 600, Total: 600},
-  {Category: 'apparel' , Product: 'pants', Quantity: 1, Price: 800, Total: 800},
-  {Category: 'apparel' , Product: 'crew neck', Quantity: 1, Price: 500, Total: 500},
-  {Category: 'apparel' , Product: 'hoodie', Quantity: 3, Price: 800, Total: 2400},
-  {Category: 'apparel' , Product: 'shirt', Quantity: 1, Price: 400, Total: 400},
-  {Category: 'apparel' , Product: 'socks', Quantity: 1, Price: 150, Total: 150},
-  {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
-  {Category: 'apparel' , Product: 'blouse', Quantity: 1, Price: 400, Total: 400},
-];
 
 @Component({
   selector: 'app-pos',
@@ -61,7 +49,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
   taxInclusive = 0.12;
   taxAmount:any;
   grandTotal:any;
-  data: PosItem[] = STATIC_DATA;
+  // data: PosItem[] = STATIC_DATA;
 
   fields =
   [
@@ -75,11 +63,18 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     },
     {
       label: 'Product',
+      id:'productId',
+      name:'productName',
       type: 'select',
+      placeholder: 'Product',
     },
     {
-      label: 'Quantity',
-      type: 'input',
+      label: 'input',
+      id:'Quantity',
+      name:'Quantity',
+      type: 'number',
+      value: 'number',
+      placeholder: 'Quantity',
     },
     {
       label: 'Search',
@@ -109,7 +104,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
       console.log('Categories are:' ,this.categories)
-      console.log(this.data)
+      console.log(this.sales)
     });
 
 
@@ -132,7 +127,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
   ngAfterViewInit(): void {
     this.sort = this.sort;
     this.paginator = this.paginator;
-    this.table.dataSource = new MatTableDataSource(this.data);
+    this.table.dataSource = new MatTableDataSource(this.sales);
 
     this.calculateTotals();
   }
@@ -163,6 +158,7 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
       this.selectedCategory.products.push(product);
     }
   }
+
   addProduct() {
     const product = this.posForm.value.product;
     const quantity = this.posForm.value.quantity;
@@ -183,17 +179,21 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
         id: selectedProduct.productId,
         productName: selectedProduct.productName,
         category: categoryName,
-        quantity: quantity
+        quantity: quantity,
+        price: selectedProduct.productPrice,
+        total: selectedProduct.productPrice * quantity
       };
   
       this.sales.push(productToAdd); 
       this.posForm.reset();
       console.log(this.sales);
+      this.calculateTotals();
     });
+    
   }
 
   calculateTotals() {
-    const data = this.data;
+    const data = this.sales;
     let subTotal = 0;
     let taxInclusive = .12;
     let taxAmount = 0;
@@ -250,9 +250,9 @@ export class PosComponent extends DataSource<PosItem> implements  OnInit, AfterV
       if (this.paginator && this.sort) {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
-        return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
+        return merge(observableOf(this.sales), this.paginator.page, this.sort.sortChange)
           .pipe(map(() => {
-            return this.getPagedData(this.getSortedData([...this.data ]));
+            return this.getPagedData(this.getSortedData([...this.sales ]));
           }));
       } else {
         throw Error('Please set the paginator and sort on the data source before connecting.');

@@ -1,8 +1,9 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ViewChild  } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-sample',
@@ -16,15 +17,24 @@ export class SampleComponent implements OnInit{
   id : any;
   selectedCategory: any;
   selectedProduct: any;
-  selectedQuantity: any;
+  selectedQuantity: any = 0;
   addedProducts: any[] = [];
   posForm: FormGroup;
+  totalForm: FormGroup;
   sales: any[] = []; // temporary array to hold sales data
-  newcategories= []	
+  newcategories= [];
+  subTotal: number = 0;
+  taxInclusive: number = 0.12;
+  taxAmount: number = 0;
+  grandTotal: number = 0;
   constructor(private categoryService : CategoryService, 
     private productService : ProductService,
     private _Pos: FormBuilder,
+    private _Total:FormBuilder,
     ){}
+   
+    displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
+
   
   ngOnInit(): void {
     this.categoryService.getCategoryList().subscribe((categories: any) => {
@@ -38,6 +48,13 @@ export class SampleComponent implements OnInit{
       quantity: [null, [Validators.required, Validators.min(1), Validators.max(this.selectedQuantity)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
+    });
+
+    this.totalForm = this._Total.group({
+      subtotal: 0,
+      taxInclusive: '12%',
+      taxAmount: 0,
+      grandTotal: 0,
     });
   }
 
@@ -77,7 +94,9 @@ export class SampleComponent implements OnInit{
 addProduct() {
   const product = this.posForm.value.product;
   const quantity = this.posForm.value.quantity;
-  const categoryName = this.categories;
+  const categoryName = this.selectedCategory.categoryName;
+  
+  
   
   console.log(`categoryName: ${categoryName}`);
   console.log(`product: ${product}`);
@@ -102,8 +121,35 @@ addProduct() {
     this.sales.push(productToAdd); 
     this.posForm.reset();
     console.log(this.sales);
+    this.calculateTotals();
   });
 }
+
+onDeletedProduct() {
+    this.posForm.reset();
+    console.log(this.sales);
+    this.calculateTotals();
+}
+
+calculateTotals() {
+  const data = this.sales;
+  let subTotal = 0;
+  let taxInclusive = .12;
+  let taxAmount = 0;
+  let grandTotal = 0;
+
+  data.forEach((item: any) => {
+    subTotal += item.quantity * item.price;
+  });
+
+  taxAmount = subTotal * taxInclusive;
+  grandTotal = subTotal + taxAmount;
+
+  this.subTotal = subTotal;
+  this.taxAmount = taxAmount;
+  this.grandTotal = grandTotal;
+}
+
 
   
   resetSales() {
@@ -128,12 +174,39 @@ addProduct() {
       placeholder: 'Product',
     },
     {
-      label: 'input',
+      label: 'Quantity',
       id:'Quantity',
       name:'Quantity',
       type: 'number',
       value: 'number',
       placeholder: 'Quantity',
-    }
+    },
+    {
+      label: 'Search',
+      type: 'input',
+    },
   ];
+
+onChange(event: any) {
+  const label = event.target.previousElementSibling.innerText;
+  const value = event.target.value;
+
+  switch (label) {
+    case 'Subtotal':
+      console.log('Subtotal:', value);
+      break;
+    case 'Tax Inclusive':
+      console.log('Tax Inclusive:', value);
+      break;
+    case 'Tax Amount':
+      console.log('Tax Amount:', value);
+      break;
+    case 'Grand Total':
+      console.log('Grand Total:', value);
+      break;
+    default:
+      break;
+  }
+}
+
 }
