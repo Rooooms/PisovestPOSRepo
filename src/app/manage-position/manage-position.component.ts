@@ -9,6 +9,8 @@ import { CoreService } from '../services/core.service';
 import { PositionService } from '../services/position.service';
 import { AddPositionComponent } from '../add-position/add-position.component';
 
+
+
 @Component({
   selector: 'app-manage-position',
   templateUrl: './manage-position.component.html',

@@ -48,6 +48,8 @@ import { ProductAddEditComponent } from './product-add-edit/product-add-edit.com
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 
 const appRoute: Routes = [
@@ -144,6 +146,8 @@ const appRoute: Routes = [
     HttpClientModule,
     MatSelectModule,
     DatePipe,
+    MatToolbarModule,
+    
     
   ],
   providers: [DatePipe],  
