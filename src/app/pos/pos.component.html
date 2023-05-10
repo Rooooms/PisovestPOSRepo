@@ -6,7 +6,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>{{ field.label }}</mat-label>
                   <ng-container *ngIf="field.label === 'Category'">
-                    <mat-select formControlName="categoryName" (ngModelChange) = "onCategorySelected($event)">
+                    <mat-select formControlName="categoryName" (ngModelChange)="onCategorySelected($event)">
                         <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
                     </mat-select>
                   </ng-container>
@@ -44,7 +44,7 @@
 
             <td mat-cell *matCellDef="let row">
               {{ row[column] }}
-              <button mat-raised-button color="warn" *ngIf="column === 'Action'" (click)="onAddClicked(row) ">Delete</button>
+              <button mat-raised-button color="warn" *ngIf="column === 'Action'" (click)="addProduct() ">Delete</button>
             </td>
               </ng-container>
 

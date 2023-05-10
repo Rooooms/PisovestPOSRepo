@@ -27,6 +27,10 @@ const routes: Routes = [
     component: HomepageComponent,
   },
 
+  {
+    path: 'POS',
+    component: PosComponent, //name: 'POS',
+  },
 
   {
     path: 'employee',

@@ -49,7 +49,6 @@ import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { AddPositionComponent } from './add-position/add-position.component';
 import { ManagePositionComponent } from './manage-position/manage-position.component';
 
-
 const appRoute: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'Home', component: HomepageComponent},

@@ -12,7 +12,7 @@ export class PositionService {
     throw new Error('Method not implemented.');
   }
 
-  baseAPIURL : string = environment.baseAPIURL;
+  baseAPIURL : string = environment.baseApiUrl;
 
   constructor(private http : HttpClient) { }
 

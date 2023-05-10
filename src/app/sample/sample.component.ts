@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SampleComponent implements OnInit{
   categories= [];
   products = [];
+  prices = [];
   id : any;
   selectedCategory: any;
   selectedProduct: any;
@@ -34,7 +35,7 @@ export class SampleComponent implements OnInit{
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: ['', [Validators.required, Validators.min(1), Validators.max(1000)]], // Initial value for the quantity input
+      quantity: [null, [Validators.required, Validators.min(1), Validators.max(this.selectedQuantity)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
@@ -91,7 +92,9 @@ addProduct() {
       id: selectedProduct.productId,
       productName: selectedProduct.productName,
       category: categoryName,
-      quantity: quantity
+      quantity: quantity,
+      price: selectedProduct.productPrice,
+      total: selectedProduct.productPrice * quantity
     };
 
     this.sales.push(productToAdd); 
@@ -129,6 +132,6 @@ addProduct() {
       type: 'number',
       value: 'number',
       placeholder: 'Quantity',
-    },
+    }
   ];
 }
