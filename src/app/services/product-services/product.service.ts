@@ -32,6 +32,7 @@ export class ProductService {
     let param1 =  new HttpParams().set('categoryId', selectedCategoryId)
     return this.http.get (`http://localhost:5125/api/Product/`, {params : param1})
   }
+  
   updateProduct( id:string, data :  any ): Observable<any> {
     return this.http.put(`http://localhost:5125/api/Product/${id}`, data);
   }

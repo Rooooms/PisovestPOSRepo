@@ -1,9 +1,9 @@
-
 import { Component, OnInit,  ViewChild  } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-sample',
@@ -26,7 +26,8 @@ export class SampleComponent implements OnInit{
   subTotal: number = 0;
   taxInclusive: number = 0.12;
   taxAmount: number = 0;
-  grandTotal: number = 0;
+  grandTotal: number = 0; 
+  salesDataSource: MatTableDataSource<any>;
   constructor(private categoryService : CategoryService, 
     private productService : ProductService,
     private _Pos: FormBuilder,
@@ -34,6 +35,8 @@ export class SampleComponent implements OnInit{
     ){}
    
     displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
   
   ngOnInit(): void {
@@ -56,6 +59,9 @@ export class SampleComponent implements OnInit{
       taxAmount: 0,
       grandTotal: 0,
     });
+
+    this.salesDataSource = new MatTableDataSource(this.sales);
+    this.salesDataSource.paginator = this.paginator;
   }
 
   getColumns(){
@@ -94,22 +100,19 @@ export class SampleComponent implements OnInit{
 addProduct() {
   const product = this.posForm.value.product;
   const quantity = this.posForm.value.quantity;
-  const categoryName = this.selectedCategory.categoryName;
-  
-  
+  const selectedCategory = this.categories.find(c => c.id === product.categoryId);
+  const categoryName = selectedCategory.categoryName;
   
   console.log(`categoryName: ${categoryName}`);
-  console.log(`product: ${product}`);
+  console.log(`product: ${product.productName}`);
 
-  const selectedCategory = this.categories.find(c => c.categoryId === categoryName);
-
-  this.categoryService.getById(this.selectedCategory).subscribe((selectedCategory: any) => {
-    const categoryName = selectedCategory.categoryName;
-    console.log('Category name:', categoryName);
+  this.productService.getProductsofSelectedCategory(selectedCategory).subscribe((selectedCategory: any) => {
+    console.log(`Category Name: ${categoryName}`);
 
     const selectedProduct = product;
   
     const productToAdd = {
+      categoryId: selectedProduct.categoryId,
       id: selectedProduct.productId,
       productName: selectedProduct.productName,
       category: categoryName,
@@ -122,13 +125,15 @@ addProduct() {
     this.posForm.reset();
     console.log(this.sales);
     this.calculateTotals();
+    this.salesDataSource = new MatTableDataSource(this.sales);
   });
 }
 
-onDeletedProduct() {
-    this.posForm.reset();
-    console.log(this.sales);
-    this.calculateTotals();
+onDeletedProduct(index: number) {
+  this.sales.splice(index, 1); // Remove 1 element at index
+  this.salesDataSource.data = this.sales; // Update the data source for the table
+  this.calculateTotals();
+  console.log(this.sales)
 }
 
 calculateTotals() {
@@ -152,12 +157,12 @@ calculateTotals() {
 
 
   
-  resetSales() {
+resetSales() {
     this.sales = [];
     this.isReset = true;
-  }
+}
   
-  fields = [
+fields = [
     {
       placeholder: 'Category',
         type: 'select',
@@ -180,12 +185,8 @@ calculateTotals() {
       type: 'number',
       value: 'number',
       placeholder: 'Quantity',
-    },
-    {
-      label: 'Search',
-      type: 'input',
-    },
-  ];
+    }
+];
 
 onChange(event: any) {
   const label = event.target.previousElementSibling.innerText;
