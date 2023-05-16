@@ -12,17 +12,17 @@ export class PositionService {
     throw new Error('Method not implemented.');
   }
 
-  baseAPIURL : string = environment.baseAPIURL;
+  baseApiUrl : string = environment.baseApiUrl;
 
   constructor(private http : HttpClient) { }
 
   getAllPosition(): Observable <any>{
 
-    return this.http.get(this.baseAPIURL + 'api/Position');
+    return this.http.get(this.baseApiUrl + 'api/Position');
   }
   addPosition(data: any) : Observable<any>{  
     data.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.post <any> (this.baseAPIURL + 'api/Position', data);
+    return this.http.post <any> (this.baseApiUrl + 'api/Position', data);
   }
   
   updatePosition(id: string, data: any): Observable<any>{

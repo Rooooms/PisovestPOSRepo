@@ -139,7 +139,6 @@ const appRoute: Routes = [
     BrowserModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
