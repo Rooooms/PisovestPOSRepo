@@ -44,22 +44,40 @@ export class AddStaffComponent implements OnInit, OnDestroy{
     this.positionService.getAllPosition().subscribe((position: any) => {
       this.position = position.map((position: any) => position.positionName);
       });
+
+      const fixDate = (date: Date) => {
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        return date;
+      };
+      
       if (this.data?.datejoined) {
-        this.addstaff.controls['birthday'].setValue(new Date(this.data.birthday));
-        this.addstaff.controls['datejoined'].setValue(new Date(this.data.datejoined));
+        this.addstaff.controls['birthday'].setValue(fixDate(new Date(this.data.birthday)));
+        this.addstaff.controls['datejoined'].setValue(fixDate(new Date(this.data.datejoined)));
       }
   }
-    ngOnDestroy(): void {
-        this.aStaffSubscription.unsubscribe();
-    }
+
+  ngOnDestroy(): void {
+    this.aStaffSubscription.unsubscribe();
+  }
 
     onFormSubmit(){
     
       if (this.addstaff.valid){
+        if (this.addstaff.valid) {
+          // Adjust the birthday and datejoined fields by adding one day
+          const birthday = new Date(this.addstaff.value.birthday);
+          birthday.setDate(birthday.getDate() + 1);
+          const datejoined = new Date(this.addstaff.value.datejoined);
+          datejoined.setDate(datejoined.getDate() + 1);
+      
+          // Set the adjusted values back into the form
+          this.addstaff.patchValue({ birthday, datejoined });
+        }
+
         if (this.data){
-          
           this.staffService.updateStaff(this.data.id, this.addstaff.value).subscribe({
             next: (val: any) =>{
+              console.log(val)
               this.coreService.openSnackBar('Updated Successfully');
               this._dialogRef.close(true);      
             },
@@ -70,6 +88,7 @@ export class AddStaffComponent implements OnInit, OnDestroy{
         }else{
           this.staffService.addStaff(this.addstaff.value).subscribe({
             next:(val: any) => {
+              console.log(val)
               this.coreService.openSnackBar('Added Successfully');
               this._dialogRef.close(true);
             },
@@ -107,9 +126,9 @@ export class AddStaffComponent implements OnInit, OnDestroy{
     {
       placeholder: 'MM/DD/YYYY',
       type: 'date',
-      name: 'birthday',
-      id: 'birthday',
-      hold: 'Birthday'
+      name: 'datejoined',
+      id: 'datejoined',
+      hold: 'Date Joined'
     },
     {
       placeholder: 'ex. Manager',
@@ -128,10 +147,10 @@ export class AddStaffComponent implements OnInit, OnDestroy{
   {
     placeholder: 'MM/DD/YYYY',
     type: 'date',
-    name: 'datejoined',
-    id: 'datejoined',
-    hold: 'Date Joined'
-  }
+    name: 'birthday',
+    id: 'birthday',
+    hold: 'Birthday'
+  },
   
   
     ];

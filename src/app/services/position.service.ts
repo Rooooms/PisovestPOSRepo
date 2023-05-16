@@ -13,23 +13,24 @@ export class PositionService {
   }
 
   baseAPIURL : string = environment.baseApiUrl;
+  baseApiUrl : string = environment.baseApiUrl;
 
   constructor(private http : HttpClient) { }
 
   getAllPosition(): Observable <any>{
 
-    return this.http.get(this.baseAPIURL + 'api/Position');
+    return this.http.get(this.baseApiUrl + 'api/Position');
   }
-  addPosition(data: any) : Observable<any>{  
+  addPosition(data: any) : Observable<any>{
     data.id = '00000000-0000-0000-0000-000000000000';
-    return this.http.post <any> (this.baseAPIURL + 'api/Position', data);
+    return this.http.post <any> (this.baseApiUrl + 'api/Position', data);
   }
-  
+
   updatePosition(id: string, data: any): Observable<any>{
     return this.http.put(`http://localhost:5125/api/Position/${id}`, data);
   }
   deletePosition(id: string): Observable<any>{
-    return this.http.delete(`http://localhost:5125/api/Position/${id}`); 
+    return this.http.delete(`http://localhost:5125/api/Position/${id}`);
   }
 }
 
