@@ -1,143 +1,158 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { SharedService } from '../shared.service';
-import { ProductService } from '../services/product-services/product.service';
+import { Component, OnInit,  ViewChild  } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { ProductService } from '../services/product-services/product.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { PosDataSource, PosItem } from './pos-datasource';
-
 
 @Component({
   selector: 'app-pos',
   templateUrl: './pos.component.html',
-  styleUrls: ['./pos.component.css'],
-  template: '<h1>{{ pageTitle }}</h1>',
+  styleUrls: ['./pos.component.css']
 })
-
-export class POSComponent implements OnInit, AfterViewInit {
-
-    // temporary data
-dataObj: DataObj;
-dataArr: DataObj[] = [];
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<PosItem>;
-  dataSource: PosDataSource;
-
-
-
-
-
-  public pageTitle: string;
+export class PosComponent implements OnInit{
   categories= [];
+  products = [];
+  prices = [];
+  id : any;
+  selectedCategory: any;
+  selectedProduct: any;
+  selectedQuantity: any = 0;
+  addedProducts: any[] = [];
   posForm: FormGroup;
   totalForm: FormGroup;
-  products = [];
-  price = [];
-
-  constructor(
-
-    private sharedService: SharedService,
-    private categoryService : CategoryService,
+  sales: any[] = []; // temporary array to hold sales data
+  newcategories= [];
+  subTotal: number = 0;
+  taxInclusive: number = 0.12;
+  taxAmount: number = 0;
+  grandTotal: number = 0;
+  salesDataSource: MatTableDataSource<any>;
+  constructor(private categoryService : CategoryService,
     private productService : ProductService,
     private _Pos: FormBuilder,
-    private _Total: FormBuilder,
-    ) {
-      // this.dataSource = new PosDataSource();
-      this.dataObj = new DataObj();
+    private _Total:FormBuilder,
+    ){}
 
-    }
+    displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
-
-
-  displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
-
-  ngOnInit() {
-        this.getAllEmployee();
-    this.sharedService.pageName = 'Point of Sale';
-    this.pageTitle = 'Point of Sale';
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
+  ngOnInit(): void {
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
       console.log('Categories are:' ,this.categories)
-      console.log(this.dataSource)
     });
-
 
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: [''], // Initial value for the quantity input
+      quantity: [null, [Validators.required, Validators.min(1), Validators.max(this.selectedQuantity)]], // Initial value for the quantity input
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
 
     this.totalForm = this._Total.group({
-      subTotal: [''],
-      taxInclusive: [{value: '12%'}],
-      taxAmount: [{value: 887}], // Initial value for the price of the product
-      GrandTotal: ['']
+      subtotal: 0,
+      taxInclusive: '12%',
+      taxAmount: 0,
+      grandTotal: 0,
     });
 
+    this.salesDataSource = new MatTableDataSource(this.sales);
+    this.salesDataSource.paginator = this.paginator;
+  }
+
+  getColumns(){
+    return ['categoryName', 'product', 'quantity', 'categoryId'];
+    }
+
+  onCategorySelected(selectedCategoryId: any) {
+    this.selectedCategory = selectedCategoryId;
+    this.posForm.get('categoryId').setValue(selectedCategoryId); // set the value of the categoryId control
+    this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
+      data => {
+        this.products = data.filter(products => products.categoryId == selectedCategoryId)
+        console.log('Product', this.products);
+      }
+    )
+  }
 
 
-}
+  onProductSelected(selectedProductId: any) {
+    this.selectedProduct = selectedProductId;
+  }
 
- onSave(){
+  onQuantitySelected(selectedQuantity: any) {
+    this.selectedQuantity = selectedQuantity;
+  }
 
-    this.dataArr.push(this.dataObj);
-
-
-    const isData = localStorage.getItem("EmpData");
-    if(isData == null){
-      const newArr = [];
-      newArr.push(this.dataObj);
-      localStorage.setItem("EmpData", JSON.stringify(newArr));
-      location.reload();
-    }else
-    {
-      const oldData = JSON.parse(isData);
-      oldData.push(this.dataObj);
-      localStorage.setItem("EmpData", JSON.stringify(oldData));
-      location.reload();
+  addProducts(productName: string) {
+    const product = this.products.find(p => p.name === productName);
+    if (product && this.selectedCategory) {
+      this.selectedCategory.products.push(product);
     }
   }
 
-  getAllEmployee(){
-    const isData = localStorage.getItem("EmpData");
-    if(isData != null){
-      const localData = JSON.parse(isData);
-      this.dataArr = localData;
-    }
-  }
+  isReset: boolean = false;
 
-onCategorySelected(selectedCategoryName : any){
-  this.productService.getProductsofSelectedCategory(selectedCategoryName).subscribe(
-    data => {
-      this.products = data.filter(products => products.categoryName == selectedCategoryName);
-      console.log(data);
+addProduct() {
+  const product = this.posForm.value.product;
+  const quantity = this.posForm.value.quantity;
+  const selectedCategory = this.categories.find(c => c.id === product.categoryId);
+  const categoryName = selectedCategory.categoryName;
 
+  console.log(`categoryName: ${categoryName}`);
+  console.log(`product: ${product.productName}`);
 
+  this.productService.getProductsofSelectedCategory(selectedCategory).subscribe((selectedCategory: any) => {
+    console.log(`Category Name: ${categoryName}`);
 
-      // this.price = data.filter(price => price.categoryName == selectedCategoryName)
-      // console.log('price', this.price);
-    }
-  )
+    const selectedProduct = product;
+
+    const productToAdd = {
+      categoryId: selectedProduct.categoryId,
+      id: selectedProduct.productId,
+      productName: selectedProduct.productName,
+      category: categoryName,
+      quantity: quantity,
+      price: selectedProduct.productPrice,
+      total: selectedProduct.productPrice * quantity
+    };
+
+    this.sales.push(productToAdd);
+    this.posForm.reset();
+    console.log(this.sales);
+    this.calculateTotals();
+    this.salesDataSource = new MatTableDataSource(this.sales);
+  });
 }
 
+onDeletedProduct(index: number) {
+  this.sales.splice(index, 1); // Remove 1 element at index
+  this.salesDataSource.data = this.sales; // Update the data source for the table
+  this.calculateTotals();
+  console.log(this.sales)
+}
 
+calculateTotals() {
+  const data = this.sales;
+  let subTotal = 0;
+  let taxInclusive = .12;
+  let taxAmount = 0;
+  let grandTotal = 0;
 
+  data.forEach((item: any) => {
+    subTotal += item.quantity * item.price;
+  });
 
+  taxAmount = subTotal * taxInclusive;
+  grandTotal = subTotal + taxAmount;
 
-
-ngAfterViewInit(): void {
-  this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;
-  this.table.dataSource = this.dataSource;
+  this.subTotal = subTotal;
+  this.taxAmount = taxAmount;
+  this.grandTotal = grandTotal;
 }
 
 getPrice(){
@@ -149,75 +164,60 @@ checkout(){
   location.reload();
 }
 
-  fields = [
+
+resetSales() {
+    this.sales = [];
+    this.isReset = true;
+}
+
+fields = [
     {
       placeholder: 'Category',
         type: 'select',
-        id: 'categoryName',
+        id: 'categoryId',
         name: 'categoryName',
         label: 'Category',
         value: 'categoryName',
     },
     {
       label: 'Product',
+      id:'productId',
+      name:'productName',
       type: 'select',
+      placeholder: 'Product',
     },
 
 
     {
       label: 'Quantity',
-      type: 'input',
-    },
+      id:'Quantity',
+      name:'Quantity',
+      type: 'number',
+      value: 'number',
+      placeholder: 'Quantity',
+    }
+];
 
-  ];
+onChange(event: any) {
+  const label = event.target.previousElementSibling.innerText;
+  const value = event.target.value;
 
-
-
-  subtotalFields = [
-  {
-    label: 'Sub Total',
-    name: 'subTotal',
-    value: '',
-  },
-  {
-    label: 'Tax Inclusive (%)',
-    name: 'taxInclusive',
-    value: 12
-  },
-  {
-    label: 'Tax Amount',
-    name: 'taxAmount',
-    value: 887,
-  },
-  {label: 'Grand Total',
-  name: 'grandTotal',
-  value: '',
-}];
-
-
-
-}
-
-
-
-export class DataObj{
-  category: string;
-  product: string;
-  quantity: number;
-  price: number;
-  total: number;
-
-
-
-  constructor(){
-    this.category = "";
-    this.product = "";
-    this.quantity = null;
-    this.price = null;
-    this.total = null;
-
-
+  switch (label) {
+    case 'Subtotal':
+      console.log('Subtotal:', value);
+      break;
+    case 'Tax Inclusive':
+      console.log('Tax Inclusive:', value);
+      break;
+    case 'Tax Amount':
+      console.log('Tax Amount:', value);
+      break;
+    case 'Grand Total':
+      console.log('Grand Total:', value);
+      break;
+    default:
+      break;
   }
-
+}
 
 }

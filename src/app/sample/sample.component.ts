@@ -40,11 +40,6 @@ export class SampleComponent implements OnInit{
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/possirpat
   }
 
   getColumns(){
@@ -80,20 +75,10 @@ export class SampleComponent implements OnInit{
 
   isReset: boolean = false;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/possirpat
 addProduct() {
   const product = this.posForm.value.product;
   const quantity = this.posForm.value.quantity;
   const categoryName = this.categories;
-<<<<<<< HEAD
-  const price = this.prices;
-
-=======
-
->>>>>>> origin/possirpat
   console.log(`categoryName: ${categoryName}`);
   console.log(`product: ${product}`);
 
@@ -104,39 +89,19 @@ addProduct() {
     console.log('Category name:', categoryName);
 
     const selectedProduct = product;
-<<<<<<< HEAD
-
-=======
-
->>>>>>> origin/possirpat
     const productToAdd = {
       id: selectedProduct.productId,
       productName: selectedProduct.productName,
       category: categoryName,
-<<<<<<< HEAD
-      quantity: quantity,
-      price: selectedProduct.productPrice,
-      total: selectedProduct.productPrice * quantity
-
-    };
-
-    this.sales.push(productToAdd);
-=======
       quantity: quantity
     };
 
     this.sales.push(productToAdd);
->>>>>>> origin/possirpat
     this.posForm.reset();
     console.log(this.sales);
   });
 }
 
-<<<<<<< HEAD
-
-=======
-
->>>>>>> origin/possirpat
   resetSales() {
     this.sales = [];
     this.isReset = true;

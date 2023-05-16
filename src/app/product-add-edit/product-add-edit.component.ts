@@ -1,21 +1,23 @@
-import { Component,Inject ,OnInit } from '@angular/core';
+import { Component,Inject ,OnDestroy,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../services/core/core.service';
 import { ProductService } from '../services/product-services/product.service';
 import { CategoryService } from '../services/category-services/category.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-add-edit',
   templateUrl: './product-add-edit.component.html',
   styleUrls: ['./product-add-edit.component.css']
 })
-export class ProductAddEditComponent implements OnInit {
-  product: FormGroup; 
+export class ProductAddEditComponent implements OnInit , OnDestroy{
+  private productSubscription: Subscription = new Subscription();
+  product: FormGroup;
   categories= [];
 
-    constructor(private _productFb: FormBuilder , 
-      private productService : ProductService, 
+    constructor(private _productFb: FormBuilder ,
+      private productService : ProductService,
       private _dialogRef : MatDialogRef<ProductAddEditComponent>,
       private categoryService : CategoryService,
       @Inject(MAT_DIALOG_DATA) public data : any,
@@ -24,32 +26,36 @@ export class ProductAddEditComponent implements OnInit {
     this.product = this._productFb.group({
     id:'',
     categoryName: '',
-    productName: '',
-    productBrand: '',
+    productName: ['', Validators.required],
+    productBrand: ['', Validators.required],
+    productPrice: ['', [Validators.required, Validators.min(0.01), Validators.max(1000000)]],
+    productQuantity: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
     productDescription: '',
-    productPrice: null,
-    productQuantity: null,
   });
     }
+
+  ngOnDestroy(): void {
+  this.productSubscription.unsubscribe();
+}
 
     ngOnInit(): void {
         this.product.patchValue(this.data)
         this.categoryService.getCategoryList().subscribe((categories: any) => {
         this.categories = categories.map((category: any) => category.categoryName);
-        
+
         });
     }
 
-  
+
     onFormSubmit(){
       if (this.product.valid){
         if (this.data){
           console.log(this.data)
           this.productService.updateProduct(this.data.id, this.product.value).subscribe({
-            
+
             next: (val: any) =>{
               this.coreService.openSnackBar('Product Update Successfully');
-              this._dialogRef.close(true);      
+              this._dialogRef.close(true);
             },
             error: (err: any) =>{
               console.error(err);
