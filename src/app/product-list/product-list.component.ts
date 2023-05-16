@@ -20,8 +20,8 @@ dataName = [  { name: 'categoryName', label: 'Category' },
               { name: 'productModel', label: 'Model'},
               { name: 'productBrand', label: 'Brand' },
               { name: 'productDescription', label: 'Description'},
-              { name: 'productPrice', label: 'Price'},
-              { name: 'productQuantity', label: 'Quantity'},
+              { name: 'productPrice', label: 'Price', type: 'number'},
+              { name: 'productQuantity', label: 'Quantity', type: 'number'},
               { name: 'productStatus', label: 'Status'},];
 
 getColumns() {

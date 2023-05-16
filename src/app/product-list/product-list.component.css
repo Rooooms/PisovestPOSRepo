@@ -62,3 +62,12 @@ mat-toolbar{
   margin-top: 1.4rem;
   flex: wrap;
 }
+.ng-container th{
+  white-space: normal;
+}
+.ng-container th, td{
+  text-align: center;
+  vertical-align: center;
+  overflow-y: auto;
+  word-wrap: break-word;
+}

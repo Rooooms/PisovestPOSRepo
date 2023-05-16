@@ -98,8 +98,8 @@ applyFilter(event: Event) {
           next: (staff) => {
             const formattedStaff = staff.map((s) => ({
               ...s,
-              birthday: this.datePipe.transform(s.birthday, 'mediumDate'),
-              datejoined: this.datePipe.transform(s.datejoined, 'mediumDate'),
+              birthday: this.datePipe.transform(s.birthday, 'longDate'),
+              datejoined: this.datePipe.transform(s.datejoined, 'longDate'),
               
             }));
             this.dataSource = new MatTableDataSource(formattedStaff);

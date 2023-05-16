@@ -81,7 +81,7 @@ export class ManageSalaryComponent implements OnInit, OnDestroy{
             next: (salary) => {
               const formattedSalary = salary.map((s) => ({
                 ...s,
-                dateGiven: this.datePipe.transform(s.dateGiven, 'mediumDate'),
+                dateGiven: this.datePipe.transform(s.dateGiven, 'longDate'),
               }));
               this.dataSource = new MatTableDataSource(formattedSalary);
               this.dataSource.sort = this.sort;

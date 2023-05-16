@@ -48,7 +48,7 @@ export class PosComponent implements OnInit{
     this.posForm = this._Pos.group({
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
-      quantity: [null, [Validators.required, Validators.min(1), Validators.max(this.selectedQuantity)]], // Initial value for the quantity input
+      quantity: 0,
       search: [''], // Initial value for the search input
       categoryId: [''],
     });
@@ -127,6 +127,7 @@ addProduct() {
     this.calculateTotals();
     this.salesDataSource = new MatTableDataSource(this.sales);
   });
+  
 }
 
 onDeletedProduct(index: number) {
@@ -138,10 +139,10 @@ onDeletedProduct(index: number) {
 
 calculateTotals() {
   const data = this.sales;
-  let subTotal = 0;
-  let taxInclusive = .12;
-  let taxAmount = 0;
-  let grandTotal = 0;
+  let subTotal = 0.00;
+  let taxInclusive = 0.12;
+  let taxAmount = 0.00;
+  let grandTotal = 0.00;
 
   data.forEach((item: any) => {
     subTotal += item.quantity * item.price;
@@ -150,9 +151,9 @@ calculateTotals() {
   taxAmount = subTotal * taxInclusive;
   grandTotal = subTotal + taxAmount;
 
-  this.subTotal = subTotal;
-  this.taxAmount = taxAmount;
-  this.grandTotal = grandTotal;
+  this.subTotal = parseFloat(subTotal.toFixed(2));
+  this.taxAmount = parseFloat(taxAmount.toFixed(2));
+  this.grandTotal = parseFloat(grandTotal.toFixed(2));
 }
 
 
