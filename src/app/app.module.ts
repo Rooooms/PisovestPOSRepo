@@ -19,7 +19,7 @@ import { MaterialModule } from './material/material.module';
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ManageStaffComponent } from './manage-staff/manage-staff.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
@@ -36,28 +36,25 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddPositionComponent } from './add-position/add-position.component';
 import { ManagePositionComponent } from './manage-position/manage-position.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { POSComponent } from './pos/pos.component';
+import { PosComponent } from './pos/pos.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CardComponent } from './card/card.component';
-import { HomeComponent } from './home/home.component';
 import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDataComponent } from './transaction-data/transaction-data.component';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
-
-
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 const appRoute: Routes = [
-  {path: '', component: CardComponent},
-  {path: 'Home', component: CardComponent},
+  {path: '', component: HomepageComponent},
+  {path: 'Home', component: HomepageComponent},
   {path: 'Sales', component: SalesReportComponent},
   {path: 'Transactions', component: TransactionListComponent},
-  {path: 'POS', component: POSComponent}
+  {path: 'POS', component: PosComponent}
 ]
+
 
 @NgModule({
   declarations: [
@@ -82,14 +79,11 @@ const appRoute: Routes = [
     NavbarComponent,
     SidebarComponent,
     HomepageComponent,
-    POSComponent,
-    CardComponent,
-    HomeComponent,
+    PosComponent,
     SidebarComponent,
     NavbarComponent,
     InvoiceDialogComponent,
     SalesReportComponent,
-    TransactionsComponent,
     SalesDataComponent,
     TransactionListComponent,
     TransactionDataComponent,
@@ -101,6 +95,10 @@ const appRoute: Routes = [
     CategoryAddEditComponent,
     CategoryListComponent,
     SamplePosComponent,
+    ManageOrderComponent,
+    AddPositionComponent,
+    ManagePositionComponent,
+   
   ],
 
   imports: [
@@ -114,43 +112,23 @@ const appRoute: Routes = [
     MatSortModule,
     MatFormFieldModule,
     MatDialogModule,
-    MatListModule,
-    MatIconModule,
-    MatOptionModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatDialogModule,
     MatInputModule,
     MatListModule,
-    MatPaginatorModule,
-    MatSortModule,
     MatGridListModule,
     MatIconModule,
     RouterModule.forRoot(appRoute),
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserModule,
     FormsModule,
     MatDatepickerModule,
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
-    MatSelectModule,
     DatePipe,
     MatSnackBarModule
+
   ],
-  providers: [DatePipe],  
+  providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { HomepageComponent } from './homepage/homepage.component';
-import { POSComponent } from './pos/pos.component';
+import { PosComponent } from './pos/pos.component';
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -12,13 +12,13 @@ import { ManageStaffComponent } from './manage-staff/manage-staff.component';
 import { SampleComponent } from './sample/sample.component';
 import { ManageSalaryComponent } from './manage-salary/manage-salary.component';
 import { ManagePositionComponent } from './manage-position/manage-position.component';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 const routes: Routes = [
 
@@ -29,7 +29,7 @@ const routes: Routes = [
 
   {
     path: 'POS',
-    component: POSComponent, //name: 'POS',
+    component: PosComponent, //name: 'POS',
   },
 
   {
@@ -50,6 +50,16 @@ const routes: Routes = [
   {
     path: 'employee/manage-salary',
     component: ManageSalaryComponent
+  },
+
+  {
+    path: 'employee/manage-staff/position',
+    component:ManagePositionComponent
+  },
+
+  {
+    path: 'POS',
+    component: PosComponent, //name: 'POS',
   },
 
   {
@@ -131,6 +141,12 @@ const routes: Routes = [
     path: 'employee/manage-staff/position',
     component:ManagePositionComponent
   },
+
+  {
+    path: 'manageorder',
+    component: ManageOrderComponent
+  },
+
   ];
 
   @NgModule({

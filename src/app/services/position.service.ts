@@ -13,6 +13,7 @@ export class PositionService {
   }
 
   baseApiUrl : string = environment.baseApiUrl;
+  baseAPIURL : string = environment.baseApiUrl;
 
   constructor(private http : HttpClient) { }
 
