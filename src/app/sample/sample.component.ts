@@ -54,19 +54,17 @@ export class SampleComponent implements OnInit{
     });
 
     this.totalForm = this._Total.group({
-      subtotal: 0,
-      taxInclusive: '12%',
-      taxAmount: 0,
-      grandTotal: 0,
+      subTotal: [0],
+      taxInclusive:'12%',
+      taxAmount: [0],
+      grandTotal: [0],
     });
+    
 
-    this.salesDataSource = new MatTableDataSource(this.sales);
+    this.salesDataSource = new MatTableDataSource<any>(this.sales);
     this.salesDataSource.paginator = this.paginator;
-  }
 
-  getColumns(){
-    return ['categoryName', 'product', 'quantity', 'categoryId'];
-    }
+  }
 
   onCategorySelected(selectedCategoryId: any) {
     this.selectedCategory = selectedCategoryId;
@@ -102,6 +100,10 @@ addProduct() {
   const quantity = this.posForm.value.quantity;
   const selectedCategory = this.categories.find(c => c.id === product.categoryId);
   const categoryName = selectedCategory.categoryName;
+
+  if (!quantity) {
+    return;
+  }
   
   console.log(`categoryName: ${categoryName}`);
   console.log(`product: ${product.productName}`);
@@ -114,18 +116,18 @@ addProduct() {
     const productToAdd = {
       categoryId: selectedProduct.categoryId,
       id: selectedProduct.productId,
-      productName: selectedProduct.productName,
-      category: categoryName,
-      quantity: quantity,
-      price: selectedProduct.productPrice,
-      total: selectedProduct.productPrice * quantity
+      Product: selectedProduct.productName,
+      Category: categoryName,
+      Quantity: quantity,
+      Price: selectedProduct.productPrice,
+      Total: selectedProduct.productPrice * quantity
     };
 
-    this.sales.push(productToAdd); 
+    this.sales.push(productToAdd);
     this.posForm.reset();
-    console.log(this.sales);
     this.calculateTotals();
-    this.salesDataSource = new MatTableDataSource(this.sales);
+    this.salesDataSource.data = this.sales;
+
   });
 }
 
@@ -139,12 +141,12 @@ onDeletedProduct(index: number) {
 calculateTotals() {
   const data = this.sales;
   let subTotal = 0;
-  let taxInclusive = .12;
+  let taxInclusive = 0.12;
   let taxAmount = 0;
   let grandTotal = 0;
 
   data.forEach((item: any) => {
-    subTotal += item.quantity * item.price;
+    subTotal += item.Quantity * item.Price; // Update property names here
   });
 
   taxAmount = subTotal * taxInclusive;
@@ -154,7 +156,6 @@ calculateTotals() {
   this.taxAmount = taxAmount;
   this.grandTotal = grandTotal;
 }
-
 
   
 resetSales() {

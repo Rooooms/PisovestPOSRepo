@@ -21,7 +21,7 @@
             </ng-container>
             
             <ng-container *ngIf="field.label === 'Quantity'">
-              <input matInput formControlName="quantity">
+              <input matInput type="number" formControlName="quantity" required min="0" step="1" onkeydown="return event.keyCode !== 69" (keypress)="keyPressNumbers($event)">
             </ng-container>
 
           </mat-form-field>
@@ -40,40 +40,24 @@
         <div class="container">
 
           <table mat-table [dataSource]="salesDataSource" matSort>
-
-            <ng-container matColumnDef="Product">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
-              <td mat-cell *matCellDef="let sale"> {{sale.productName}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Category">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-              <td mat-cell *matCellDef="let sale"> {{sale.category}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Quantity">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-              <td mat-cell *matCellDef="let sale"> {{sale.quantity}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Price">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-              <td mat-cell *matCellDef="let sale "> {{sale.price}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Total">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-              <td mat-cell *matCellDef="let sale"> {{sale.total}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Action">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
-              <td mat-cell *matCellDef="let sale let i = index"><button mat-raised-button color="warn" (click)="onDeletedProduct(i)" >Delete</button></td>
+            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+              <td mat-cell *matCellDef="let sale">
+                <ng-container *ngIf="column !== 'Action'">
+                  {{ sale[column] }}
+                </ng-container>
+                <ng-container *ngIf="column === 'Action'">
+                  <button mat-flat-button color="warn" (click)="onDeletedProduct(sale)">
+                    Delete
+                  </button>
+                </ng-container>
+              </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let sale; columns: displayedColumns;"></tr>
           </table>
+          
 
           <mat-paginator #paginator
               [length]="salesDataSource.data.length"
@@ -90,28 +74,26 @@
       <div class="row2">
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Subtotal</mat-label>
-          <input matInput formControlName="subTotal" [value]="subTotal" (change)="onChange($event)" readonly>
+          <input matInput formControlName="subTotal" [value]="'₱'+subTotal" (change)="onChange($event)" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Tax Inclusive</mat-label>
-          <input matInput formControlName="taxInclusive"  [value]="taxInclusive" (change)="onChange($event)" readonly>
+          <input matInput formControlName="taxInclusive" [value]="'₱'+ taxInclusive" (change)="onChange($event)" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Tax Amount</mat-label>
-          <input matInput formControlName="taxAmount"  [value]="taxAmount"  (change)="onChange($event)" readonly>
-        </mat-form-field>
+          <input matInput formControlName="taxAmount" [value]="'₱'+ taxAmount" (change)="onChange($event)" readonly>
+        </mat-form-field> 
 
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Grand Total</mat-label>
-          <input matInput formControlName="grandTotal"   [value]="grandTotal" (change)="onChange($event)" readonly>
+          <input matInput formControlName="grandTotal" [value]="'₱'+ grandTotal" (change)="onChange($event)" readonly>
         </mat-form-field>
 
         <button mat-raised-button class="btn-submit">Check Out</button>
       </div>
-
-
     </div>
   </form>
 </div>
