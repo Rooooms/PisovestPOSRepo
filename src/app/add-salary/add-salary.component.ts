@@ -52,6 +52,7 @@ export class AddSalaryComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.aSalarySubscription.unsubscribe();
   }
+  
   onFormSubmit() {
     const currentDate = new Date();
     this.addsalary.patchValue({ dateGiven: currentDate });

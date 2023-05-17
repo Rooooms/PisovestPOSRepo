@@ -1,9 +1,7 @@
 <form [formGroup]="addsalary" (ngSubmit)="onFormSubmit()">
-  <div mat-dialog-title>
-    <h1>Add Salary</h1>
-  </div>
+    <h1 mat-dialog-title>Add Salary</h1>
 
-  <div mat-dialog-content>
+  <div mat-dialog-content class="form-container">
     <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start center">
       <div *ngFor="let salary of Salary" fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="mb-3">
 
