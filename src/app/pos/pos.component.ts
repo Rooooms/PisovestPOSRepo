@@ -4,6 +4,8 @@ import { ProductService } from '../services/product-services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { InvoiceService } from '../services/invoice.service';
+import { CoreService } from '../services/core.service';
 
 @Component({
   selector: 'app-pos',
@@ -14,6 +16,7 @@ export class PosComponent implements OnInit{
   categories= [];
   products = [];
   prices = [];
+  productToAdd = [];
   id : any;
   selectedCategory: any;
   selectedProduct: any;
@@ -21,17 +24,24 @@ export class PosComponent implements OnInit{
   addedProducts: any[] = [];
   posForm: FormGroup;
   totalForm: FormGroup;
+  invoiceForm:FormGroup;
   sales: any[] = []; // temporary array to hold sales data
   newcategories= [];
-  subTotal: number = 0;
-  taxInclusive: number = 0.12;
-  taxAmount: number = 0;
+  totalPrice: number = 0;
+  tax: number = 0.12;
+  taxDeduction: number = 0;
   grandTotal: number = 0; 
+  cash: number = 0;
+  change: number = 0;
   salesDataSource: MatTableDataSource<any>;
   constructor(private categoryService : CategoryService, 
     private productService : ProductService,
+    private invoiceService: InvoiceService,
+    private coreService: CoreService,
     private _Pos: FormBuilder,
     private _Total:FormBuilder,
+    private _Invoice:FormBuilder,
+ 
     ){}
    
     displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
@@ -42,7 +52,6 @@ export class PosComponent implements OnInit{
   ngOnInit(): void {
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
-      console.log('Categories are:' ,this.categories)
     });
 
     this.posForm = this._Pos.group({
@@ -54,12 +63,26 @@ export class PosComponent implements OnInit{
     });
 
     this.totalForm = this._Total.group({
-      subTotal: ['₱'+ 0],
-      taxInclusive:'12%',
-      taxAmount: ['₱'+ 0],
+      totalPrice: ['₱'+ 0],
+      tax:'12%',
+      taxDeduction: ['₱'+ 0],
       grandTotal: ['₱'+ 0],
+      cash: ['₱'],
+      change: ['₱' +0],
     });
-    
+
+    this.invoiceForm = this._Invoice.group({
+      categoryName: [''], 
+      product: [''], 
+      quantity: 0,
+      search: [''], 
+      categoryId: [''],
+      totalPrice: ['₱' + 0],
+      tax: '12%',
+      taxDeduction: ['₱' + 0],
+      grandTotal: ['₱' + 0],
+      productToAdd: this.productToAdd
+    });
 
     this.salesDataSource = new MatTableDataSource<any>(this.sales);
     this.salesDataSource.paginator = this.paginator;
@@ -72,7 +95,6 @@ export class PosComponent implements OnInit{
     this.productService.getProductsofSelectedCategory(selectedCategoryId).subscribe(
       data => {
         this.products = data.filter(products => products.categoryId == selectedCategoryId)
-        console.log('Product', this.products);
       }
     )
   }
@@ -104,12 +126,8 @@ addProduct() {
   if (!quantity||quantity==0) {
     return;
   }
-  
-  console.log(`categoryName: ${categoryName}`);
-  console.log(`product: ${product.productName}`);
 
   this.productService.getProductsofSelectedCategory(selectedCategory).subscribe((selectedCategory: any) => {
-    console.log(`Category Name: ${categoryName}`);
 
     const selectedProduct = product;
   
@@ -136,27 +154,36 @@ onDeletedProduct(index: number) {
   this.sales.splice(index, 1); // Remove 1 element at index
   this.salesDataSource.data = this.sales; // Update the data source for the table
   this.calculateTotals();
-  console.log(this.sales)
 }
 
 calculateTotals() {
   const data = this.sales;
-  let subTotal = 0.00;
-  let taxInclusive = 0.12;
-  let taxAmount = 0.00;
+  let totalPrice = 0.00;
+  let tax = 0.12;
+  let taxDeduction = 0.00;
   let grandTotal = 0.00;
+  let cash = 0; // Convert the input value to a number
+  let change = 0.00;
 
   data.forEach((item: any) => {
-    subTotal += item.Quantity * item.Price; // Update property names here
+    totalPrice += item.Quantity * item.Price; // Update property names here
   });
 
-  taxAmount = subTotal * taxInclusive;
-  grandTotal = subTotal + taxAmount;
+  taxDeduction = totalPrice * tax;
+  grandTotal = totalPrice + taxDeduction;
+  change = cash - grandTotal;
 
-  this.subTotal = parseFloat(subTotal.toFixed(2));
-  this.taxAmount = parseFloat(taxAmount.toFixed(2));
+  this.totalPrice = parseFloat(totalPrice.toFixed(2));
+  this.taxDeduction = parseFloat(taxDeduction.toFixed(2));
   this.grandTotal = parseFloat(grandTotal.toFixed(2));
+  this.cash = parseFloat(cash.toFixed(2));
+  this.change = parseFloat(change.toFixed(2));
 }
+
+calculateChanges() {
+  this.change = this.cash - this.grandTotal;
+}
+
 
 
 keyPressNumbers(event) {
@@ -169,7 +196,7 @@ keyPressNumbers(event) {
     return true;
   }
 }
-  
+
 fields = [
     {
       placeholder: 'Category',
@@ -201,21 +228,33 @@ onChange(event: any) {
   const value = event.target.value;
 
   switch (label) {
-    case 'Subtotal':
-      console.log('Subtotal:', value);
+    case 'totalPrice':
       break;
     case 'Tax Inclusive':
-      console.log('Tax Inclusive:', value);
       break;
     case 'Tax Amount':
-      console.log('Tax Amount:', value);
       break;
     case 'Grand Total':
-      console.log('Grand Total:', value);
       break;
     default:
       break;
   }
 }
+
+
+
+ onFormSubmit(){
+  
+
+        this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
+          next: (val: any) => {
+            this.coreService.openSnackBar('Checkout Successfully');
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        }); 
+}
+
 
 }

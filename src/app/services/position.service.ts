@@ -27,10 +27,10 @@ export class PositionService {
   }
   
   updatePosition(id: string, data: any): Observable<any>{
-    return this.http.put(`http://localhost:5125/api/Position/${id}`, data);
+    return this.http.put(`https://localhost:7016/api/Position/${id}`, data);
   }
   deletePosition(id: string): Observable<any>{
-    return this.http.delete(`http://localhost:5125/api/Position/${id}`); 
+    return this.http.delete(`https://localhost:7016/api/Position/${id}`); 
   }
 }
 

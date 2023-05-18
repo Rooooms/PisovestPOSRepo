@@ -20,9 +20,9 @@ export class SalaryService {
     return this.http.post <any> (this.baseApiUrl + 'api/Salary', data);
   }
   updateSalary(id: string, data: any): Observable<any>{
-    return this.http.put(`http://localhost:5125/api/Salary/${id}`, data);
+    return this.http.put(`https://localhost:7016/api/Salary/${id}`, data);
   }
   deleteSalary(id: string): Observable<any>{
-    return this.http.delete(`http://localhost:5125/api/Salary/${id}`); 
+    return this.http.delete(`https://localhost:7016/api/Salary/${id}`); 
   }
 }

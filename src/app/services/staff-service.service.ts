@@ -23,9 +23,9 @@ export class StaffServiceService {
     return this.http.post <any> (this.baseApiUrl + 'api/Employee', data);
   }
   updateStaff(id: string, data: any): Observable<any>{
-    return this.http.put(`http://localhost:5125/api/Employee/${id}`, data);
+    return this.http.put(`https://localhost:7016/api/Employee/${id}`, data);
   }
   deleteStaff(id: string): Observable<any>{
-    return this.http.delete(`http://localhost:5125/api/Employee/${id}`); 
+    return this.http.delete(`https://localhost:7016/api/Employee/${id}`); 
   }
 }

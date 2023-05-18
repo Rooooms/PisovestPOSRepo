@@ -39,7 +39,7 @@
     <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">{{input.value}}</td>
     </tr>
   </table>
 </div>

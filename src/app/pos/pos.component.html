@@ -1,4 +1,5 @@
 <div class="container">
+
   <form [formGroup]="posForm">
     <div class="container1">
       <div class="col1">
@@ -33,6 +34,8 @@
       </div>
     </div>
   </form>
+
+
 
    <form [formGroup] = 'totalForm'> 
     <div class="container2">
@@ -80,18 +83,18 @@
 
       <div class="row2">
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Subtotal</mat-label>
-          <input matInput formControlName="subTotal" [value]="'₱' + subTotal.toLocaleString()" (change)="onChange($event)" readonly>
+          <mat-label>totalPrice</mat-label>
+          <input matInput formControlName="totalPrice" [value]="'₱' + totalPrice.toLocaleString()" (change)="onChange($event)" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Tax Inclusive</mat-label>
-          <input matInput formControlName="taxInclusive" [value]="'₱'+ taxInclusive" (change)="onChange($event)" readonly>
+          <input matInput formControlName="tax" [value]="'₱'+ tax" (change)="onChange($event)" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Tax Amount</mat-label>
-          <input matInput formControlName="taxAmount"  [value]="'₱' + taxAmount.toLocaleString()"  (change)="onChange($event)" readonly>
+          <input matInput formControlName="taxDeduction"  [value]="'₱' + taxDeduction.toLocaleString()"  (change)="onChange($event)" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
@@ -99,9 +102,21 @@
           <input matInput formControlName="grandTotal"   [value]="'₱' + grandTotal.toLocaleString()" (change)="onChange($event)" readonly>
         </mat-form-field>
 
-        <button mat-raised-button class="btn-submit">Check Out</button>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Payment</mat-label>
+          <input matInput type="number" formControlName="cash" [(ngModel)]="cash" (input)="calculateChanges()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Change</mat-label>
+          <input matInput formControlName="change" [value]="'₱' + change.toLocaleString()" (change)="onChange($event)" readonly>
+        </mat-form-field>
+
+
+        
       </div>
     </div>
   </form>
+    <button type="submit" color="primary" (click)="onFormSubmit()" mat-raised-button >CheckOut</button>
 </div>
 

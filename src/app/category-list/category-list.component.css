@@ -79,16 +79,6 @@ mat-toolbar{
   overflow-y: auto;
   word-wrap: break-word;
 }
-.curved-input .mat-form-field-wrapper {
-  border-radius: 20px; /* Adjust the value to change the amount of curve */
-}
-
-/* Optional: To remove the default underline */
-.curved-input .mat-form-field-underline {
-  display: none;
-}
-
-/* Optional: To style the input box background */
-.curved-input .mat-form-field-outline {
+.curved-input {
   border-radius: 20px; /* Adjust the value to change the amount of curve */
 }
