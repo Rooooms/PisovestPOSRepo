@@ -63,12 +63,12 @@ export class PosComponent implements OnInit{
     });
 
     this.totalForm = this._Total.group({
-      totalPrice: ['₱'+ 0],
+      totalPrice: [ 0],
       tax:'12%',
-      taxDeduction: ['₱'+ 0],
-      grandTotal: ['₱'+ 0],
-      cash: ['₱'],
-      change: ['₱' +0],
+      taxDeduction: [ 0],
+      grandTotal: [ 0],
+      cash: [0],
+      change: [0],
     });
 
     this.invoiceForm = this._Invoice.group({
@@ -77,10 +77,10 @@ export class PosComponent implements OnInit{
       quantity: 0,
       search: [''], 
       categoryId: [''],
-      totalPrice: ['₱' + 0],
+      totalPrice: [0],
       tax: '12%',
-      taxDeduction: ['₱' + 0],
-      grandTotal: ['₱' + 0],
+      taxDeduction: [ 0],
+      grandTotal: [ 0],
       productToAdd: this.productToAdd
     });
 

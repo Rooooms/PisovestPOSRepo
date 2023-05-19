@@ -63,12 +63,12 @@ export class SampleComponent implements OnInit{
     });
 
     this.totalForm = this._Total.group({
-      totalPrice: ['₱'+ 0],
+      totalPrice: [ 0],
       tax:'12%',
-      taxDeduction: ['₱'+ 0],
-      grandTotal: ['₱'+ 0],
-      cash: ['₱'+ 0],
-      change: ['₱' +0],
+      taxDeduction: [ 0],
+      grandTotal: [ 0],
+      cash: [0],
+      change: [0],
     });
 
     this.invoiceForm = this._Invoice.group({
@@ -80,7 +80,7 @@ export class SampleComponent implements OnInit{
       grandTotal: [0],
       cash: [0],
       change: [0],
-      
+
     });
 
     this.salesDataSource = new MatTableDataSource<any>(this.sales);
@@ -140,11 +140,15 @@ addProduct() {
       Total: selectedProduct.productPrice * quantity
     };
 
+    console.log(this.posForm.value)
     this.sales.push(productToAdd);
-    this.posForm.reset();
+    
     this.calculateTotals();
     this.salesDataSource.data = this.sales;
 
+   
+
+   
   });
   
 }
@@ -176,11 +180,25 @@ calculateTotals() {
   this.taxDeduction = parseFloat(taxDeduction.toFixed(2));
   this.grandTotal = parseFloat(grandTotal.toFixed(2));
   this.cash = parseFloat(cash.toFixed(2));
-  this.change = parseFloat(change.toFixed(2));
+
+  this.totalForm.patchValue({
+    totalPrice: this.totalPrice,
+    tax:0.12,
+    taxDeduction: this.taxDeduction,
+    grandTotal: this.grandTotal,
+  
+  })
+
+  console.log(this.totalForm.value)
 }
 
 calculateChanges() {
   this.change = this.cash - this.grandTotal;
+
+  this.totalForm.patchValue({
+    change: this.change,
+  
+  })
 }
 
 
@@ -254,7 +272,34 @@ getDate(): Date {
  onFormSubmit(){
   const currentDate = new Date();
   this.invoiceForm.patchValue({ dateGiven: currentDate });
+  
+  
+
+  this.invoiceForm.patchValue({
+    categoryName: this.posForm.value.categoryName,
+    product: this.posForm.value.product,
+    quantity: this.posForm.value.quantity,
+    search: this.posForm.value.search,
+    categoryId: this.posForm.value.categoryId
+  });
+
+  // Assign the values from totalForm to invoiceForm controls
+  this.invoiceForm.patchValue({
+
+    
+   
+    totalPrice: this.totalForm.value.totalPrice,
+    tax: this.totalForm.value.tax,
+    taxDeduction: this.totalForm.value.taxDeduction,
+    grandTotal: this.totalForm.value.grandTotal,
+    cash: this.totalForm.value.cash,
+    change: this.totalForm.value.change
+  });
+
   console.log(this.invoiceForm.value)
+
+  // console.log(this.invoiceForm.value)
+  
 //         this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
 //           next: (val: any) => {
 //             this.coreService.openSnackBar('Checkout Successfully');
