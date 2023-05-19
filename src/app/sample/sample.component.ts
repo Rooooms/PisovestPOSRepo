@@ -1,7 +1,7 @@
 import { Component, OnInit,  ViewChild  } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { InvoiceService } from '../services/invoice.service';
@@ -33,6 +33,7 @@ export class SampleComponent implements OnInit{
   grandTotal: number = 0; 
   cash: number = 0;
   change: number = 0;
+  purchaseItems: any[][] = [];
   salesDataSource: MatTableDataSource<any>;
   constructor(private categoryService : CategoryService, 
     private productService : ProductService,
@@ -60,6 +61,8 @@ export class SampleComponent implements OnInit{
       quantity: 0,
       search: [''], // Initial value for the search input
       categoryId: [''],
+      productId: [''],
+      purchaseQuantity: [0],
     });
 
     this.totalForm = this._Total.group({
@@ -72,16 +75,18 @@ export class SampleComponent implements OnInit{
     });
 
     this.invoiceForm = this._Invoice.group({
+      // productId: [''],
+      // purchaseQuantity: [0],
       date: '2023-05-19T10:20:48.6783036+08:00',
-      quantity: 0,
       totalPrice: [0],
       tax: '12%',
       taxDeduction: [0],
       grandTotal: [0],
       cash: [0],
       change: [0],
-
+      purchaseItems: this._Invoice.array([])
     });
+    
 
     this.salesDataSource = new MatTableDataSource<any>(this.sales);
     this.salesDataSource.paginator = this.paginator;
@@ -117,10 +122,12 @@ export class SampleComponent implements OnInit{
   isReset: boolean = false;
 
 addProduct() {
+  
   const product = this.posForm.value.product;
   const quantity = this.posForm.value.quantity;
   const selectedCategory = this.categories.find(c => c.id === product.categoryId);
   const categoryName = selectedCategory.categoryName;
+  const purchaseItems = [];
 
   if (!quantity||quantity==0) {
     return;
@@ -132,7 +139,7 @@ addProduct() {
   
     const productToAdd = {
       categoryId: selectedProduct.categoryId,
-      id: selectedProduct.productId,
+      id: selectedProduct.id,
       Product: selectedProduct.productName,
       Category: categoryName,
       Quantity: quantity,
@@ -140,15 +147,20 @@ addProduct() {
       Total: selectedProduct.productPrice * quantity
     };
 
-    console.log(this.posForm.value)
     this.sales.push(productToAdd);
-    
+    console.log(this.sales)
     this.calculateTotals();
     this.salesDataSource.data = this.sales;
 
-   
+    const purchaseItemFormGroup = this._Invoice.group({
+      productId: [selectedProduct.id],
+      purchaseQuantity: [quantity]
+    });
+    const purchaseItemsArray = this.invoiceForm.get('purchaseItems') as FormArray;
+    purchaseItemsArray.push(purchaseItemFormGroup);
 
-   
+
+    this.posForm.reset();
   });
   
 }
@@ -272,15 +284,19 @@ getDate(): Date {
  onFormSubmit(){
   const currentDate = new Date();
   this.invoiceForm.patchValue({ dateGiven: currentDate });
-  
-  
 
+  // this.invoiceForm.patchValue({
+  //   // categoryName: this.posForm.value.categoryName,
+  //   // product: this.posForm.value.product,
+  //   productId: this.posForm.value.productId,
+  //   purchaseQuantity: this.posForm.value.purchaseQuantity,
+  //   // search: this.posForm.value.search,
+  //   // categoryId: this.posForm.value.categoryId
+  // });
   this.invoiceForm.patchValue({
-    categoryName: this.posForm.value.categoryName,
-    product: this.posForm.value.product,
-    quantity: this.posForm.value.quantity,
-    search: this.posForm.value.search,
-    categoryId: this.posForm.value.categoryId
+    purchaseItems: this.purchaseItems
+    // productId: this.purchaseItems,
+    // purchaseQuantity: this.purchaseItems,
   });
 
   // Assign the values from totalForm to invoiceForm controls
@@ -297,7 +313,15 @@ getDate(): Date {
   });
 
   console.log(this.invoiceForm.value)
-
+  this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({    
+    next: (val: any) => {
+      console.log(val)
+      this.coreService.openSnackBar('Checkout Successfully');
+    },
+    error: (err: any) => {
+      console.error(err);
+    },
+  }); 
   // console.log(this.invoiceForm.value)
   
 //         this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
