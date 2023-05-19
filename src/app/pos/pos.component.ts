@@ -128,24 +128,28 @@ addProduct() {
   }
 
   this.productService.getProductsofSelectedCategory(selectedCategory).subscribe((selectedCategory: any) => {
-
+   
     const selectedProduct = product;
-  
+    
     const productToAdd = {
       categoryId: selectedProduct.categoryId,
-      id: selectedProduct.productId,
+      id: selectedProduct.id,
       Product: selectedProduct.productName,
       Category: categoryName,
       Quantity: quantity,
       Price: selectedProduct.productPrice,
       Total: selectedProduct.productPrice * quantity
+      
     };
+    
 
     this.sales.push(productToAdd);
+    console.log(this.sales)
     this.posForm.reset();
     this.calculateTotals();
     this.salesDataSource.data = this.sales;
 
+    
   });
   
 }
@@ -178,6 +182,7 @@ calculateTotals() {
   this.grandTotal = parseFloat(grandTotal.toFixed(2));
   this.cash = parseFloat(cash.toFixed(2));
   this.change = parseFloat(change.toFixed(2));
+
 }
 
 calculateChanges() {
@@ -227,6 +232,8 @@ onChange(event: any) {
   const label = event.target.previousElementSibling.innerText;
   const value = event.target.value;
 
+
+ 
   switch (label) {
     case 'totalPrice':
       break;
@@ -246,14 +253,18 @@ onChange(event: any) {
  onFormSubmit(){
   
 
-        this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
-          next: (val: any) => {
-            this.coreService.openSnackBar('Checkout Successfully');
-          },
-          error: (err: any) => {
-            console.error(err);
-          },
-        }); 
+  
+
+  console.log(this.invoiceForm.value)
+        // this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
+        //   next: (val: any) => {
+        //     console.log(this.invoiceForm)
+        //     this.coreService.openSnackBar('Checkout Successfully');
+        //   },
+        //   error: (err: any) => {
+        //     console.error(err);
+        //   },
+        // }); 
 }
 
 

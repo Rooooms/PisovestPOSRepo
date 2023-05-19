@@ -112,11 +112,9 @@
           <input matInput formControlName="change" [value]="'₱' + change.toLocaleString()" (change)="onChange($event)" readonly>
         </mat-form-field>
 
-
-        
+        <button type="submit" color="primary" (click)="onFormSubmit()" mat-raised-button >CheckOut</button>   
       </div>
     </div>
   </form>
-    <button type="submit" color="primary" (click)="onFormSubmit()" mat-raised-button >CheckOut</button>
 </div>
 
