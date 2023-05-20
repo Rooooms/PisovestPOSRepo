@@ -1,7 +1,7 @@
 import { Component, OnInit,  ViewChild  } from '@angular/core';
 import { CategoryService } from '../services/category-services/category.service';
 import { ProductService } from '../services/product-services/product.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { InvoiceService } from '../services/invoice.service';
@@ -26,29 +26,30 @@ export class SampleComponent implements OnInit{
   totalForm: FormGroup;
   invoiceForm:FormGroup;
   sales: any[] = []; // temporary array to hold sales data
-  table : any[];
+  newcategories= [];
   totalPrice: number = 0;
   tax: number = 0.12;
   taxDeduction: number = 0;
-  grandTotal: number = 0; 
+  grandTotal: number = 0;
   cash: number = 0;
   change: number = 0;
+  purchaseItems: any[][] = [];
   salesDataSource: MatTableDataSource<any>;
-  constructor(private categoryService : CategoryService, 
+  constructor(private categoryService : CategoryService,
     private productService : ProductService,
     private invoiceService: InvoiceService,
     private coreService: CoreService,
     private _Pos: FormBuilder,
     private _Total:FormBuilder,
     private _Invoice:FormBuilder,
- 
+
     ){}
-   
+
     displayedColumns: string[] = ['Category', 'Product', 'Quantity', 'Price', 'Total', 'Action'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  
+
   ngOnInit(): void {
     this.categoryService.getCategoryList().subscribe((categories: any) => {
       this.categories = categories //Fetches the Entire Category List.
@@ -58,12 +59,15 @@ export class SampleComponent implements OnInit{
       categoryName: [''], // Initial value for the category select
       product: [''], // Initial value for the product select
       quantity: 0,
+      search: [''], // Initial value for the search input
       categoryId: [''],
+      productId: [''],
+      purchaseQuantity: [0],
     });
 
     this.totalForm = this._Total.group({
       totalPrice: [ 0],
-      tax:'12%',
+      tax: 0.12,
       taxDeduction: [ 0],
       grandTotal: [ 0],
       cash: [0],
@@ -71,17 +75,18 @@ export class SampleComponent implements OnInit{
     });
 
     this.invoiceForm = this._Invoice.group({
-      date: '2023-05-19T10:20:48.6783036+08:00',
+      // productId: [''],
       // purchaseQuantity: [0],
+      date: '2023-05-19T10:20:48.6783036+08:00',
       totalPrice: [0],
-      tax: '12%',
+      tax: [0.12],
       taxDeduction: [0],
       grandTotal: [0],
       cash: [0],
       change: [0],
-      purchaseItems: [0]['']
-
+      purchaseItems: this._Invoice.array([])
     });
+
 
     this.salesDataSource = new MatTableDataSource<any>(this.sales);
     this.salesDataSource.paginator = this.paginator;
@@ -97,7 +102,7 @@ export class SampleComponent implements OnInit{
       }
     )
   }
-  
+
 
   onProductSelected(selectedProductId: any) {
     this.selectedProduct = selectedProductId;
@@ -106,7 +111,7 @@ export class SampleComponent implements OnInit{
   onQuantitySelected(selectedQuantity: any) {
     this.selectedQuantity = selectedQuantity;
   }
-  
+
   addProducts(productName: string) {
     const product = this.products.find(p => p.name === productName);
     if (product && this.selectedCategory) {
@@ -116,68 +121,49 @@ export class SampleComponent implements OnInit{
 
   isReset: boolean = false;
 
-  addProduct() {
-    const product = this.posForm.value.product;
-    const quantity = this.posForm.value.quantity;
-    const selectedCategory = this.categories.find(c => c.id === product.categoryId);
-    const categoryName = selectedCategory.categoryName;
-  
-    if (!quantity || quantity == 0) {
-      return;
-    }
-  
-    this.productService.getProductsofSelectedCategory(selectedCategory).subscribe((selectedCategory: any) => {
-      const selectedProduct = product;
-    
-      const productToAdd = {
-        categoryId: selectedProduct.categoryId,
-        productId: selectedProduct.id,
-        Product: selectedProduct.productName,
-        Category: categoryName,
-        Quantity: quantity,
-        Price: selectedProduct.productPrice,
-        Total: selectedProduct.productPrice * quantity
-      };
-  
-      this.sales.push(productToAdd);
-      console.log(this.sales)
-      this.calculateTotals();
-      this.salesDataSource.data = this.sales;
-      console.log(this.sales)
+addProduct() {
 
-      // this.invoiceForm.patchValue({
-      //   purchaseQuantity: productToAdd.Quantity,
-      //   productId: productToAdd.id,
-      // })
+  const product = this.posForm.value.product;
+  const quantity = this.posForm.value.quantity;
+  const selectedCategory = this.categories.find(c => c.id === product.categoryId);
+  const categoryName = selectedCategory.categoryName;
+  const purchaseItems = [];
 
-      const formData = {
-        productName : Object.values(this.sales)[0]['Product'],
-        productId : Object.values(this.sales)[0]['productId'],
-        purchaseQuantity : Object.values(this.sales)[0]['Quantity'],
-        purchasePrice : Object.values(this.sales)[0]['Price'],
-        totalPrice : Object.values(this.sales)[0]['Total']
-    };
-      this.table.push(formData);
-      // console.log(this.table);
-  
-      // this.table.splice(0, this.table.length); // Clear the array
-      // this.sales.forEach((sale: any) => {
-      //   const formData = [
-      //     sale['productId'],
-      //     sale['Product'],
-      //     sale['Quantity'],
-      //     sale['Price'],
-      //     sale['Total']
-      //   ];
-      //   this.table.push(formData);
-      // });
-      
-      console.log("table",this.table);
-      this.posForm.reset();
-
-     
-    });
+  if (!quantity||quantity==0) {
+    return;
   }
+
+  this.productService.getProductsofSelectedCategory(selectedCategory).subscribe((selectedCategory: any) => {
+
+    const selectedProduct = product;
+
+    const productToAdd = {
+      categoryId: selectedProduct.categoryId,
+      id: selectedProduct.id,
+      Product: selectedProduct.productName,
+      Category: categoryName,
+      Quantity: quantity,
+      Price: selectedProduct.productPrice,
+      Total: selectedProduct.productPrice * quantity
+    };
+
+    this.sales.push(productToAdd);
+    console.log(this.sales)
+    this.calculateTotals();
+    this.salesDataSource.data = this.sales;
+
+    const purchaseItemFormGroup = this._Invoice.group({
+      productId: [selectedProduct.id],
+      purchaseQuantity: [quantity]
+    });
+    const purchaseItemsArray = this.invoiceForm.get('purchaseItems') as FormArray;
+    purchaseItemsArray.push(purchaseItemFormGroup);
+
+
+    this.posForm.reset();
+  });
+
+}
 
 onDeletedProduct(index: number) {
   this.sales.splice(index, 1); // Remove 1 element at index
@@ -188,7 +174,7 @@ onDeletedProduct(index: number) {
 calculateTotals() {
   const data = this.sales;
   let totalPrice = 0.00;
-  let tax = 0.12;
+  const tax = 0.12;
   let taxDeduction = 0.00;
   let grandTotal = 0.00;
   let cash = 0; // Convert the input value to a number
@@ -209,10 +195,10 @@ calculateTotals() {
 
   this.totalForm.patchValue({
     totalPrice: this.totalPrice,
-    tax : 0.12,
+    tax: this.tax,
     taxDeduction: this.taxDeduction,
     grandTotal: this.grandTotal,
-  
+
   })
 
   console.log(this.totalForm.value)
@@ -223,7 +209,7 @@ calculateChanges() {
 
   this.totalForm.patchValue({
     change: this.change,
-  
+
   })
 }
 
@@ -298,30 +284,54 @@ getDate(): Date {
  onFormSubmit(){
   const currentDate = new Date();
   this.invoiceForm.patchValue({ dateGiven: currentDate });
-  
+
+  // this.invoiceForm.patchValue({
+  //   // categoryName: this.posForm.value.categoryName,
+  //   // product: this.posForm.value.product,
+  //   productId: this.posForm.value.productId,
+  //   purchaseQuantity: this.posForm.value.purchaseQuantity,
+  //   // search: this.posForm.value.search,
+  //   // categoryId: this.posForm.value.categoryId
+  // });
+  this.invoiceForm.patchValue({
+    purchaseItems: this.purchaseItems
+    // productId: this.purchaseItems,
+    // purchaseQuantity: this.purchaseItems,
+  });
 
   // Assign the values from totalForm to invoiceForm controls
   this.invoiceForm.patchValue({
+
+
 
     totalPrice: this.totalForm.value.totalPrice,
     tax: this.totalForm.value.tax,
     taxDeduction: this.totalForm.value.taxDeduction,
     grandTotal: this.totalForm.value.grandTotal,
     cash: this.totalForm.value.cash,
-    change: this.totalForm.value.change,
-    purchaseItems: this.table
+    change: this.totalForm.value.change
   });
 
-  // console.log('invoice form', this.invoiceForm.value)
-        this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({    
-          next: (val: any) => {
-            console.log(val)
-            this.coreService.openSnackBar('Checkout Successfully');
-          },
-          error: (err: any) => {
-            console.error(err);
-          },
-        }); 
+  console.log(this.invoiceForm.value)
+  this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
+    next: (val: any) => {
+      console.log(val)
+      this.coreService.openSnackBar('Checkout Successfully');
+    },
+    error: (err: any) => {
+      console.error(err);
+    },
+  });
+  // console.log(this.invoiceForm.value)
+
+//         this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
+//           next: (val: any) => {
+//             this.coreService.openSnackBar('Checkout Successfully');
+//           },
+//           error: (err: any) => {
+//             console.error(err);
+//           },
+//         });
 
  }
 }
