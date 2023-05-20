@@ -67,7 +67,7 @@ export class SampleComponent implements OnInit{
 
     this.totalForm = this._Total.group({
       totalPrice: [ 0],
-      tax:'12%',
+      tax: 0.12,
       taxDeduction: [ 0],
       grandTotal: [ 0],
       cash: [0],
@@ -79,7 +79,7 @@ export class SampleComponent implements OnInit{
       // purchaseQuantity: [0],
       date: '2023-05-19T10:20:48.6783036+08:00',
       totalPrice: [0],
-      tax: '12%',
+      tax: [0.12],
       taxDeduction: [0],
       grandTotal: [0],
       cash: [0],
@@ -174,7 +174,7 @@ onDeletedProduct(index: number) {
 calculateTotals() {
   const data = this.sales;
   let totalPrice = 0.00;
-  let tax = 0.12;
+  const tax = 0.12;
   let taxDeduction = 0.00;
   let grandTotal = 0.00;
   let cash = 0; // Convert the input value to a number
@@ -195,7 +195,7 @@ calculateTotals() {
 
   this.totalForm.patchValue({
     totalPrice: this.totalPrice,
-    tax:0.12,
+    tax: this.tax,
     taxDeduction: this.taxDeduction,
     grandTotal: this.grandTotal,
   
