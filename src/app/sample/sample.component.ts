@@ -34,6 +34,7 @@ export class SampleComponent implements OnInit{
   grandTotal: number = 0; 
   cash: number = 0;
   change: number = 0;
+  purchaseItems: any[][] = [];
   salesDataSource: MatTableDataSource<any>;
   constructor(private categoryService : CategoryService, 
     private productService : ProductService,
@@ -202,7 +203,6 @@ calculateChanges() {
 
   this.totalForm.patchValue({
     change: this.change,
-  
   })
 }
 
@@ -290,24 +290,26 @@ onFormSubmit(){
   // Assign the values from totalForm to invoiceForm controls
   this.invoiceForm.patchValue({
 
-    totalPrice: this.totalForm.value.totalPrice,
-    tax: this.totalForm.value.tax,
-    taxDeduction: this.totalForm.value.taxDeduction,
-    grandTotal: this.totalForm.value.grandTotal,
-    cash: this.totalForm.value.cash,
-    change: this.totalForm.value.change
+      totalPrice: this.totalForm.value.totalPrice,
+      tax: this.totalForm.value.tax,
+      taxDeduction: this.totalForm.value.taxDeduction,
+      grandTotal: this.totalForm.value.grandTotal,
+      cash: this.totalForm.value.cash,
+      change: this.totalForm.value.change
   });
+
+
 
   console.log(this.invoiceForm.value);
   
-//         this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
-//           next: (val: any) => {
-//             this.coreService.openSnackBar('Checkout Successfully');
-//           },
-//           error: (err: any) => {
-//             console.error(err);
-//           },
-//         }); 
+        this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({
+          next: (val: any) => {
+            this.coreService.openSnackBar('Checkout Successfully');
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        }); 
 
  }
 }

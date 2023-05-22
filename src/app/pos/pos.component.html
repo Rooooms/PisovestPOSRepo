@@ -1,6 +1,7 @@
 <div class="container">
 
   <form [formGroup]="posForm">
+    
     <div class="container1">
       <div class="col1">
         <ng-container *ngFor="let field of fields">
@@ -37,7 +38,9 @@
 
 
 
-   <form [formGroup] = 'totalForm'> 
+
+   <form [formGroup]="totalForm"> 
+
     <div class="container2">
       <div class="row1">
         <div class="container">
@@ -116,5 +119,5 @@
       </div>
     </div>
   </form>
-</div>
 
+</div>

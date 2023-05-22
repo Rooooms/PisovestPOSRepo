@@ -32,7 +32,7 @@ export class HomepageComponent {
     { buttonText: 'Sales Report', value:'./sales-report'},
     { buttonText: 'Transactions', value:'./transactions'},
     { buttonText: 'Employee Management', value:'./employee'},
-    // { buttonText: 'Dummy', value:'./POS'}
+    { buttonText: 'Cash In/Out', value:'./sample'}
     //Add more items as needed
   ];
 }
