@@ -1,0 +1,20 @@
+<!-- transaction-invoice-dialog.component.html -->
+<div *ngIf="selectedInvoice">
+  <h2>Invoice Details</h2>
+  <p>ID: {{ selectedInvoice.id }}</p>
+  <p>Date: {{ selectedInvoice.date }}</p>
+  <p>Total: {{ selectedInvoice.totalPrice }}</p>
+  <h3>Purchase Items:</h3>
+  <ul>
+    <li *ngFor="let item of selectedInvoice.purchaseItems">
+      <p>Product Name: {{ item.productName }}</p>
+      <p>Quantity: {{ item.purchaseQuantity }}</p>
+      <p>Product Price: {{ item.productPrice }}</p>
+      <p>Total Price: {{ item.totalPrice }}</p>
+      <!-- Add more item details as needed -->
+    </li>
+  </ul>
+
+  <button (click)="printInvoice()" class="print-button">PRINT </button>
+  <!-- Display other invoice data as needed -->
+</div>

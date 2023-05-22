@@ -42,11 +42,12 @@ import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.componen
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
-import { TransactionDataComponent } from './transaction-data/transaction-data.component';
+
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { TransactionInvoiceDialogComponent } from './transaction-invoice-dialog/transaction-invoice-dialog.component';
 const appRoute: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'Home', component: HomepageComponent},
@@ -86,7 +87,6 @@ const appRoute: Routes = [
     SalesReportComponent,
     SalesDataComponent,
     TransactionListComponent,
-    TransactionDataComponent,
     PayslipComponent,
     NavbarComponent,
     SidebarComponent,
@@ -98,7 +98,8 @@ const appRoute: Routes = [
     ManageOrderComponent,
     AddPositionComponent,
     ManagePositionComponent,
-   
+    TransactionInvoiceDialogComponent,
+
   ],
 
   imports: [

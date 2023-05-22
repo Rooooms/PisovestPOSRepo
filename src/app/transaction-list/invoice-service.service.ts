@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +13,19 @@ export class InvoiceServiceService {
 
 
   getInvoice(): Observable<any> {
-      return this.invoiceService.get(environment.baseApiUrl+"/api/invoice")
+      return this.invoiceService.get('https://localhost:7016/api/invoice')
   }
+
+  getInvoicebyID(id: string): Observable<any>{
+      return this.invoiceService.get(`https://localhost:7016/api/invoice/${id}`)
+  }
+
+  deleteInvoice(id: string): Observable<any>{
+    return this.invoiceService.delete(`https://localhost:7016/api/invoice/${id}`);
+  }
+
+
+
+
+
 }

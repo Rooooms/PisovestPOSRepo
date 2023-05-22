@@ -16,8 +16,9 @@
   <!-- Name Column -->
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef> Date </th>
-    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.date | date:'short'}} </td>
   </ng-container>
+
 
   <!-- Weight Column -->
   <ng-container matColumnDef="totalPrice">
@@ -28,7 +29,10 @@
   <!-- Symbol Column -->
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> Action </th>
-    <td mat-cell *matCellDef="let element"> <button>invoice</button> </td>
+    <td mat-cell *matCellDef="let element"> <button (click)="fetchInvoiceById(element.id)">invoice</button>
+      <!-- <button (click)="deleteInvoice(element.id)">delete</button> -->
+     </td>
+
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -38,6 +42,8 @@
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
   </tr>
+
+
 </table>
 
 </div>
