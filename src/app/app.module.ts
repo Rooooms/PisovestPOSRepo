@@ -42,7 +42,7 @@ import { InvoiceDialogComponent } from './invoice-dialog/invoice-dialog.componen
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { SalesDataComponent } from './sales-data/sales-data.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
-
+import { NgxPrintModule } from 'ngx-print';
 import { ProductAddEditComponent } from './product-add-edit/product-add-edit.component';
 import { CategoryAddEditComponent } from './category-add-edit/category-add-edit.component';
 import { SamplePosComponent } from './sample-pos/sample-pos.component';
@@ -100,6 +100,7 @@ const appRoute: Routes = [
     ManagePositionComponent,
     TransactionInvoiceDialogComponent,
 
+
   ],
 
   imports: [
@@ -126,7 +127,8 @@ const appRoute: Routes = [
     MatSnackBarModule,
     HttpClientModule,
     DatePipe,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxPrintModule
 
   ],
   providers: [DatePipe],

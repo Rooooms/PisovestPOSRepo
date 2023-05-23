@@ -1,17 +1,3 @@
-.container{
-
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    background: linear-gradient(white, white) padding-box,
-    linear-gradient(to right, rgb(53,210,124), rgba(0, 255, 98, 0.514)) border-box;
-    border: 20px solid transparent;
-    border-bottom-right-radius: 40px;
-    border-top-left-radius: 40px;
-    margin-top: 5px;
-    margin-left: 10px;
-    box-shadow: 5px 10px #2ea86548; 
-}
 
 .col1{
     display: flex;
@@ -25,5 +11,26 @@
 
 .form-s{
     margin: 10px;
+}
+
+.dialog-with-margin {
+  margin: 20px auto;
+
+}
+
+.container{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: auto;
+    background: linear-gradient(white, white) padding-box,
+      linear-gradient(to right, rgb(53, 210, 124), rgba(0, 255, 98, 0.514)) border-box;
+    border: 2px solid transparent;
+    border-bottom-right-radius: 1px;
+    border-top-left-radius: 1px;
+    box-shadow: .5px .5px #2ea86548;
+    margin-top: 2%;
+
 }
 

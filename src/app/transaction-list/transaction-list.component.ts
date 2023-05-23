@@ -55,7 +55,11 @@ fetchInvoiceById(id: string): void {
 
 openDialog(invoiceData: any) {
   const dialogRef = this.dialog.open(TransactionInvoiceDialogComponent, {
-    data: invoiceData // Pass the fetched invoice data as a parameter to the dialog component
+    data: invoiceData, // Pass the fetched invoice data as a parameter to the dialog component
+    width: '80%',
+    height: 'auto',
+    panelClass: 'dialog-with-margin'
+
   });
 
   dialogRef.afterClosed().subscribe(result => {

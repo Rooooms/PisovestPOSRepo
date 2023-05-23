@@ -1,20 +1,73 @@
-<!-- transaction-invoice-dialog.component.html -->
-<div *ngIf="selectedInvoice">
-  <h2>Invoice Details</h2>
-  <p>ID: {{ selectedInvoice.id }}</p>
-  <p>Date: {{ selectedInvoice.date }}</p>
-  <p>Total: {{ selectedInvoice.totalPrice }}</p>
-  <h3>Purchase Items:</h3>
-  <ul>
-    <li *ngFor="let item of selectedInvoice.purchaseItems">
-      <p>Product Name: {{ item.productName }}</p>
-      <p>Quantity: {{ item.purchaseQuantity }}</p>
-      <p>Product Price: {{ item.productPrice }}</p>
-      <p>Total Price: {{ item.totalPrice }}</p>
-      <!-- Add more item details as needed -->
-    </li>
-  </ul>
 
-  <button (click)="printInvoice()" class="print-button">PRINT </button>
-  <!-- Display other invoice data as needed -->
+
+<div *ngIf="selectedInvoice" class="print-dialog container .no-scrollbar" id="print">
+<header class="clearfix">
+  <div>
+  <div id="logo">
+    <img src="/src/assets/sample-logo.png">
+  </div>
+  <div id="company">
+    <h2 class="name">Pisovest</h2>
+    <div>2/F Bachrach Bldg. II Corner 23rd and, Railroad Dr,</div>
+    <div>Port Area, Manila, 1000 Metro Manila</div>
+    <div>(602) 519-0450</div>
+
+
+    <div><a href="">pisovest@example.com</a></div>
+  </div>
+  </div>
+</header>
+<main>
+  <div id="details" class="clearfix">
+    <div id="client">
+      <div class="to">TO CUSTOMER:</div>
+      <h2 class="name">{{ selectedInvoice.id }}</h2>
+    </div>
+    <div id="invoice">
+      <h1>INVOICE </h1>
+      <div class="date">Date of Invoice: {{ selectedInvoice.date | date: 'short' }}</div>
+
+    </div>
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0">
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Product Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of selectedInvoice.purchaseItems">
+      <td>{{ item.productName }}</td>
+      <td>{{ item.purchaseQuantity }}</td>
+      <td>{{ item.productPrice | currency:'PHP' }}</td>
+
+    </tr>
+  </tbody>
+</table>
+
+    <tfoot>
+      <tr>
+        <td colspan="2"></td>
+        <td colspan="2">TAX</td>
+        <td>12%</td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td colspan="2">TOTAL</td>
+        <td>{{ selectedInvoice.totalPrice| currency:'PHP'  }}</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div id="thanks">Thank you!</div>
+  <div id="notices">
+
+  </div>
+</main>
+<footer>
+  Invoice was created on a computer and is valid without the signature and seal. <br><br>
+  <button mat-raised-button (click)="printInvoice()"  class="print-button">Print</button>
+</footer>
 </div>
