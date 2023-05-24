@@ -34,3 +34,11 @@
 
 }
 
+.search-color{
+  background-color: #2ea86548;
+}
+
+input
+{
+  height: 20px;
+}

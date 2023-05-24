@@ -44,7 +44,7 @@ body {
 }
 
 a {
-  color: #0087C3;
+  color: #57B223;
   text-decoration: none;
 }
 
@@ -87,7 +87,7 @@ header {
 
 #client {
   padding-left: 6px;
-  border-left: 6px solid #0087C3;
+  border-left: 6px solid #57B223;
   float: left;
 }
 
@@ -107,7 +107,7 @@ h2.name {
 }
 
 #invoice h1 {
-  color: #0087C3;
+  color: #57B223;
   font-size: 2.4em;
   line-height: 1em;
   font-weight: normal;

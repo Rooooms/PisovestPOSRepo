@@ -36,6 +36,7 @@
       <th>Product Name</th>
       <th>Quantity</th>
       <th>Product Price</th>
+      <th>Total Price</th>
     </tr>
   </thead>
   <tbody>
@@ -43,6 +44,7 @@
       <td>{{ item.productName }}</td>
       <td>{{ item.purchaseQuantity }}</td>
       <td>{{ item.productPrice | currency:'PHP' }}</td>
+      <td>{{ item.productPrice * item.purchaseQuantity | currency:'PHP' }}</td>
 
     </tr>
   </tbody>
