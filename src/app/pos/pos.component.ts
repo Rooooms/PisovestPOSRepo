@@ -75,8 +75,6 @@ export class PosComponent implements OnInit{
     });
 
     this.invoiceForm = this._Invoice.group({
-      // productId: [''],
-      // purchaseQuantity: [0],
       date: '2023-05-19T10:20:48.6783036+08:00',
       totalPrice: [0],
       tax: [0.12],
@@ -154,7 +152,8 @@ addProduct() {
 
     const purchaseItemFormGroup = this._Invoice.group({
       productId: [selectedProduct.id],
-      purchaseQuantity: [quantity]
+      purchaseQuantity: [quantity],
+      totalPrice: [productToAdd.Total]
     });
     const purchaseItemsArray = this.invoiceForm.get('purchaseItems') as FormArray;
     purchaseItemsArray.push(purchaseItemFormGroup);
@@ -174,17 +173,16 @@ onDeletedProduct(index: number) {
 calculateTotals() {
   const data = this.sales;
   let totalPrice = 0.00;
-  const tax = 0.12;
   let taxDeduction = 0.00;
   let grandTotal = 0.00;
-  let cash = 0; // Convert the input value to a number
+  let cash = this.cash; // Convert the input value to a number
   let change = 0.00;
 
   data.forEach((item: any) => {
     totalPrice += item.Quantity * item.Price; // Update property names here
   });
 
-  taxDeduction = totalPrice * tax;
+  taxDeduction = totalPrice * this.tax;
   grandTotal = totalPrice + taxDeduction;
   change = cash - grandTotal;
 
@@ -198,9 +196,8 @@ calculateTotals() {
     tax: this.tax,
     taxDeduction: this.taxDeduction,
     grandTotal: this.grandTotal,
+  });
   
-  })
-
   console.log(this.totalForm.value)
 }
 
@@ -217,7 +214,6 @@ calculateChanges() {
 
 keyPressNumbers(event) {
   var charCode = (event.which) ? event.which : event.keyCode;
-  // Only Numbers 0-9
   if ((charCode < 48 || charCode > 57)) {
     event.preventDefault();
     return false;
@@ -281,29 +277,12 @@ getDate(): Date {
 }
 
 
- onFormSubmit(){
+onFormSubmit(){
   const currentDate = new Date();
   this.invoiceForm.patchValue({ dateGiven: currentDate });
 
-  // this.invoiceForm.patchValue({
-  //   // categoryName: this.posForm.value.categoryName,
-  //   // product: this.posForm.value.product,
-  //   productId: this.posForm.value.productId,
-  //   purchaseQuantity: this.posForm.value.purchaseQuantity,
-  //   // search: this.posForm.value.search,
-  //   // categoryId: this.posForm.value.categoryId
-  // });
   this.invoiceForm.patchValue({
-    purchaseItems: this.purchaseItems
-    // productId: this.purchaseItems,
-    // purchaseQuantity: this.purchaseItems,
-  });
-
-  // Assign the values from totalForm to invoiceForm controls
-  this.invoiceForm.patchValue({
-
-    
-   
+    purchaseItems: this.invoiceForm.value.purchaseItems,
     totalPrice: this.totalForm.value.totalPrice,
     tax: this.totalForm.value.tax,
     taxDeduction: this.totalForm.value.taxDeduction,
@@ -313,15 +292,15 @@ getDate(): Date {
   });
 
   console.log(this.invoiceForm.value)
+  
   this.invoiceService.addInvoice(this.invoiceForm.value).subscribe({    
-    next: (val: any) => {
-      console.log(val)
+    next: (value: any) => {
+      console.log(value)
       this.coreService.openSnackBar('Checkout Successfully');
     },
     error: (err: any) => {
       console.error(err);
     },
   }); 
-  // console.log(this.invoiceForm.value)
  }
 }

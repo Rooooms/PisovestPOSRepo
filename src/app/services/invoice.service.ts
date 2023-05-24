@@ -17,6 +17,7 @@ export class InvoiceService {
 
     return this.http.get(this.baseApiUrl + 'api/invoice');
   }
+  
   addInvoice(data: any) : Observable<any>{  
     data.id = '00000000-0000-0000-0000-000000000000';
     return this.http.post <any> (this.baseApiUrl + 'api/invoice', data);
